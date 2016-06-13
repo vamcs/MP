@@ -738,42 +738,32 @@ Vertex VERTEXreturn(Digraph G, int id){
 	
 	- Retorno da função: void.
 */
-// void DIGRAPHsave(Digraph G){
-// 	FILE* p = fopen("output.txt", "w");
-// 	link aux;
-// 	int i, count = 0, count2 = 0;
+void DIGRAPHsave(Digraph G){
+	FILE* fp = fopen("output.txt", "w");
+	int i, j;
+	int id, exec, duration, min_start, reqs;
+	char name[100];
 	
-// 	for(i = 0; i < G->V; i++){
-// 		fprintf(p, "%s", G->array[i]->name);
-// 		if(i != G->V-1) fprintf(p, ", ");
-// 		else fprintf(p, "\n");
-// 	}
+	for (i = 0; i < G->V; i++){
+		id = G->array[i]->id;
+		strcpy(name, G->array[i]->name);
+		exec = G->array[i]->exec;
+		duration = G->array[i]->duration;
+		min_start = G->array[i]->min_start;
+		reqs = G->array[i]->reqs;
+
+		fprintf(fp, "%d '%s' %d %d %d %d", 
+					id, name, exec, duration, min_start, reqs);
+		if (reqs > 0){
+			for (j = 0; j < reqs; j++){
+				fprintf(fp, " %d", G->array[i]->reqs_id[j]);
+			}
+		}
+		if (i < G->V-1) fprintf(fp, "\n");
+	}
 	
-// 	for(i = 0; i < G->V; i++){
-// 		if(G->array[i]->source) count++;
-// 	}
-	
-// 	for(i = 0; i < G->V; i++){
-// 		if(G->array[i]->source){
-// 			fprintf(p, "%s", G->array[i]->name);
-// 			count2++;
-// 			if(count2 < count) fprintf(p, ", ");
-// 		}
-// 	}
-// 	fprintf(p, "\n");
-	
-// 	for(i = 0; i < G->V; i++){
-// 		aux = G->array[i]->adj;
-// 		while(aux != NULL){
-// 			fprintf(p, "%s, ", G->array[i]->name);
-// 			fprintf(p, "%s, ", G->array[aux->w]->name);
-// 			fprintf(p, "%.1f\n", aux->weight);
-// 			aux = aux->next;
-// 		}
-// 	}
-	
-// 	fclose(p);
-//}
+	fclose(fp);
+}
 
 /*
 	Esta função verifica se o grafo é conexo a partir dos vértices de origem. Ela utiliza o algoritmo de Dijkstra

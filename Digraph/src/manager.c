@@ -57,3 +57,42 @@ void TIME(Digraph G, Vertex v){
 		return;
 	}
 }
+
+void modify(Digraph G){
+	int id, option;
+
+	printf("Insira a ID da tarefa a ser modificada: ");
+	scanf("%d", &id);
+
+	Vertex v = VERTEXreturn(G, id);
+
+	while (v == -1){
+		printf("ID nao existente. Entre com outro valor: ");
+		scanf("%d", &id);
+	}
+
+	printf("Qual campo deseja alterar?\n");
+	printf("ID: 1\nNome: 2\nTarefa Executada: 3\nDuracao: 4\nInicio Minimo: 5\nNumero de Pre-Requisitos: 6\nDependencias: 7\n");
+	scanf("%d", &option);
+
+	switch (option){
+		case 1:
+			printf("Nome atual: %s", G->array[v]->name);
+			printf("Entre com o novo nome (ate 100 caracteres):\n");
+			scanf("%100s", G->array[v]->name);
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+
+	}
+}
