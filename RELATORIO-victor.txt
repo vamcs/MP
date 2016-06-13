@@ -5,4 +5,6 @@
 11/06/2016 | 6h | Projetar			| Modificações da estrutura de dados do grafo para acomodar as instruções atuais e definições do que será feita para o projeto.
 11/06/2016 | 2h | Especificar		| Continuação das implementações após algumas definições do que será feito no projeto e especificações de funções e módulos novos.
 12/06/2016 | 3h | Projetar			| Projetando funções para a leitura, edição e impressão das tarefas.
-12/06/2016 | h | Revisar código		| Revisão e testes de funcionamento das modificações
+12/06/2016 | 3h | Revisar código	| Revisão e testes de funcionamento das modificações
+12/06/2016 | 1h | CPPcheck 			| Tirando warnings utilizando cppcheck.
+12/06/2016 | 2h	| Revisar código	| Continuação da revisão dos códigos e implementação de detalhes que faltam.

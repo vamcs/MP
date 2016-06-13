@@ -59,7 +59,7 @@ Digraph DIGRAPHinit(char* file){
 	FILE* fp = fopen(file, "r");
 	while (fp == NULL){	//Exceção: arquivo inexistente. Usuário é requisitado a digitar o nome correto do arquivo.
 		printf("Arquivo invalido. Digite o nome correto do arquivo.\n");
-		scanf("%s", file);
+		scanf("%30s", file);
 		fp = fopen(file, "r");
 	}
 	
@@ -100,7 +100,7 @@ Digraph DIGRAPHinit(char* file){
 	//Leitura das Tarefas
 	v = 0;
 	do {
-		fscanf(fp, "%d %*c %[^']'", &G->array[v]->id, G->array[v]->name);
+		fscanf(fp, "%d %*c %100[^']'", &G->array[v]->id, G->array[v]->name);
 		fscanf(fp, "%d %d %d %d", &G->array[v]->exec, &G->array[v]->duration, &G->array[v]->min_start, &G->array[v]->reqs);
 
 		if (G->array[v]->reqs > 0){
@@ -334,18 +334,16 @@ void DIGRAPHremoveE(Digraph G, Edge e){
 	
 */
 void DIGRAPHinsertV(Digraph G){
-	Vertex v, w;
+	Vertex w;
 	int id, i;
 	char exec;
 
 	printf("Entre com o ID da tarefa:\n");
 	scanf("%d", &id);
 
-	for(v = 0; v < G->V; v++){
-		if(G->array[v]->id == id){
-			printf("Vertice ja existente. Insercao cancelada.\n");
-			return;
-		}
+	while (VERTEXreturn(G, id) != -1){
+		printf("ID ja existente. Entre com outro valor: ");
+		scanf("%d", &id);
 	}
 
 	G->V++;
@@ -355,7 +353,15 @@ void DIGRAPHinsertV(Digraph G){
 	G->array[G->V-1]->id = id;
 
 	printf("Entre com o nome da tarefa (ate 100 caracteres):\n");
-	scanf("%s", G->array[G->V-1]->name);
+	scanf("%100s", G->array[G->V-1]->name);
+
+	for (w = 0; w < G->V-1; w++){
+		if (strcmp(G->array[G->V-1]->name, G->array[w]->name) == 0){
+			printf("Nome ja existente. Entre com outra string (ate 100 caracteres: ");
+			scanf("%100s", G->array[G->V-1]->name);
+			w = -1;
+		}
+	}
 
 	printf("Tarefa ja executada? s/n\n");
 	scanf(" %c", &exec);
@@ -380,12 +386,18 @@ void DIGRAPHinsertV(Digraph G){
 	printf("Esta tarefa possui quantos requisitos?\n");
 	scanf("%d", &G->array[G->V-1]->reqs);
 
+	while (G->array[G->V-1]->reqs > G->V-1){
+		printf("Numero excede o maximo de requisitos possiveis. Entre outro valor: ");
+		scanf("%d", &G->array[G->V-1]->reqs);
+	}
+
 	if(G->array[G->V-1]->reqs > 0){
+		G->array[G->V-1]->reqs_id = (int*)malloc(G->array[G->V-1]->reqs * sizeof(int));
 		for(i = 0; i < G->array[G->V-1]->reqs; i++){
 			printf("Entre com o ID do pre-requisito %d: ", i+1);
 			scanf("%d", &id);
 			w = VERTEXreturn(G, id);
-			while(w != -1){
+			while(w == -1){
 				printf("ID inexistente. Entre outro valor: ");
 				scanf("%d", &id);
 				w = VERTEXreturn(G, id);
@@ -398,6 +410,8 @@ void DIGRAPHinsertV(Digraph G){
 	else {
 		G->array[G->V-1]->reqs_id = NULL;
 	}
+
+	G->array[G->V-1]->adj = NULL;
 
 	TIME(G, G->V-1);
 }
@@ -504,6 +518,7 @@ void DIGRAPHremoveV(Digraph G, int id){
 					if(l->w >= v) l->w--;								//Se o índice dessa lista for maior ou igual ao índice do vértice removido, atualize-o.
 				}
 			}
+			TIME(G, i);
 		}
 	}
 }
@@ -659,25 +674,26 @@ void DIGRAPHshow(Digraph G){
 	int i;
 	
 	printf("Grafo:\tV:%d\tE:%d\n\n", G->V, G->E);
-	printf("ID\tNOME\t\t\tEXEC\tDURACAO\tINICIO_MIN\tPRE_REQS\tDEPS\n");
+	printf("ID\tNOME\t\tEXEC\tDURACAO\tINICIO_MIN\tPRE_REQS\tDEPS\n");
 	for (v = 0; v < G->V; v++){
-		printf("%d\t%s\t\t%d\t%d\t%d\t\t%d\t\t", 
+		printf("%d\t%s\t\t%d\t%d\t%d\t\t%d\t", 
 				G->array[v]->id, G->array[v]->name, G->array[v]->exec, G->array[v]->duration, G->array[v]->min_start, G->array[v]->reqs);
 		if (G->array[v]->reqs > 0){
-			for(i = 0; i < G->array[v]->reqs; i++) printf(" %d", G->array[v]->reqs_id[i]);
+			for(i = 0; i < G->array[v]->reqs; i++) printf("\t%d", G->array[v]->reqs_id[i]);
 		}
 
 		else {
-			printf(" -");
+			printf("\t-");
 		}
 		printf("\n");
 		if (G->array[v]->adj != NULL){
 			printf("Adj:");
 			for (l = G->array[v]->adj; l != NULL; l = l->next){
-				printf("\t%d", l->id);
+				printf(" %d", l->id);
 			}
 			printf("\n");
 		}
+		printf("Time: %d\n", G->array[v]->time);
 		printf("\n");
 	}
 }
