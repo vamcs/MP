@@ -4,10 +4,10 @@ CFLAGS = -I$(IDIR) -Wall
 
 ODIR = ../obj
 
-_DEPS = Digraph.h
+_DEPS = Digraph.h manager.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = Test_Digraph.o Digraph.o
+_OBJ = Test_Instructions.o Digraph.o manager.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
