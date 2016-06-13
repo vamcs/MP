@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "Digraph.h"
+#include "../include/Digraph.h"
 
 int main(){
 	Vertex v, w;

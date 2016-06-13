@@ -1,5 +1,5 @@
-#include <limits.h>
-#include "../include/Digraph.h"
+//#include <limits.h>
+#include "Digraph.h"
 #include "gtest/gtest.h"
 
 //DIGRAPHshow(G);
@@ -23,7 +23,7 @@ TEST(DigraphTest, Initialization){
 	EXPECT_TRUE(G->array[0]->source == true);
 }
 
-/*int main(){
+int main(){
 	int v, w, aux;
 	Edge e;
 	
@@ -72,4 +72,4 @@ TEST(DigraphTest, Initialization){
 	
 	DIGRAPHdestroy(H);
 	DIGRAPHdestroy(G);
-}*/
+}
