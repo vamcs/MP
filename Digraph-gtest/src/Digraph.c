@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Digraph.h"
+#include "../include/Digraph.h"
 
 //Definição do tipo das variáveis de endereçamento dos vértices (int).
 #define Vertex int
