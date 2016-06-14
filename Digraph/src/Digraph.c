@@ -4,47 +4,47 @@
 #include "Digraph.h"
 #include "manager.h"
 
-//Definição do tipo das variáveis de endereçamento dos vértices (int).
+//DefiniÃ§Ã£o do tipo das variÃ¡veis de endereÃ§amento dos vÃ©rtices (int).
 #define Vertex int
 
-//Definição do tipo booleano utilizado para comparações.
+//DefiniÃ§Ã£o do tipo booleano utilizado para comparaÃ§Ãµes.
 #define bool int
 #define true 1
 #define false 0
 
 #define INFINITO 1000000000000.0f	//Valor virtualmente infinito utilizado no algoritmo de Dijkstra.
-#define maxV 20						//Valor máximo da franja da arborecência em SPT.
+#define maxV 20						//Valor mÃ¡ximo da franja da arborecÃªncia em SPT.
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	** DIGRAPHinit ** (Inicialização do Digrafo)
-	Constrói e retorna um digrafo com vértices 0 ... V-1 e todas arestas definidas no arquivo txt
-	passado à função. Primeiramente, a função lê o arquivo, o interpreta e gera os vértices, após
-	são lidos os vértices de origem e, por fim, todas as arestas definidas, caso existam. É neces-
-	sário que existam no arquivo de origem a definição dos vértices e pelo menos um vértice de ti-
+	** DIGRAPHinit ** (InicializaÃ§Ã£o do Digrafo)
+	ConstrÃ³i e retorna um digrafo com vÃ©rtices 0 ... V-1 e todas arestas definidas no arquivo txt
+	passado Ã  funÃ§Ã£o. Primeiramente, a funÃ§Ã£o lÃª o arquivo, o interpreta e gera os vÃ©rtices, apÃ³s
+	sÃ£o lidos os vÃ©rtices de origem e, por fim, todas as arestas definidas, caso existam. Ã‰ neces-
+	sÃ¡rio que existam no arquivo de origem a definiÃ§Ã£o dos vÃ©rtices e pelo menos um vÃ©rtice de ti-
 	po origem.
 	
-	O digrafo definido aqui é composto de um array de listas de adjacência do tipo VertexArray e 
-	em cada um de seus nós foi definida uma lista de adjacência do tipo link. Além disso, é veri-
-	ficado caso o arquivo exista, se não será requisitado do usuário a entrada de um arquivo vá-
+	O digrafo definido aqui Ã© composto de um array de listas de adjacÃªncia do tipo VertexArray e 
+	em cada um de seus nÃ³s foi definida uma lista de adjacÃªncia do tipo link. AlÃ©m disso, Ã© veri-
+	ficado caso o arquivo exista, se nÃ£o serÃ¡ requisitado do usuÃ¡rio a entrada de um arquivo vÃ¡-
 	lido.
 	
-	Atenção, arquivo de entrada "file.txt" deve seguir o padrão:
+	AtenÃ§Ã£o, arquivo de entrada "file.txt" deve seguir o padrÃ£o:
 	
-	A, B, C, D 		//Vértices
-	A, B 			//Vértices de origem
-	A, C, 5.0		//Pode não haver definição de arestas
+	A, B, C, D 		//VÃ©rtices
+	A, B 			//VÃ©rtices de origem
+	A, C, 5.0		//Pode nÃ£o haver definiÃ§Ã£o de arestas
 	B, D, 2.0
 	C, D, 1.0
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHinit("file.txt");
-	Sendo que file.txt contenha a definição de um digrafo de acordo com a especificação acima.
+	Sendo que file.txt contenha a definiÃ§Ã£o de um digrafo de acordo com a especificaÃ§Ã£o acima.
 	
-	- Parâmetros da função: string contendo o nome do arquivo de definições do grafo.
+	- ParÃ¢metros da funÃ§Ã£o: string contendo o nome do arquivo de definiÃ§Ãµes do grafo.
 	
-	- Retorno da função: digrafo do tipo Digraph contendo todas as definições lidas no arquivo txt.
+	- Retorno da funÃ§Ã£o: digrafo do tipo Digraph contendo todas as definiÃ§Ãµes lidas no arquivo txt.
 */
 Digraph DIGRAPHinit(char* file){
 	Vertex v = 0, w;
@@ -53,11 +53,11 @@ Digraph DIGRAPHinit(char* file){
 	char aux;
 	//float weight;
 	
-	//Declaração e inicialização do digrafo.
+	//DeclaraÃ§Ã£o e inicializaÃ§Ã£o do digrafo.
 	Digraph G = (Digraph)malloc(sizeof *G);
 	
 	FILE* fp = fopen(file, "r");
-	while (fp == NULL){	//Exceção: arquivo inexistente. Usuário é requisitado a digitar o nome correto do arquivo.
+	while (fp == NULL){	//ExceÃ§Ã£o: arquivo inexistente. UsuÃ¡rio Ã© requisitado a digitar o nome correto do arquivo.
 		printf("Arquivo invalido. Digite o nome correto do arquivo.\n");
 		scanf("%30s", file);
 		fp = fopen(file, "r");
@@ -66,17 +66,17 @@ Digraph DIGRAPHinit(char* file){
 	/********************Leitura do Grafo********************/
 	
 	/*TRABALHO 2*/
-	//Contagem dos Vértices.
+	//Contagem dos VÃ©rtices.
 	//Leitura da primeira linha do arquivo para definir G->V.
 	// do{
 	// 	fscanf(fp, "%s", string);
-	// 	//Não é necessário tratar a string agora, já que apenas uma contagem é feita.
+	// 	//NÃ£o Ã© necessÃ¡rio tratar a string agora, jÃ¡ que apenas uma contagem Ã© feita.
 	// 	V++;
-	// 	fscanf(fp, "%c", &aux);	//Lê espaços ('\b') e '\n'.
+	// 	fscanf(fp, "%c", &aux);	//LÃª espaÃ§os ('\b') e '\n'.
 	// }
 	// while(aux != '\n');
 
-	/*Contagem do número de linhas do arquivo de entrada.*/
+	/*Contagem do nÃºmero de linhas do arquivo de entrada.*/
 	while(!feof(fp)){
 		aux = fgetc(fp);
 		if(aux == '\n'){
@@ -84,10 +84,10 @@ Digraph DIGRAPHinit(char* file){
 		}
 	}	
 	
-	rewind(fp);		//Seta o cursor de leitura de volta ao início do arquivo.
+	rewind(fp);		//Seta o cursor de leitura de volta ao inÃ­cio do arquivo.
 	
-	//Alocação de memória do vetor de listas adjacentes.
-	//As listas de adjacência são inicializadas como nulas.
+	//AlocaÃ§Ã£o de memÃ³ria do vetor de listas adjacentes.
+	//As listas de adjacÃªncia sÃ£o inicializadas como nulas.
 	G->array = (VertexArray*)malloc(V * sizeof(VertexArray));
 	for (v = 0; v < V; v++){
 		G->array[v] = malloc(sizeof(struct vertexArray));
@@ -108,7 +108,7 @@ Digraph DIGRAPHinit(char* file){
 			for (i = 0; i < G->array[v]->reqs; i++){
 				fscanf(fp, "%d", &dep);
 				w = VERTEXreturn(G, dep);
-				while(w == -1){				//Garante que as dependências só podem ser de tarefas acima da atual.
+				while(w == -1){				//Garante que as dependÃªncias sÃ³ podem ser de tarefas acima da atual.
 					printf("ID inexistente. Corrija o arquivo ou entre outro valor: ");	
 					scanf("%d", &dep);
 					w = VERTEXreturn(G, dep);
@@ -123,56 +123,56 @@ Digraph DIGRAPHinit(char* file){
 			G->array[v]->reqs_id = NULL;
 		}
 
-		TIME(G, v);		//Calcula o tempo necessário para executar a tarefa lida contida em G->array[v].
+		TIME(G, v);		//Calcula o tempo necessÃ¡rio para executar a tarefa lida contida em G->array[v].
 
 		v++;
 	}
 	while(!feof(fp) && v < G->V);
 	
 	/*TRABALHO 2*/
-	//Leitura dos Vértices
-	// for(v = 0; v < V; v++){					//A leitura é feita apenas V vezes sem necessidade da variável auxiliar.
-	// 	fscanf(fp, "%s", string);			//Lê o nome do vértice.
+	//Leitura dos VÃ©rtices
+	// for(v = 0; v < V; v++){					//A leitura Ã© feita apenas V vezes sem necessidade da variÃ¡vel auxiliar.
+	// 	fscanf(fp, "%s", string);			//LÃª o nome do vÃ©rtice.
 	// 	removeComma(string);				//Tratamento da string lida.
-	// 	strcpy(G->array[v]->name, string);	//Seta o nome do vértice.
-	// 	G->array[v]->source = false;		//Inicializa os vértices como não sendo origem.
+	// 	strcpy(G->array[v]->name, string);	//Seta o nome do vÃ©rtice.
+	// 	G->array[v]->source = false;		//Inicializa os vÃ©rtices como nÃ£o sendo origem.
 	// }
 	
 	/*TRABALHO 2*/
-	//Leitura dos Vértices de Origem
+	//Leitura dos VÃ©rtices de Origem
 	// do{
-	// 	fscanf(fp, "%s", string);		//Leitura do nome do vértice.
-	// 	removeComma(string);			//Remoção da vírgula da string.
-	// 	v = VERTEXreturn(G, string);	//Busca pelo vértice que contém a string desejada.
+	// 	fscanf(fp, "%s", string);		//Leitura do nome do vÃ©rtice.
+	// 	removeComma(string);			//RemoÃ§Ã£o da vÃ­rgula da string.
+	// 	v = VERTEXreturn(G, string);	//Busca pelo vÃ©rtice que contÃ©m a string desejada.
 	// 	if(strcmp(G->array[v]->name, string) == 0) 
-	// 		G->array[v]->source = true;	//Se encontrá-lo, diz que é origem.
-	// 	fscanf(fp, "%c", &aux);			//Lê '\b' e '\n'.
+	// 		G->array[v]->source = true;	//Se encontrÃ¡-lo, diz que Ã© origem.
+	// 	fscanf(fp, "%c", &aux);			//LÃª '\b' e '\n'.
 	// }
 	// while(aux != '\n');
 	
 	/*TRABALHO 2*/
 	//Leitura das Arestas (Edges)
-	// while (!feof(fp)){					//Caso já tenha atingindo o fim do arquivo, não há arestas.
-	// 	fscanf(fp, "%s", origem);		//Lê o nó de origem da aresta
-	// 	removeComma(origem);			//Remove a vírgula
+	// while (!feof(fp)){					//Caso jÃ¡ tenha atingindo o fim do arquivo, nÃ£o hÃ¡ arestas.
+	// 	fscanf(fp, "%s", origem);		//LÃª o nÃ³ de origem da aresta
+	// 	removeComma(origem);			//Remove a vÃ­rgula
 		
-	// 	fscanf(fp, "%s", dest);			//Lê o nó de destino da aresta
-	// 	removeComma(dest);				//Remove a vírgula
+	// 	fscanf(fp, "%s", dest);			//LÃª o nÃ³ de destino da aresta
+	// 	removeComma(dest);				//Remove a vÃ­rgula
 		
-	// 	fscanf(fp, "%f", &weight);		//Lê o peso da aresta.
+	// 	fscanf(fp, "%f", &weight);		//LÃª o peso da aresta.
 		
-	// 	v = VERTEXreturn(G, origem);	//Encontra a posição do nó de origem no array de listas.
-	// 	w = VERTEXreturn(G, dest);		//Encontra a posição do nó de destino no array de listas.
+	// 	v = VERTEXreturn(G, origem);	//Encontra a posiÃ§Ã£o do nÃ³ de origem no array de listas.
+	// 	w = VERTEXreturn(G, dest);		//Encontra a posiÃ§Ã£o do nÃ³ de destino no array de listas.
 
-	// 	if(G->array[v]->adj != NULL){	//Se já existir um lista de adjacência no nó, utiliza-se a função DIGRAPHinsertE para inserir a aresta.
+	// 	if(G->array[v]->adj != NULL){	//Se jÃ¡ existir um lista de adjacÃªncia no nÃ³, utiliza-se a funÃ§Ã£o DIGRAPHinsertE para inserir a aresta.
 	// 		DIGRAPHinsertE(G, EDGE(v, w, weight));
 	// 	}
 	// 	else if(strcmp(G->array[v]->name, origem) == 0 && strcmp(G->array[w]->name, dest) == 0 && !G->array[w]->source){
-	// 		//Insere a aresta definida se os nomes confirmarem e se o vértice de destino não seja origem.
+	// 		//Insere a aresta definida se os nomes confirmarem e se o vÃ©rtice de destino nÃ£o seja origem.
 	// 		G->array[v]->adj = NEWnode(w, weight, G->array[v]->adj);	//Insere a aresta definida.
-	// 		G->E++;		//Método InsertE não foi usado porque este verifica por arestas existentes, as quais ainda não existem.
+	// 		G->E++;		//MÃ©todo InsertE nÃ£o foi usado porque este verifica por arestas existentes, as quais ainda nÃ£o existem.
 	// 	}
-	// 	else{	//Impressão da mensagem de erro. Não é possíve adicionar uma aresta com destino em um vértice de origem.
+	// 	else{	//ImpressÃ£o da mensagem de erro. NÃ£o Ã© possÃ­ve adicionar uma aresta com destino em um vÃ©rtice de origem.
 	// 		printf("Aresta %s -> %s invalida.\n%s eh vertice de origem.\n\n", origem, dest, dest);
 	// 	}
 	// };
@@ -181,32 +181,32 @@ Digraph DIGRAPHinit(char* file){
 	return G;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Insere um arco v-w contido na struct Edge 'e' no digrafo 'G'. Se o digrafo já possui v-w, a função 
-	imprime uma mensagem de erro. Caso a aresta contida em Edge "e" já exista no digrafo, uma men-
-	sagem de erro será impressa, já que a criação de uma aresta redundante é uma possível forma de
-	vazamento de memória durante a execução do programa.
+	Insere um arco v-w contido na struct Edge 'e' no digrafo 'G'. Se o digrafo jÃ¡ possui v-w, a funÃ§Ã£o 
+	imprime uma mensagem de erro. Caso a aresta contida em Edge "e" jÃ¡ exista no digrafo, uma men-
+	sagem de erro serÃ¡ impressa, jÃ¡ que a criaÃ§Ã£o de uma aresta redundante Ã© uma possÃ­vel forma de
+	vazamento de memÃ³ria durante a execuÃ§Ã£o do programa.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHinsertE(G, e);
 	
-	'G' pode ser inicializado utilizando DIGRAPHinit(G) e 'e' utilizando a função e = EDGE(v, w, weight).
+	'G' pode ser inicializado utilizando DIGRAPHinit(G) e 'e' utilizando a funÃ§Ã£o e = EDGE(v, w, weight).
 	
-	- Paramêtros da função: ponteiro de digrafo do tipo Digrafo e estrutura contendo informações de uma aresta
+	- ParamÃªtros da funÃ§Ã£o: ponteiro de digrafo do tipo Digrafo e estrutura contendo informaÃ§Ãµes de uma aresta
 	do tipo Edge.
 	
-	- Retorno da função: void.
+	- Retorno da funÃ§Ã£o: void.
 */
 void DIGRAPHinsertE(Digraph G, Edge e){
 	//Leitura de Edge 'e'.
 	Vertex v = e.v, w = e.w;
 	int id = e.id;
-	if (!DIGRAPHadj(G, v, w)){	//Verifica se a aresta já existe.
-		//Cria um novo node e o insere no início da lista de adjacência.
+	if (!DIGRAPHadj(G, v, w)){	//Verifica se a aresta jÃ¡ existe.
+		//Cria um novo node e o insere no inÃ­cio da lista de adjacÃªncia.
 		G->array[v]->adj = NEWnode(w, id, G->array[v]->adj);
-		G->E++;	//Incremento número de arestas adicionadas no grafo.
+		G->E++;	//Incremento nÃºmero de arestas adicionadas no grafo.
 	}
 	else{
 		printf("Aresta ja existente no digrafo ou vertice de destino eh origem.\n%s->%s nao foi inserida.\n", G->array[v]->name, G->array[w]->name);
@@ -214,23 +214,23 @@ void DIGRAPHinsertE(Digraph G, Edge e){
 	return;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias
-	contidas em cada um dos nós.
+	Esta funÃ§Ã£o cria um novo nÃ³ da lista de adjacÃªncias ao receber as informaÃ§Ãµes necessÃ¡rias
+	contidas em cada um dos nÃ³s.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	link l = NEWnode(w, weight, l);
 	
-	A função então cria um nó e o aponta para 'l':
+	A funÃ§Ã£o entÃ£o cria um nÃ³ e o aponta para 'l':
 		new_node --> l
 	
-	- Parâmetros da função: vértice do tipo Vertex para o qual o vértice que possui esta lista
-	de adjacências irá apontar, weight do tipo float que contém o peso da aresta criada e nó de
-	origem da lista de adjacência, já que novos nós são adicionados ao início.
+	- ParÃ¢metros da funÃ§Ã£o: vÃ©rtice do tipo Vertex para o qual o vÃ©rtice que possui esta lista
+	de adjacÃªncias irÃ¡ apontar, weight do tipo float que contÃ©m o peso da aresta criada e nÃ³ de
+	origem da lista de adjacÃªncia, jÃ¡ que novos nÃ³s sÃ£o adicionados ao inÃ­cio.
 	
-	- Retorno da função: novo ponteiro do tipo link ao nó criado.
+	- Retorno da funÃ§Ã£o: novo ponteiro do tipo link ao nÃ³ criado.
 */
 link NEWnode(Vertex w, int id, link next){
 	link a;
@@ -241,17 +241,17 @@ link NEWnode(Vertex w, int id, link next){
 	return a;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Remove um arco v-w contido na struct Edge 'e' do digrafo 'G'. Caso o digrafo não possuir o
-	arco, a função se encerra e imprime uma mensagem de erro ao usuário. A função busca na lista
-	de adjacência do vértice 'v' pela aresta v-w e, ao encontrá-la, remove o nó designado e libe-
-	ra a memória deste nó, além de decrementar a quantidade de arestas do grafo. Além disso, tam-
-	bém é feita a verificação se o peso da aresta a ser removida está correto, caso contrário uma
-	mensagem de erro é impressa. Dessa forma, é possível garantir a consistência da operação e a
-	remoção das arestas corretas.
+	Remove um arco v-w contido na struct Edge 'e' do digrafo 'G'. Caso o digrafo nÃ£o possuir o
+	arco, a funÃ§Ã£o se encerra e imprime uma mensagem de erro ao usuÃ¡rio. A funÃ§Ã£o busca na lista
+	de adjacÃªncia do vÃ©rtice 'v' pela aresta v-w e, ao encontrÃ¡-la, remove o nÃ³ designado e libe-
+	ra a memÃ³ria deste nÃ³, alÃ©m de decrementar a quantidade de arestas do grafo. AlÃ©m disso, tam-
+	bÃ©m Ã© feita a verificaÃ§Ã£o se o peso da aresta a ser removida estÃ¡ correto, caso contrÃ¡rio uma
+	mensagem de erro Ã© impressa. Dessa forma, Ã© possÃ­vel garantir a consistÃªncia da operaÃ§Ã£o e a
+	remoÃ§Ã£o das arestas corretas.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHremoveE(G, e);
 	
@@ -263,26 +263,26 @@ link NEWnode(Vertex w, int id, link next){
 	||Vertex C||
 	
 	E Edge e:
-	e = {0, 1, 1.0} (sendo 0 e 1 os índices de A e B encontrados utilizando VERTEXreturn(G, nome))
+	e = {0, 1, 1.0} (sendo 0 e 1 os Ã­ndices de A e B encontrados utilizando VERTEXreturn(G, nome))
 	
-	Após chamar a função teremos:
+	ApÃ³s chamar a funÃ§Ã£o teremos:
 	||Vertex A||
 				-(2.0)->[Vertex C]
 	||Vertex B||
 	||Vertex C||
 	
-	- Paramêtros da função: Digrafo do tipo Digraph e aresta do tipo Edge.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph e aresta do tipo Edge.
 	
-	-Retorno da função: void.
+	-Retorno da funÃ§Ã£o: void.
 */
 void DIGRAPHremoveE(Digraph G, Edge e){
 	Vertex v = e.v, w = e.w;
 	link current, prev;
 	if(DIGRAPHadj(G, v, w)){
-		for (current = G->array[v]->adj; current != NULL && current->w != w; current = current->next);	//Encontra o nó a ser removido
-		if(G->array[v]->adj != current){																//Caso este nó não seja o primeiro da lista
-			for (prev = G->array[v]->adj; prev != NULL && prev->next != current; prev = prev->next);	//Procura pelo nó imediatamente anterior a esse
-			if(e.id == current->id || e.id == -1){ //Exceção -1 criada para DIGRAPHremoveV.
+		for (current = G->array[v]->adj; current != NULL && current->w != w; current = current->next);	//Encontra o nÃ³ a ser removido
+		if(G->array[v]->adj != current){																//Caso este nÃ³ nÃ£o seja o primeiro da lista
+			for (prev = G->array[v]->adj; prev != NULL && prev->next != current; prev = prev->next);	//Procura pelo nÃ³ imediatamente anterior a esse
+			if(e.id == current->id || e.id == -1){ //ExceÃ§Ã£o -1 criada para DIGRAPHremoveV.
 				prev->next = current->next;
 				free(current);
 				G->E--;
@@ -292,7 +292,7 @@ void DIGRAPHremoveE(Digraph G, Edge e){
 			}
 		}
 		else{
-			G->array[v]->adj = current->next;		//É o primeiro da lista, então passa o seguinte à cabeça da lista e desloca o nó.
+			G->array[v]->adj = current->next;		//Ã‰ o primeiro da lista, entÃ£o passa o seguinte Ã  cabeÃ§a da lista e desloca o nÃ³.
 			free(current);
 			G->E--;
 		}
@@ -303,15 +303,15 @@ void DIGRAPHremoveE(Digraph G, Edge e){
 	}
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Esta função insere um novo vértice no digrafo. Como o array de vértices não foi feito utilizando
-	uma lista encadeada, é necessário realocar a sua memória de forma a caber mais uma entrada no vetor.
-	Assim, primeiramente é feita a verificação se o vértice inserido já existe no array, caso seja ver-
-	dade uma mensagem de erro é impressa. Caso contrário, o número de vértices no grafo é incrementado,
-	a memória do array de vértices é realocada e um novo vértice é inicializado ao final do array.
+	Esta funÃ§Ã£o insere um novo vÃ©rtice no digrafo. Como o array de vÃ©rtices nÃ£o foi feito utilizando
+	uma lista encadeada, Ã© necessÃ¡rio realocar a sua memÃ³ria de forma a caber mais uma entrada no vetor.
+	Assim, primeiramente Ã© feita a verificaÃ§Ã£o se o vÃ©rtice inserido jÃ¡ existe no array, caso seja ver-
+	dade uma mensagem de erro Ã© impressa. Caso contrÃ¡rio, o nÃºmero de vÃ©rtices no grafo Ã© incrementado,
+	a memÃ³ria do array de vÃ©rtices Ã© realocada e um novo vÃ©rtice Ã© inicializado ao final do array.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHinsertV(G, nome);
 	
@@ -321,16 +321,16 @@ void DIGRAPHremoveE(Digraph G, Edge e){
 	[Vertex B]
 	[Vertex C]
 	
-	e nome = 'D', após chamar a função teremos:
+	e nome = 'D', apÃ³s chamar a funÃ§Ã£o teremos:
 	
 	[Vertex A]
 	[Vertex B]
 	[Vertex C]
 	[Vertex D]
 	
-	- Paramêtros da função: Digrafo do tipo Digraph e uma string que contém o nome do novo vértice.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph e uma string que contÃ©m o nome do novo vÃ©rtice.
 	
-	- Retorno da função: void.
+	- Retorno da funÃ§Ã£o: void.
 	
 */
 void DIGRAPHinsertV(Digraph G){
@@ -341,8 +341,8 @@ void DIGRAPHinsertV(Digraph G){
 	printf("Entre com o ID da tarefa:\n");
 	scanf("%d", &id);
 
-	while (VERTEXreturn(G, id) != -1){
-		printf("ID ja existente. Entre com outro valor: ");
+	while (VERTEXreturn(G, id) != -1 || VERTEXreturn(G, id) < -2){
+		printf("ID invalida ou existente. Entre com outro valor: ");
 		scanf("%d", &id);
 	}
 
@@ -366,9 +366,11 @@ void DIGRAPHinsertV(Digraph G){
 	printf("Tarefa ja executada? s/n\n");
 	scanf(" %c", &exec);
 	switch(exec){
+		case 'S':
 		case 's':
 			G->array[G->V-1]->exec = true;
 			break;
+		case 'N':
 		case 'n':
 			G->array[G->V-1]->exec = false;
 			break;
@@ -417,19 +419,19 @@ void DIGRAPHinsertV(Digraph G){
 }
 
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Como nesta implementação foi criado um array de vértices em vez de uma lista encadeada, algumas
-	limitações são encontradas ao remover um elemento deste array. Então, para isso, é necessaria a
-	realocação de memória do array, além do rearranjo dos elementos de acordo com elemento que está
-	sendo removido. Primeiramente, encontra-se o vértice a ser removido, desaloca toda sua lista de
-	adjacência e remove todas as outras arestas existentes no grafo que apontem para esse vértice (
-	caso não seja um vértice de origem), move o vértice a ser removido para o fim do vetor, realoca
-	o array de vértices para uma unidade menor do que a atual e desaloca o vetor removido. Além dis-
-	so, caso o vértice removido não for o último vértice do array, também é necessário mudar a refe-
-	rência dos vértices em todas as listas de adjacência, já que terão diminuido em 1 unidade.
+	Como nesta implementaÃ§Ã£o foi criado um array de vÃ©rtices em vez de uma lista encadeada, algumas
+	limitaÃ§Ãµes sÃ£o encontradas ao remover um elemento deste array. EntÃ£o, para isso, Ã© necessaria a
+	realocaÃ§Ã£o de memÃ³ria do array, alÃ©m do rearranjo dos elementos de acordo com elemento que estÃ¡
+	sendo removido. Primeiramente, encontra-se o vÃ©rtice a ser removido, desaloca toda sua lista de
+	adjacÃªncia e remove todas as outras arestas existentes no grafo que apontem para esse vÃ©rtice (
+	caso nÃ£o seja um vÃ©rtice de origem), move o vÃ©rtice a ser removido para o fim do vetor, realoca
+	o array de vÃ©rtices para uma unidade menor do que a atual e desaloca o vetor removido. AlÃ©m dis-
+	so, caso o vÃ©rtice removido nÃ£o for o Ãºltimo vÃ©rtice do array, tambÃ©m Ã© necessÃ¡rio mudar a refe-
+	rÃªncia dos vÃ©rtices em todas as listas de adjacÃªncia, jÃ¡ que terÃ£o diminuido em 1 unidade.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHremoveV(G, v);
 	
@@ -439,14 +441,14 @@ void DIGRAPHinsertV(Digraph G){
 	[Vertex B]
 	[Vertex C]
 	
-	e v = 2 (índice de C encontrado com VERTEXreturn(G, "C")), teremos:
+	e v = 2 (Ã­ndice de C encontrado com VERTEXreturn(G, "C")), teremos:
 	
 	[Vertex A]
 	[Vertex B]
 	
-	- Paramêtros da função: Digrafo do tipo Digraph e string do nome do vértice a ser removido.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph e string do nome do vÃ©rtice a ser removido.
 	
-	- Retorno da função: void.	
+	- Retorno da funÃ§Ã£o: void.	
 */
 void DIGRAPHremoveV(Digraph G, int id){
 	Vertex v = VERTEXreturn(G, id);
@@ -461,8 +463,8 @@ void DIGRAPHremoveV(Digraph G, int id){
 	link l = G->array[v]->adj;
 	VertexArray temp_array = G->array[v];
 
-	//Remover referências ao vértice
-	//Verificar dependências
+	//Remover referÃªncias ao vÃ©rtice
+	//Verificar dependÃªncias
 	if (G->array[v]->reqs > 0){
 		for (i = 0; i < G->array[v]->reqs; i++){
 			w = VERTEXreturn(G, G->array[v]->reqs_id[i]);
@@ -471,11 +473,11 @@ void DIGRAPHremoveV(Digraph G, int id){
 		free(G->array[v]->reqs_id);
 	}
 
-	//Verificar lista de adjacência (vértices que dependem deste)
+	//Verificar lista de adjacÃªncia (vÃ©rtices que dependem deste)
 	while (l != NULL){
 		w = l->w;
-		for (i = 0; i < G->array[w]->reqs && G->array[v]->id != G->array[w]->reqs_id[i]; i++);	//Encontra a posição de ID no array de IDs do vértice w.
-		for(j = i; j < G->array[w]->reqs-1; j++){		//Remoção da ID do array de IDs
+		for (i = 0; i < G->array[w]->reqs && G->array[v]->id != G->array[w]->reqs_id[i]; i++);	//Encontra a posiÃ§Ã£o de ID no array de IDs do vÃ©rtice w.
+		for(j = i; j < G->array[w]->reqs-1; j++){		//RemoÃ§Ã£o da ID do array de IDs
 			G->array[w]->reqs_id[j] = G->array[w]->reqs_id[j+1];
 		}
 		G->array[w]->reqs--;
@@ -486,7 +488,7 @@ void DIGRAPHremoveV(Digraph G, int id){
 		G->E--;
 	}
 
-	//Remover lista de adjacência
+	//Remover lista de adjacÃªncia
 	// while (l != NULL){
 	// 	temp = l;
 	// 	l = l->next;
@@ -494,14 +496,14 @@ void DIGRAPHremoveV(Digraph G, int id){
 	// 	G->E--;
 	// };
 	
-	//Remover arestas que apontam ao vértice v.
+	//Remover arestas que apontam ao vÃ©rtice v.
 	// if(!G->array[v]->source){
 	// 	for(i = 0; i < G->V; i++){
 	// 		if(i != v) DIGRAPHremoveE(G, EDGE(i, v, -1));
 	// 	}
 	// }
 	
-	//Rearranjo dos vértices no vetor para exclusão do vértice desejado.
+	//Rearranjo dos vÃ©rtices no vetor para exclusÃ£o do vÃ©rtice desejado.
 	for(i = v; i < G->V-1; i++){
 		G->array[i] = G->array[i+1];
 	}
@@ -509,13 +511,13 @@ void DIGRAPHremoveV(Digraph G, int id){
 	free(temp_array);
 	G->array = (VertexArray*)realloc(G->array, G->V * sizeof(VertexArray));
 
-	//Caso o vértice removido não tiver sido o último do vetor, é necessário corrigir os índices
-	//dos nós das listas de adjacência.
+	//Caso o vÃ©rtice removido nÃ£o tiver sido o Ãºltimo do vetor, Ã© necessÃ¡rio corrigir os Ã­ndices
+	//dos nÃ³s das listas de adjacÃªncia.
 	if(v < G->V+1){
-		for(i = 0; i < G->V; i++){										//Percorre o array de vértices.
-			if(G->array[i]->adj != NULL) {								//Verifica se o vértice possui lista de adjcência.
-				for(l = G->array[i]->adj; l != NULL; l = l->next){		//Percorre a lista de adjacência do vértice.
-					if(l->w >= v) l->w--;								//Se o índice dessa lista for maior ou igual ao índice do vértice removido, atualize-o.
+		for(i = 0; i < G->V; i++){										//Percorre o array de vÃ©rtices.
+			if(G->array[i]->adj != NULL) {								//Verifica se o vÃ©rtice possui lista de adjcÃªncia.
+				for(l = G->array[i]->adj; l != NULL; l = l->next){		//Percorre a lista de adjacÃªncia do vÃ©rtice.
+					if(l->w >= v) l->w--;								//Se o Ã­ndice dessa lista for maior ou igual ao Ã­ndice do vÃ©rtice removido, atualize-o.
 				}
 			}
 			TIME(G, i);
@@ -523,21 +525,21 @@ void DIGRAPHremoveV(Digraph G, int id){
 	}
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Cria e retorna uma aresta (edge) do tipo Edge dos vértices v-w contendo um peso (weight). Esta fun-
-	ção simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas-
-	sados a outra função que as utilizará de acordo com o que for implementado.
+	Cria e retorna uma aresta (edge) do tipo Edge dos vÃ©rtices v-w contendo um peso (weight). Esta fun-
+	Ã§Ã£o simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serÃ£o pas-
+	sados a outra funÃ§Ã£o que as utilizarÃ¡ de acordo com o que for implementado.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	e = EDGE(v, w, weight);
 	
 	Sendo v e w do tipo Vertex e weight float. Isto cria a aresta e = {v, w, weight}.
 	
-	- Paramêtros da função: dois vértices do tipo Vertex e o peso do tipo float dessa aresta v-w.
+	- ParamÃªtros da funÃ§Ã£o: dois vÃ©rtices do tipo Vertex e o peso do tipo float dessa aresta v-w.
 	
-	- Retorno da função: aresta do tipo Edge.
+	- Retorno da funÃ§Ã£o: aresta do tipo Edge.
 */
 Edge EDGE(Vertex v, Vertex w, int id){
 	Edge e;
@@ -557,16 +559,16 @@ Edge EDGE(Vertex v, Vertex w, int id){
 }
 
 /*
-	Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um
-	vértice do digrafo G.
+	Esta funÃ§Ã£o faz a verificaÃ§Ã£o da existÃªncia de uma aresta checando a lista de adjacÃªncia de um
+	vÃ©rtice do digrafo G.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	bool checa = DIGRAPHadj(G, v, w);
 	
-	- Paramêtros da função: digrafo do tipo Digraph e dois vértices do tipo Vertex.
+	- ParamÃªtros da funÃ§Ã£o: digrafo do tipo Digraph e dois vÃ©rtices do tipo Vertex.
 	
-	- Retorno da função: true (1) caso a aresta exista, false (0) caso contrário.
+	- Retorno da funÃ§Ã£o: true (1) caso a aresta exista, false (0) caso contrÃ¡rio.
 */
 bool DIGRAPHadj(Digraph G, Vertex v, Vertex w){
 	link x;
@@ -576,43 +578,43 @@ bool DIGRAPHadj(Digraph G, Vertex v, Vertex w){
 	return false;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
-	*****************NÃO UTILIZADA*****************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
+	*****************NÃƒO UTILIZADA*****************
 
-	Função auxiliar que remove a vírgula das strings lidas do arquivo.
+	FunÃ§Ã£o auxiliar que remove a vÃ­rgula das strings lidas do arquivo.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	removeComma(teste);
 	
-	Sendo teste = "teste,", a função modifica a string para "teste".
+	Sendo teste = "teste,", a funÃ§Ã£o modifica a string para "teste".
 	
-	- Paramêtros da função: vetor de caracteres (string).
+	- ParamÃªtros da funÃ§Ã£o: vetor de caracteres (string).
 	
-	- Retorno da função: void.
+	- Retorno da funÃ§Ã£o: void.
 */
 // void removeComma(char* string){
 // 	int i;
 // 	for (i = 0; string[i] != '\0' && i < 100; i++){
-// 		if(string[i] == ',') string[i] = '\0';		//Remove a vírgula substituindo por fim de string.
+// 		if(string[i] == ',') string[i] = '\0';		//Remove a vÃ­rgula substituindo por fim de string.
 // 	}
 // }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices,
-	além de cada um dos nós das listas de adjacências de cada um destes vértices. Isso previne o vaza-
-	mento de memória e a correta devolução da memória ao sistema.
+	Esta funÃ§Ã£o desaloca o digrafo G entrado, assim como cada vÃ©rtice contido em seu array de vÃ©rtices,
+	alÃ©m de cada um dos nÃ³s das listas de adjacÃªncias de cada um destes vÃ©rtices. Isso previne o vaza-
+	mento de memÃ³ria e a correta devoluÃ§Ã£o da memÃ³ria ao sistema.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHdestro(G);
 	
-	Desloca toda memória alocada ao digrafo G.
+	Desloca toda memÃ³ria alocada ao digrafo G.
 	
-	- Paramêtros da função: Digrafo do tipo Digraph.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph.
 	
-	- Retorno da função: void.
+	- Retorno da funÃ§Ã£o: void.
 */
 void DIGRAPHdestroy(Digraph G){
 	int v;
@@ -648,9 +650,9 @@ void DIGRAPHdestroy(Digraph G){
 	G = NULL;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Função de impressão do digrafo explicitado por seus vetores e lístas de adjacência. A impressão é feita
+	FunÃ§Ã£o de impressÃ£o do digrafo explicitado por seus vetores e lÃ­stas de adjacÃªncia. A impressÃ£o Ã© feita
 	no formato:
 	
 	||Vertex A||:
@@ -659,14 +661,14 @@ void DIGRAPHdestroy(Digraph G){
 	||Vertex B||:
 			...
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHshow(G);
 	
 	Resultados obtidos como mostrado acima.
 	
-	- Paramêtros da função: digrafo do tipo Digraph.
-	- Retorno da função: void.
+	- ParamÃªtros da funÃ§Ã£o: digrafo do tipo Digraph.
+	- Retorno da funÃ§Ã£o: void.
 */
 void DIGRAPHshow(Digraph G){
 	link l;
@@ -698,45 +700,45 @@ void DIGRAPHshow(Digraph G){
 	}
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
+/*	************ALTERAÃ‡ÃƒO PROJETO FINAL************
 
-	Esta função auxiliar apenas faz uma busca no array de vértices do digrafo G pelo índice do vetor contendo
-	o nome passado à função. Ela imprime um erro e retorna -1 caso o vértice não exista no digrafo.
+	Esta funÃ§Ã£o auxiliar apenas faz uma busca no array de vÃ©rtices do digrafo G pelo Ã­ndice do vetor contendo
+	o nome passado Ã  funÃ§Ã£o. Ela imprime um erro e retorna -1 caso o vÃ©rtice nÃ£o exista no digrafo.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	Vertex i = VERTEXreturn(G, "A");
 	
 	Retornaria i = 0 de acordo com os exemplos anteriores.
 	
-	- Paramêtros da função: Digrafo do tipo Digraph e string contendo o nome do vértice.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph e string contendo o nome do vÃ©rtice.
 	
-	- Retorno da função: Vertex contendo o índice do vértice com nome "vertexName".
+	- Retorno da funÃ§Ã£o: Vertex contendo o Ã­ndice do vÃ©rtice com nome "vertexName".
 */
 Vertex VERTEXreturn(Digraph G, int id){
 	Vertex v = 0;
 	while(G->array[v]->id != id && v < G->V-1) v++;
 	if(G->array[v]->id == id) return v;
 	else{
-		printf("Vertice nao encontrado. Error code: -1.\n");
+		//printf("Vertice nao encontrado. Error code: -1.\n");
 		return -1;
 	}
 }
 
 /*
-	Esta função imprime em um arquivo "output.txt" o grafo no mesmo padrão do arquivo de entrada utilizado em
-	DIGRAPHinit. Este arquivo pode ser utilizado para a inicialização de outro digrafo normalmente, já que se-
-	gue o padrão conforme dito.
+	Esta funÃ§Ã£o imprime em um arquivo "output.txt" o grafo no mesmo padrÃ£o do arquivo de entrada utilizado em
+	DIGRAPHinit. Este arquivo pode ser utilizado para a inicializaÃ§Ã£o de outro digrafo normalmente, jÃ¡ que se-
+	gue o padrÃ£o conforme dito.
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	DIGRAPHsave(G);
 	
-	Gerará um arquivo "output.txt" na pasta src do projeto.
+	GerarÃ¡ um arquivo "output.txt" na pasta src do projeto.
 	
-	- Paramêtros da função: Digrafo do tipo Digraph.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph.
 	
-	- Retorno da função: void.
+	- Retorno da funÃ§Ã£o: void.
 */
 void DIGRAPHsave(Digraph G){
 	FILE* fp = fopen("output.txt", "w");
@@ -766,18 +768,18 @@ void DIGRAPHsave(Digraph G){
 }
 
 /*
-	Esta função verifica se o grafo é conexo a partir dos vértices de origem. Ela utiliza o algoritmo de Dijkstra
-	definido em SPT (Shortest Path Tree), a qual além de retornar a conectividade do digrafo, também retorna o menor
-	caminho a partir de um nó a todos os outros, o que é utilizado em FindPath(Digraph).
+	Esta funÃ§Ã£o verifica se o grafo Ã© conexo a partir dos vÃ©rtices de origem. Ela utiliza o algoritmo de Dijkstra
+	definido em SPT (Shortest Path Tree), a qual alÃ©m de retornar a conectividade do digrafo, tambÃ©m retorna o menor
+	caminho a partir de um nÃ³ a todos os outros, o que Ã© utilizado em FindPath(Digraph).
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	bool checa = isConnected(G);
 	
-	- Paramêtros da função: Digrafo do tipo Digraph.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph.
 	
-	- Retorno da função: true (1) se a partir das origens é possível chegar a qualquer outra aresta. False (0) caso
-	contrário.
+	- Retorno da funÃ§Ã£o: true (1) se a partir das origens Ã© possÃ­vel chegar a qualquer outra aresta. False (0) caso
+	contrÃ¡rio.
 */
 // bool isConnected(Digraph G){
 // 	bool flag = true;
@@ -797,20 +799,20 @@ void DIGRAPHsave(Digraph G){
 // }
 
 /*
-	Esta função encontra o menor caminho entre dois vértices v-w. Caso não exista, -1 é retornado. Ela usa o algoritmo
-	de Dijkstra para encontra a SPT (Shortest Path Tree) do digrafo a partir de um nó âncora. Os array parent e dist
-	contêm, respectivamente, os vértices "pais" de um vértice "v" (parent[w] é o pai de w) e a distância de v até w 
+	Esta funÃ§Ã£o encontra o menor caminho entre dois vÃ©rtices v-w. Caso nÃ£o exista, -1 Ã© retornado. Ela usa o algoritmo
+	de Dijkstra para encontra a SPT (Shortest Path Tree) do digrafo a partir de um nÃ³ Ã¢ncora. Os array parent e dist
+	contÃªm, respectivamente, os vÃ©rtices "pais" de um vÃ©rtice "v" (parent[w] Ã© o pai de w) e a distÃ¢ncia de v atÃ© w 
 	indexado por dist[w].
 	
-	Utilização da função:
+	UtilizaÃ§Ã£o da funÃ§Ã£o:
 	
 	float dist = FindPath(G, v, w);
 	
-	Nota: v e w são encontrados utilizando a função VERTEXreturn(G, string).
+	Nota: v e w sÃ£o encontrados utilizando a funÃ§Ã£o VERTEXreturn(G, string).
 	
-	- Paramêtros da função: Digrafo do tipo Digraph e dois vértices do tipo Vertex.
+	- ParamÃªtros da funÃ§Ã£o: Digrafo do tipo Digraph e dois vÃ©rtices do tipo Vertex.
 	
-	- Retorno da função: distância mínima entre v e w (float).
+	- Retorno da funÃ§Ã£o: distÃ¢ncia mÃ­nima entre v e w (float).
 */
 // float FindPath(Digraph G, char* origem, char* dest){
 // 	Vertex v = VERTEXreturn(G, origem);
@@ -831,13 +833,13 @@ void DIGRAPHsave(Digraph G){
 //}
 
 /*
-	As duas seguintes funções implementam o algorito de Dijkstra para a SPT (Shortest Path Tree) baseado no livro de Segdewick
-	"Algorithms in C", seção "Dijkstra's Algorithm". Pequenas mudanças foram feitas para se adaptar ao digrafo atual.
+	As duas seguintes funÃ§Ãµes implementam o algorito de Dijkstra para a SPT (Shortest Path Tree) baseado no livro de Segdewick
+	"Algorithms in C", seÃ§Ã£o "Dijkstra's Algorithm". Pequenas mudanÃ§as foram feitas para se adaptar ao digrafo atual.
 	
-	Em resumo, o algoritmo retorna a árvore de menor caminho a partir de um nó âncora, incluindo os nós parentes e a menor dis-
-	tância deste nó até todos os outros. A função initialize inicializa os vetores parent, dist e frj para que o algoritmo seja
-	executado corretamente. As funções FindPath e IsConnected utilizam este algoritmo para verificar a existência de um caminho
-	entre dois vértices do digrafo e se o digrafo é conexo, respectivamente.
+	Em resumo, o algoritmo retorna a Ã¡rvore de menor caminho a partir de um nÃ³ Ã¢ncora, incluindo os nÃ³s parentes e a menor dis-
+	tÃ¢ncia deste nÃ³ atÃ© todos os outros. A funÃ§Ã£o initialize inicializa os vetores parent, dist e frj para que o algoritmo seja
+	executado corretamente. As funÃ§Ãµes FindPath e IsConnected utilizam este algoritmo para verificar a existÃªncia de um caminho
+	entre dois vÃ©rtices do digrafo e se o digrafo Ã© conexo, respectivamente.
 	
 	Mais detalhes podem ser encontrados em http://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/dijkstra.html
 */
@@ -852,7 +854,7 @@ void DIGRAPHsave(Digraph G){
 // 		for (w = 0; w < G->V; w++) 
 // 			if (parent[w] == -1 && mindist > dist[w])
 // 				mindist = dist[v0=w]; 
-// 		if (-1*(mindist - INFINITO) < 1) break;	//Não é possível garantir mindist == INFINITO
+// 		if (-1*(mindist - INFINITO) < 1) break;	//NÃ£o Ã© possÃ­vel garantir mindist == INFINITO
 // 		parent[v0] = frj[v0];
 // 		for (a = G->array[v0]->adj; a != NULL; a = a->next) {
 // 			w = a->w, c = a->weight;

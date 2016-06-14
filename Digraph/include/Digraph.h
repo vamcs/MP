@@ -66,7 +66,7 @@ void DIGRAPHdestroy(Digraph);
 
 /*Impressão do grafo na tela e criação de um arquivo de saída*/
 void DIGRAPHshow(Digraph);
-//void DIGRAPHsave(Digraph);
+void DIGRAPHsave(Digraph);
 
 /*Funções e algoritmos de busca. SPT de Dijkstra é utilizada.*/
 // float FindPath(Digraph, char*, char*);

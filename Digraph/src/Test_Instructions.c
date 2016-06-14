@@ -6,7 +6,11 @@ int main(){
 	Digraph G = DIGRAPHinit("instructions.txt");
 	DIGRAPHshow(G);
 
-	DIGRAPHsave(G);
+	modify(G);
+
+	DIGRAPHshow(G);
+
+	//DIGRAPHsave(G);
 	// DIGRAPHremoveV(G, 100);
 	// DIGRAPHshow(G);
 
