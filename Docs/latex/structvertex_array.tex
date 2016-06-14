@@ -1,0 +1,65 @@
+\hypertarget{structvertex_array}{}\section{vertex\+Array Struct Reference}
+\label{structvertex_array}\index{vertex\+Array@{vertex\+Array}}
+
+
+{\ttfamily \#include $<$Digraph.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{structvertex_array_a7441ef0865bcb3db9b8064dd7375c1ea}{id}
+\item 
+char \hyperlink{structvertex_array_aeaf846aa21a7d016a52f0b5b0c2f5544}{name} \mbox{[}100\mbox{]}
+\item 
+bool \hyperlink{structvertex_array_a3002b469e7a03a16ba4fd99322d10020}{exec}
+\item 
+int \hyperlink{structvertex_array_ac6e4b2a3cf932b33832d4e4e4e7cd0de}{duration}
+\item 
+int \hyperlink{structvertex_array_af597b2d40f09352c45a7949e3efb475a}{min\+\_\+start}
+\item 
+int \hyperlink{structvertex_array_aafaa8921a9db42eefd598924305f2772}{reqs}
+\item 
+int \hyperlink{structvertex_array_a42715f65f02da52edc5b22021d8ae670}{time}
+\item 
+int $\ast$ \hyperlink{structvertex_array_adf15d2ca9e8f0bf7eb53e25582b79cda}{reqs\+\_\+id}
+\item 
+\hyperlink{_digraph_8h_a80a68ca8aa709322a2736c75938d27ba}{link} \hyperlink{structvertex_array_a818b739a21f6f31f7a9af0a6d9178de7}{adj}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Estrutura de dados que representa a lista de adjacências do grafo. 
+
+\subsection{Field Documentation}
+\index{vertex\+Array@{vertex\+Array}!adj@{adj}}
+\index{adj@{adj}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{adj}{adj}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf link} adj}\hypertarget{structvertex_array_a818b739a21f6f31f7a9af0a6d9178de7}{}\label{structvertex_array_a818b739a21f6f31f7a9af0a6d9178de7}
+Lista de vértices os quais a tarefa corrent é dependente. \index{vertex\+Array@{vertex\+Array}!duration@{duration}}
+\index{duration@{duration}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{duration}{duration}}]{\setlength{\rightskip}{0pt plus 5cm}int duration}\hypertarget{structvertex_array_ac6e4b2a3cf932b33832d4e4e4e7cd0de}{}\label{structvertex_array_ac6e4b2a3cf932b33832d4e4e4e7cd0de}
+Duração da tarefa. \index{vertex\+Array@{vertex\+Array}!exec@{exec}}
+\index{exec@{exec}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{exec}{exec}}]{\setlength{\rightskip}{0pt plus 5cm}bool exec}\hypertarget{structvertex_array_a3002b469e7a03a16ba4fd99322d10020}{}\label{structvertex_array_a3002b469e7a03a16ba4fd99322d10020}
+Flag para controle de execução da tarefa. \index{vertex\+Array@{vertex\+Array}!id@{id}}
+\index{id@{id}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{id}{id}}]{\setlength{\rightskip}{0pt plus 5cm}int id}\hypertarget{structvertex_array_a7441ef0865bcb3db9b8064dd7375c1ea}{}\label{structvertex_array_a7441ef0865bcb3db9b8064dd7375c1ea}
+Identificador único do vértice. \index{vertex\+Array@{vertex\+Array}!min\+\_\+start@{min\+\_\+start}}
+\index{min\+\_\+start@{min\+\_\+start}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{min\+\_\+start}{min_start}}]{\setlength{\rightskip}{0pt plus 5cm}int min\+\_\+start}\hypertarget{structvertex_array_af597b2d40f09352c45a7949e3efb475a}{}\label{structvertex_array_af597b2d40f09352c45a7949e3efb475a}
+Ciclo mínimo para início da tarefa. \index{vertex\+Array@{vertex\+Array}!name@{name}}
+\index{name@{name}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{name}{name}}]{\setlength{\rightskip}{0pt plus 5cm}char name\mbox{[}100\mbox{]}}\hypertarget{structvertex_array_aeaf846aa21a7d016a52f0b5b0c2f5544}{}\label{structvertex_array_aeaf846aa21a7d016a52f0b5b0c2f5544}
+Nome da tarefa. \index{vertex\+Array@{vertex\+Array}!reqs@{reqs}}
+\index{reqs@{reqs}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{reqs}{reqs}}]{\setlength{\rightskip}{0pt plus 5cm}int reqs}\hypertarget{structvertex_array_aafaa8921a9db42eefd598924305f2772}{}\label{structvertex_array_aafaa8921a9db42eefd598924305f2772}
+Quantidade de tarefas que são pré-\/requisitos para que esta seja executada. \index{vertex\+Array@{vertex\+Array}!reqs\+\_\+id@{reqs\+\_\+id}}
+\index{reqs\+\_\+id@{reqs\+\_\+id}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{reqs\+\_\+id}{reqs_id}}]{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ reqs\+\_\+id}\hypertarget{structvertex_array_adf15d2ca9e8f0bf7eb53e25582b79cda}{}\label{structvertex_array_adf15d2ca9e8f0bf7eb53e25582b79cda}
+Lista de identificadores para as tarefas pré-\/requisito. \index{vertex\+Array@{vertex\+Array}!time@{time}}
+\index{time@{time}!vertex\+Array@{vertex\+Array}}
+\subsubsection[{\texorpdfstring{time}{time}}]{\setlength{\rightskip}{0pt plus 5cm}int time}\hypertarget{structvertex_array_a42715f65f02da52edc5b22021d8ae670}{}\label{structvertex_array_a42715f65f02da52edc5b22021d8ae670}
+Tempo de execução da tarefa. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_digraph_8h}{Digraph.\+h}\end{DoxyCompactItemize}
