@@ -8,6 +8,7 @@ int main(){
 
 	modify(G);
 
+	//DIGRAPHremoveV(G, 100);
 	DIGRAPHshow(G);
 
 	//DIGRAPHsave(G);
