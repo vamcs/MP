@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "Digraph.h"
 #include "manager.h"
 
@@ -8,9 +9,9 @@
 #define Vertex int
 
 //Definição do tipo booleano utilizado para comparações.
-#define bool int
-#define true 1
-#define false 0
+// #define bool int
+// #define true 1
+// #define false 0
 
 #define INFINITO 1000000000000.0f	//Valor virtualmente infinito utilizado no algoritmo de Dijkstra.
 #define maxV 20						//Valor máximo da franja da arborecência em SPT.
@@ -64,17 +65,6 @@ Digraph DIGRAPHinit(char* file){
 	}
 	
 	/********************Leitura do Grafo********************/
-	
-	/*TRABALHO 2*/
-	//Contagem dos Vértices.
-	//Leitura da primeira linha do arquivo para definir G->V.
-	// do{
-	// 	fscanf(fp, "%s", string);
-	// 	//Não é necessário tratar a string agora, já que apenas uma contagem é feita.
-	// 	V++;
-	// 	fscanf(fp, "%c", &aux);	//Lê espaços ('\b') e '\n'.
-	// }
-	// while(aux != '\n');
 
 	/*Contagem do número de linhas do arquivo de entrada.*/
 	while(!feof(fp)){
@@ -128,54 +118,6 @@ Digraph DIGRAPHinit(char* file){
 		v++;
 	}
 	while(!feof(fp) && v < G->V);
-	
-	/*TRABALHO 2*/
-	//Leitura dos Vértices
-	// for(v = 0; v < V; v++){					//A leitura é feita apenas V vezes sem necessidade da variável auxiliar.
-	// 	fscanf(fp, "%s", string);			//Lê o nome do vértice.
-	// 	removeComma(string);				//Tratamento da string lida.
-	// 	strcpy(G->array[v]->name, string);	//Seta o nome do vértice.
-	// 	G->array[v]->source = false;		//Inicializa os vértices como não sendo origem.
-	// }
-	
-	/*TRABALHO 2*/
-	//Leitura dos Vértices de Origem
-	// do{
-	// 	fscanf(fp, "%s", string);		//Leitura do nome do vértice.
-	// 	removeComma(string);			//Remoção da vírgula da string.
-	// 	v = VERTEXreturn(G, string);	//Busca pelo vértice que contém a string desejada.
-	// 	if(strcmp(G->array[v]->name, string) == 0) 
-	// 		G->array[v]->source = true;	//Se encontrá-lo, diz que é origem.
-	// 	fscanf(fp, "%c", &aux);			//Lê '\b' e '\n'.
-	// }
-	// while(aux != '\n');
-	
-	/*TRABALHO 2*/
-	//Leitura das Arestas (Edges)
-	// while (!feof(fp)){					//Caso já tenha atingindo o fim do arquivo, não há arestas.
-	// 	fscanf(fp, "%s", origem);		//Lê o nó de origem da aresta
-	// 	removeComma(origem);			//Remove a vírgula
-		
-	// 	fscanf(fp, "%s", dest);			//Lê o nó de destino da aresta
-	// 	removeComma(dest);				//Remove a vírgula
-		
-	// 	fscanf(fp, "%f", &weight);		//Lê o peso da aresta.
-		
-	// 	v = VERTEXreturn(G, origem);	//Encontra a posição do nó de origem no array de listas.
-	// 	w = VERTEXreturn(G, dest);		//Encontra a posição do nó de destino no array de listas.
-
-	// 	if(G->array[v]->adj != NULL){	//Se já existir um lista de adjacência no nó, utiliza-se a função DIGRAPHinsertE para inserir a aresta.
-	// 		DIGRAPHinsertE(G, EDGE(v, w, weight));
-	// 	}
-	// 	else if(strcmp(G->array[v]->name, origem) == 0 && strcmp(G->array[w]->name, dest) == 0 && !G->array[w]->source){
-	// 		//Insere a aresta definida se os nomes confirmarem e se o vértice de destino não seja origem.
-	// 		G->array[v]->adj = NEWnode(w, weight, G->array[v]->adj);	//Insere a aresta definida.
-	// 		G->E++;		//Método InsertE não foi usado porque este verifica por arestas existentes, as quais ainda não existem.
-	// 	}
-	// 	else{	//Impressão da mensagem de erro. Não é possíve adicionar uma aresta com destino em um vértice de origem.
-	// 		printf("Aresta %s -> %s invalida.\n%s eh vertice de origem.\n\n", origem, dest, dest);
-	// 	}
-	// };
 	
 	fclose(fp);
 	return G;
@@ -520,7 +462,7 @@ void DIGRAPHremoveV(Digraph G, int id){
 					if(l->w >= v) l->w--;								//Se o índice dessa lista for maior ou igual ao índice do vértice removido, atualize-o.
 				}
 			}
-			TIME(G, i);
+			TIME(G, i);													//Recalcula o tempo da tarefa em i
 		}
 	}
 }
@@ -725,7 +667,8 @@ Vertex VERTEXreturn(Digraph G, int id){
 	}
 }
 
-/*
+/*	************ALTERAÇÃO PROJETO FINAL************
+
 	Esta função imprime em um arquivo "output.txt" o grafo no mesmo padrão do arquivo de entrada utilizado em
 	DIGRAPHinit. Este arquivo pode ser utilizado para a inicialização de outro digrafo normalmente, já que se-
 	gue o padrão conforme dito.
@@ -766,119 +709,3 @@ void DIGRAPHsave(Digraph G){
 	
 	fclose(fp);
 }
-
-/*
-	Esta função verifica se o grafo é conexo a partir dos vértices de origem. Ela utiliza o algoritmo de Dijkstra
-	definido em SPT (Shortest Path Tree), a qual além de retornar a conectividade do digrafo, também retorna o menor
-	caminho a partir de um nó a todos os outros, o que é utilizado em FindPath(Digraph).
-	
-	Utilização da função:
-	
-	bool checa = isConnected(G);
-	
-	- Paramêtros da função: Digrafo do tipo Digraph.
-	
-	- Retorno da função: true (1) se a partir das origens é possível chegar a qualquer outra aresta. False (0) caso
-	contrário.
-*/
-// bool isConnected(Digraph G){
-// 	bool flag = true;
-// 	int* parent = (int*)malloc(G->V * sizeof(int));
-// 	float* dist = (float*)malloc(G->V * sizeof(float));
-// 	Vertex i, v;
-// 	for(i = 0; i < G->V && flag; i++){
-// 		if(G->array[i]->source){
-// 			SPT(G, i, parent, dist);
-// 			for(v = 0; v < G->V; v++)
-// 				if(parent[v] == -1) flag = false;
-// 		}
-// 	}
-// 	free(parent);
-// 	free(dist);
-// 	return flag;
-// }
-
-/*
-	Esta função encontra o menor caminho entre dois vértices v-w. Caso não exista, -1 é retornado. Ela usa o algoritmo
-	de Dijkstra para encontra a SPT (Shortest Path Tree) do digrafo a partir de um nó âncora. Os array parent e dist
-	contêm, respectivamente, os vértices "pais" de um vértice "v" (parent[w] é o pai de w) e a distância de v até w 
-	indexado por dist[w].
-	
-	Utilização da função:
-	
-	float dist = FindPath(G, v, w);
-	
-	Nota: v e w são encontrados utilizando a função VERTEXreturn(G, string).
-	
-	- Paramêtros da função: Digrafo do tipo Digraph e dois vértices do tipo Vertex.
-	
-	- Retorno da função: distância mínima entre v e w (float).
-*/
-// float FindPath(Digraph G, char* origem, char* dest){
-// 	Vertex v = VERTEXreturn(G, origem);
-// 	Vertex w = VERTEXreturn(G, dest);
-// 	int* parent = (int*)malloc(G->V * sizeof(int));
-// 	float* dist = (float*)malloc(G->V * sizeof(float));
-// 	float retorno;
-	
-// 	SPT(G, v, parent, dist);
-
-// 	if(-1*(dist[w] - INFINITO) > 1) 
-// 		retorno = dist[w];
-// 	else 
-// 		retorno = -1;
-// 	free(parent);
-// 	free(dist);
-// 	return retorno;
-//}
-
-/*
-	As duas seguintes funções implementam o algorito de Dijkstra para a SPT (Shortest Path Tree) baseado no livro de Segdewick
-	"Algorithms in C", seção "Dijkstra's Algorithm". Pequenas mudanças foram feitas para se adaptar ao digrafo atual.
-	
-	Em resumo, o algoritmo retorna a árvore de menor caminho a partir de um nó âncora, incluindo os nós parentes e a menor dis-
-	tância deste nó até todos os outros. A função initialize inicializa os vetores parent, dist e frj para que o algoritmo seja
-	executado corretamente. As funções FindPath e IsConnected utilizam este algoritmo para verificar a existência de um caminho
-	entre dois vértices do digrafo e se o digrafo é conexo, respectivamente.
-	
-	Mais detalhes podem ser encontrados em http://www.ime.usp.br/~pf/algoritmos_para_grafos/aulas/dijkstra.html
-*/
-// void SPT(Digraph G, Vertex s, Vertex parent[], float dist[]){
-	
-// 	Vertex v0, w, frj[maxV];
-// 	link a; float c;
-// 	initialize( G, s, parent, dist, frj);
-
-// 	while (1) {
-// 		float mindist = INFINITO;
-// 		for (w = 0; w < G->V; w++) 
-// 			if (parent[w] == -1 && mindist > dist[w])
-// 				mindist = dist[v0=w]; 
-// 		if (-1*(mindist - INFINITO) < 1) break;	//Não é possível garantir mindist == INFINITO
-// 		parent[v0] = frj[v0];
-// 		for (a = G->array[v0]->adj; a != NULL; a = a->next) {
-// 			w = a->w, c = a->weight;
-// 			if (parent[w] == -1 && dist[w] > dist[v0] + c) { 
-// 				dist[w] = dist[v0] + c; 
-// 				frj[w] = v0; 
-// 			} 
-// 		}
-// 	}
-// }
-
-// void initialize( Digraph G, Vertex s, Vertex parent[], float dist[], Vertex frj[]){ 
-// 	Vertex w;
-// 	link a;
-// 	float c;
-// 	for (w = 0; w < G->V; w++) {
-// 		parent[w] = -1;
-// 		dist[w] = INFINITO;
-// 	}
-// 	parent[s] = s;
-// 	dist[s] = 0.0;
-// 	for (a = G->array[s]->adj; a != NULL; a = a->next) {
-// 		w = a->w, c = a->weight;
-// 		dist[w] = c; 
-// 		frj[w] = s; 
-// 	} 
-//}

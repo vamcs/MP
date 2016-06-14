@@ -1,11 +1,12 @@
 /*Cabeçalho de Definições do Grafo*/
+#include <stdbool.h>
 
 /*Declaração dos tipos utilizados*/
 #define Vertex int
 
-#define bool int
-#define true 1
-#define false 0
+// #define bool int
+// #define true 1
+// #define false 0
 
 typedef struct node * link;
 typedef struct vertexArray * VertexArray;
