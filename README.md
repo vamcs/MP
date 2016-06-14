@@ -21,7 +21,7 @@ git push origin develop
 #Cria o branch release
 git checkout -b release-1.2 develop
 ./bump-version.sh 1.2                             #Fictício
-git commit -a -m “Bumped versoin number to 1.2”
+git commit -a -m “Bumped version number to 1.2”
 ---------------------------------
 #Faz merge em master
 git checkout master
