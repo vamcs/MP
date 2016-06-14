@@ -31,10 +31,10 @@
 *	@param: digrafo G e vértice da tarefa atual v.
 *	@return: void.
 */
-void TIME(Digraph G, Vertex v){
+void TIME(Digraph G, Vertex v) {
 
 	/*Caso não haja dependências*/
-	if (G->array[v]->reqs == 0){
+	if (G->array[v]->reqs == 0) {
 		G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;	//time = min_start + duration
 		return;
 	}
@@ -42,12 +42,12 @@ void TIME(Digraph G, Vertex v){
 	else {
 		int i, longest_time = 0;
 		Vertex w;
-		for(i = 0; i < G->array[v]->reqs; i++){
+		for(i = 0; i < G->array[v]->reqs; i++) {
 			w = VERTEXreturn(G, G->array[v]->reqs_id[i]);				//Encontra o vértice da dependência reqs_id[i]
 			if(G->array[w]->time > longest_time && !G->array[w]->exec)	//Se a instrução já tiver sido executada, seu tempo de executação não é levado em conta.
 				longest_time = G->array[w]->time;						//Procura pela dependência de maior duração
 		}
-		if(G->array[v]->min_start < longest_time){						//Se min_start < longest_time
+		if(G->array[v]->min_start < longest_time) {						//Se min_start < longest_time
 			G->array[v]->time = longest_time + G->array[v]->duration;	//time = longest_time + duration
 		}
 
@@ -58,16 +58,215 @@ void TIME(Digraph G, Vertex v){
 	}
 }
 
-void modify(Digraph G){
-	int id, new_id, option, duration, min_start, reqs, reqs_id, i;
-	char exec, sair, name[100];
+int NEWid(Digraph G, Vertex v) {
+	int new_id, i;
+	link l;
+	Vertex w;
+
+	//Leitura do novo ID
+	printf("> Entre com o novo ID: ");
+	scanf("%d", &new_id);
+	w = VERTEXreturn(G, new_id);
+	while (w != -1 || w < -2) {
+		printf("(!) ID invalida ou ja existente. Entre com outro valor: ");
+		scanf("%d", &new_id);
+		w = VERTEXreturn(G, new_id);
+	}
+
+	//Atualização do vetor de IDs das tarefas que dependem desta tarefa em "v"
+	l = G->array[v]->adj;
+	while (l != NULL) {
+		i = FINDreqs_id(G->array[l->w]->reqs_id, G->array[l->w]->reqs, G->array[v]->id);
+		G->array[l->w]->reqs_id[i] = new_id;
+		l = l->next;
+	}
+
+	//Atualização da lista de adjacência das tarefas que "v" depende
+	for (i = 0; i < G->array[v]->reqs; i++) {
+		w = VERTEXreturn(G, G->array[v]->reqs_id[i]);
+		l = G->array[w]->adj;
+		while (l->next != NULL && l->w != v) {
+			l = l->next;
+		}
+		if (l->id == G->array[v]->id)
+			l->id = new_id;
+	}
+
+	return new_id;
+}
+
+void NEWname(Digraph G, Vertex v) {
+	Vertex w;
+	char name[100];
+	printf("> Entre com o novo nome (ate 100 caracteres): ");
+	scanf("%100s", name);
+	for (w = 0; w < G->V-1; w++) {
+		if (strcmp(name, G->array[w]->name) == 0) {
+			printf("(!) Nome ja existente. Entre com outra string (ate 100 caracteres): ");
+			scanf("%100s", name);
+			w = -1;
+		}
+	}
+	strcpy(G->array[v]->name, name);
+}
+
+bool NEWexec(bool exec) {
+	char option;
+	if(exec == true)
+		printf("> A tarefa ja foi executada.\n");
+	else
+		printf("> A tarefa ainda nao foi executada.\n");
+	printf("> Inverter o estado? s/n\n");
+	scanf (" %c", &option);
+	while(option != 's' && option != 'S' && option != 'n' && option != 'N') {
+		printf("(!) Opcao inexistente. Entre [s/n]: ");
+		scanf(" %c", &option);
+	}
+	switch (option) {
+		case 'S':
+		case 's':
+			exec = !exec;
+			break;
+		case 'N':
+		case 'n':
+			break;
+		default:
+			break;
+	}
+	return exec;
+}
+
+int NEWduration() {
+	int duration;
+	printf("> Entre com a nova duracao: ");
+	scanf("%d", &duration);
+	while (duration < 0) {
+		printf("(!) Duracao invalida. Entre outro valor: ");
+		scanf("%d", &duration);
+	}
+	return duration;
+}
+
+int NEWmin_start() {
+	int min_start;
+	printf("> Entre com o novo inicio minimo: ");
+	scanf("%d", &min_start);
+	while (min_start < 0) {
+		printf("(!) Inicio invalido. Entre outro valor: ");
+		scanf("%d", &min_start);
+	}
+	return min_start;
+}
+
+int NEWreqs(Digraph G, Vertex v) {
+	int reqs, i, j, k, id;
+	Vertex w;
+	printf("> Entre com o novo numero de pre-requisitos: ");
+	scanf("%d", &reqs);
+	while (reqs < 0 || reqs >= G->V) {
+		printf("> Numero invalido ou excede o total de dependecias possivel. Entre outro valor: ");
+		scanf("%d", &reqs);
+	}
+	if (reqs == G->array[v]->reqs) {
+		return reqs;
+	}
+	else if (reqs == 0) {
+		printf("> Todas dependencias serao retiradas.\n");
+		for (i = 0; i < G->array[v]->reqs; i++) {
+			w = VERTEXreturn(G, G->array[v]->reqs_id[i]);
+			DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));
+		}
+		free(G->array[v]->reqs_id);
+		G->array[v]->reqs_id = NULL;
+	}
+	else if (reqs < G->array[v]->reqs) {
+		printf("> %d tarefa(s) sera(ao) removida(s).\nDependecias de %s:", G->array[v]->reqs - reqs, G->array[v]->name);
+		for(i = 0; i < G->array[v]->reqs; i++) {
+			printf(" %d", G->array[v]->reqs_id[i]);
+		}
+		printf("\n");
+		for (i = 0; i < G->array[v]->reqs - reqs; i++) {				//Executa "reqs_atual - reqs_novo" vezes
+			printf("> Entre a ID a ser removida: ");
+			scanf("%d", &id);
+			j = FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, id);
+			while (j == -1) {
+				printf("(!) ID invalida. Entre com outra ID: ");
+				scanf("%d", &id);
+				j = FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, id);
+			}
+			/*Remover arestas w->v (tarefa que nossa tarefa depende -> nossa tarefa)*/
+			w = VERTEXreturn(G, G->array[v]->reqs_id[j]);
+			DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));				//Remove aresta tarefa -> tarefa dependente
+			
+			/*Remover a tarefa à qual dependemos do array de IDs*/
+			for(k = j; k < G->array[v]->reqs-1; k++) {					//Coloca as posições a serem removidas no final do array
+				G->array[v]->reqs_id[k] = G->array[v]->reqs_id[k+1];	//Array será realocado ao final após o "for" atual, então estas posições serão removidas.
+			}
+		}
+		G->array[v]->reqs_id = (int*)realloc(G->array[v]->reqs_id, reqs * sizeof(int));		//Realoca array de IDs que a tarefa depende.
+	}
+	else {		//novo reqs > reqs atual
+		printf("> %d tarefa(s) sera(ao) inseridas(s).\nDependecias de %s:", reqs - G->array[v]->reqs, G->array[v]->name);
+		for(i = 0; i < G->array[v]->reqs; i++) {
+			printf(" %d", G->array[v]->reqs_id[i]);
+		}
+		G->array[v]->reqs_id = (int*)realloc(G->array[v]->reqs_id, reqs * sizeof(int));		//Extensão do array de IDs.
+		printf("\n");
+		for (i = 0; i < reqs - G->array[v]->reqs; i++) {				//Executa "reqs_novo - reqs_atual" vezes
+			printf("> Entre a ID a ser inserida: ");
+			scanf("%d", &id);
+			w = VERTEXreturn(G, id);
+			while (w == -1 || w >= v) {
+				printf("(!) ID invalida. Entre com outra ID: ");
+				scanf("%d", &id);
+				w = VERTEXreturn(G, id);
+			}
+			DIGRAPHinsertE(G, EDGE(w, v, G->array[v]->id));
+			G->array[v]->reqs_id[G->array[v]->reqs + i + 1] = id;		//i começa em 0, então +1 é necessário. Adiciona o ID ao array de dependências.
+		}
+	}
+	return reqs;
+}
+
+void NEWreqs_id(Digraph G, Vertex v) {
+	int old_id, new_id, i;
+	Vertex w;
+
+	printf("> Qual dependencia deseja alterar?");
+	scanf("%d", &old_id);
+	i = 0;
+	while (G->array[v]->reqs_id[i] != old_id) {
+		if(i == G->array[v]->reqs) {
+			printf("(!) ID nao encontrada. Escolha uma opcao dentre as dependencias mostradas acima.\nEntre com uma nova ID: ");
+			scanf("%d", &old_id);
+			i = -1;
+		}
+		i++;
+	}
+	w = VERTEXreturn(G, old_id);
+	DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));
+	printf("> Insira nova ID: ");
+	scanf("%d", &new_id);
+	w = VERTEXreturn(G, new_id);
+	while (w == -1 || w >= v) {
+		printf("(!) ID invalida. Entre com outra ID: ");
+		scanf("%d", &new_id);
+		w = VERTEXreturn(G, new_id);
+	}
+	DIGRAPHinsertE(G, EDGE(w, v, G->array[v]->id));
+	G->array[v]->reqs_id[i] = new_id;
+}
+
+void modify(Digraph G) {
+	int id, option, i;
+	char sair;
 	Vertex v, w;
 
 	printf("> Insira a ID da tarefa a ser modificada: ");
 	scanf("%d", &id);
 
 	v = VERTEXreturn(G, id);
-	while (v == -1){
+	while (v == -1) {
 		printf("> ID nao existente. Entre com outro valor: ");
 		scanf("%d", &id);
 		v = VERTEXreturn(G, id);
@@ -77,82 +276,48 @@ void modify(Digraph G){
 	printf("\tID:\t\t\t\t[1]\n\tNome:\t\t\t\t[2]\n\tTarefa Executada:\t\t[3]\n\tDuracao:\t\t\t[4]\n\tInicio Minimo:\t\t\t[5]\n\tNumero de Pre-Requisitos:\t[6]\n\tDependencias:\t\t\t[7]\n\tSair:\t\t\t\t[-1]\n");
 	scanf("%d", &option);
 
-	while (option != -1){
+	while (option != -1) {
 
-		switch (option){
+		switch (option) {
 			case 1:
 				printf("> ID atual: %d\n", id);
-				printf("> Entre com o novo ID: ");
-				scanf("%d", &new_id);
-				w = VERTEXreturn(G, new_id);
-				while (w != -1 || w < -2) {
-					printf("(!) ID invalida ou ja existente. Entre com outro valor: ");
-					scanf("%d", &new_id);
-					w = VERTEXreturn(G, new_id);
-				}
-				G->array[v]->id = new_id;
+				G->array[v]->id = NEWid(G, v);
 				break;
 			case 2:
 				printf("> Nome atual: %s\n", G->array[v]->name);
-				printf("> Entre com o novo nome (ate 100 caracteres): ");
-				scanf("%100s", name);
-				for (w = 0; w < G->V-1; w++){
-					if (strcmp(name, G->array[w]->name) == 0){
-						printf("> Nome ja existente. Entre com outra string (ate 100 caracteres): ");
-						scanf("%100s", name);
-						w = -1;
-					}
-				}
-				strcpy(G->array[v]->name, name);
+				NEWname(G, v);
 				break;
 			case 3:
-				if(G->array[v]->exec == true)
-					printf("> A tarefa ja foi executada.\n");
-				else
-					printf("> A tarefa ainda nao foi executada.\n");
-				printf("> Inverter o estado? s/n\n");
-				scanf(" %c", &exec);
-				switch (exec){
-					case 'S':
-					case 's':
-						G->array[v]->exec = !G->array[v]->exec;
-						break;
-					case 'N':
-					case 'n':
-						break;
-					default:
-						break;
+				G->array[v]->exec = NEWexec(G->array[v]->exec);
+				for (w = 0; w < G->V; w++) {
+					TIME(G, w);
 				}
 				break;
 			case 4:
 				printf("> Duracao atual: %d\n", G->array[v]->duration);
-				printf("> Entre com a nova duracao: ");
-				scanf("%d", &duration);
-				while (duration < 0){
-					printf("> Duracao invalida. Entre outro valor: ");
-					scanf("%d", &duration);
+				G->array[v]->duration = NEWduration();
+				for (w = 0; w < G->V; w++) {
+					TIME(G, w);
 				}
-				G->array[v]->duration = duration;
 				break;
 			case 5:
 				printf("> Inicio minimo atual: %d\n", G->array[v]->min_start);
-				printf("> Entre com o novo inicio minimo: ");
-				scanf("%d", &min_start);
-				while (min_start < 0){
-					printf("> Inicio invalido. Entre outro valor: ");
-					scanf("%d", &min_start);
+				G->array[v]->min_start = NEWmin_start();
+				for (w = 0; w < G->V; w++) {
+					TIME(G, w);
 				}
-				G->array[v]->min_start = min_start;
 				break;
 			case 6:
 				printf("> Numero de pre-requisitos atual: %d\n", G->array[v]->reqs);
-				printf("> Entre com o novo numero de pre-requisitos: ");
-				scanf("%d", &reqs);
-				while (reqs < 0 || reqs >= G->array[v]->reqs){
-					printf("> Numero invalido. Entre outro valor: ");
-					scanf("%d", &reqs);
+				if (v == 0){
+					printf("Nao eh possivel inserir dependencias na tarefa inicial.\n");
 				}
-				G->array[v]->reqs = reqs;
+				else {
+					G->array[v]->reqs = NEWreqs(G, v);
+					for (w = 0; w < G->V; w++) {
+						TIME(G, w);
+					}
+				}
 				break;
 			case 7:
 				if (G->array[v]->reqs > 0) {
@@ -160,18 +325,10 @@ void modify(Digraph G){
 					for (i = 0; i < G->array[v]->reqs; i++)
 						printf(" %d", G->array[v]->reqs_id[i]);
 					printf("\n");
-					printf("> Qual dependencia deseja alterar?");
-					scanf("%d", &reqs_id);
-					i = 0;
-					while (G->array[v]->reqs_id[i] != reqs_id){
-						i++;
-						if(i == G->array[v]->reqs){
-							printf("> ID nao encontrada. Escolha uma opcao dentre ");
-							scanf("%d", &reqs_id);
-							i = 0;
-						}
+					NEWreqs_id(G, v);
+					for (w = 0; w < G->V; w++) {
+						TIME(G, w);
 					}
-					G->array[v]->reqs_id[i] = reqs_id;
 				}
 				else {
 					printf("> Esta tarefa nao possui dependencias. Modifique o numero de dependencias antes de adiciona-las.\n");
@@ -184,11 +341,11 @@ void modify(Digraph G){
 
 		printf("> Continuar alterando? [s/n]\n");
 		scanf(" %c", &sair);
-		while (sair != 's' && sair != 'S' && sair != 'n' && sair != 'N'){
+		while (sair != 's' && sair != 'S' && sair != 'n' && sair != 'N') {
 			printf("Opcao invalida, entre s/n: ");
 			scanf(" %c", &sair);
 		}
-		switch (sair){
+		switch (sair) {
 			case 'S':
 			case 's':
 				printf("> Qual campo deseja alterar?\n");

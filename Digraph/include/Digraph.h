@@ -146,4 +146,7 @@ Edge EDGE(Vertex v, Vertex w, int id);
 
 /*Funções auxiliares de busca de índice do vértice e remoção de vírgulas da string.*/
 int VERTEXreturn(Digraph, int);
-void removeComma(char*);
+//void removeComma(char*);
+
+
+int FINDreqs_id(int*, int, int);
