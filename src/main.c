@@ -8,17 +8,17 @@ int main(){
 
 	DIGRAPHshow(G);
 
-	printf("Inserindo uma tarefa nova:\n");
-	DIGRAPHinsertV(G);
+	// printf("Inserindo uma tarefa nova:\n");
+	// DIGRAPHinsertV(G);
 
-	DIGRAPHshow(G);
+	// DIGRAPHshow(G);
 
-	int id;
-	printf("Qual tarefa deve ser removida? Entre com a ID: ");
-	scanf("%d", &id);
-	DIGRAPHremoveV(G, id);
+	// int id;
+	// printf("Qual tarefa deve ser removida? Entre com a ID: ");
+	// scanf("%d", &id);
+	// DIGRAPHremoveV(G, id);
 
-	DIGRAPHshow(G);
+	// DIGRAPHshow(G);
 
 	modify(G);
 

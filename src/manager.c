@@ -190,7 +190,7 @@ int NEWreqs(Digraph G, Vertex v) {
 		for (i = 0; i < G->array[v]->reqs - reqs; i++) {				//Executa "reqs_atual - reqs_novo" vezes
 			printf("> Entre a ID a ser removida: ");
 			scanf("%d", &id);
-			j = FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, id);
+			j = FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs - i, id);		// reqs - i: porque G->array[v]->reqs só é atualizado ao final da função.
 			while (j == -1) {
 				printf("(!) ID invalida. Entre com outra ID: ");
 				scanf("%d", &id);
@@ -224,7 +224,7 @@ int NEWreqs(Digraph G, Vertex v) {
 			printf("> Entre a ID a ser inserida: ");
 			scanf("%d", &id);
 			w = VERTEXreturn(G, id);
-			while (w == -1 || w >= v || FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, id) != -1) {
+			while (w == -1 || w >= v || FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs + i, id) != -1) {	//reqs+i: G->array[v]->reqs só é atualizada ao final do programa.
 				printf("(!) ID invalida. Entre com outra ID: ");
 				scanf("%d", &id);
 				w = VERTEXreturn(G, id);
