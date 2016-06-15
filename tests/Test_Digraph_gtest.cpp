@@ -11,16 +11,16 @@ class MyAppTestSuite : public testing::Test {
 
 
 TEST(DigraphTest, Initialization){
-	Digraph G = DIGRAPHinit("Digraph.txt");
-	EXPECT_EQ(0, VERTEXreturn(G, "A"));		//Testa se "A" é o vértice 0
-	EXPECT_EQ(1, VERTEXreturn(G, "B"));		//Testa se "B" é o vértice 1
-	EXPECT_EQ(2, VERTEXreturn(G, "C"));		//Testa se "B" é o vértice 2
-	EXPECT_EQ(3, VERTEXreturn(G, "D"));		//Testa se "B" é o vértice 3
-	EXPECT_EQ(4, VERTEXreturn(G, "E"));		//Testa se "B" é o vértice 4
-	EXPECT_EQ(5, VERTEXreturn(G, "F"));		//Testa se "B" é o vértice 5
-	EXPECT_EQ(6, VERTEXreturn(G, "G"));		//Testa se "B" é o vértice 6
+	Digraph G = DIGRAPHinit("input.txt");
+	EXPECT_EQ(0, VERTEXreturn(G, 100));		//Testa se "A" é o vértice 0
+	EXPECT_EQ(1, VERTEXreturn(G, 101));		//Testa se "B" é o vértice 1
+	EXPECT_EQ(2, VERTEXreturn(G, 102));		//Testa se "B" é o vértice 2
+	EXPECT_EQ(3, VERTEXreturn(G, 103));		//Testa se "B" é o vértice 3
+	EXPECT_EQ(4, VERTEXreturn(G, 104));		//Testa se "B" é o vértice 4
+	EXPECT_EQ(5, VERTEXreturn(G, 105));		//Testa se "B" é o vértice 5
+	EXPECT_EQ(6, VERTEXreturn(G, 106));		//Testa se "B" é o vértice 6
 
-	EXPECT_TRUE(G->array[0]->source == true);
+	//EXPECT_TRUE(G->array[0]->source == true);
 }
 
 /*int main(){

@@ -8,3 +8,5 @@
 12/06/2016 | 3h | Revisar código	| Revisão e testes de funcionamento das modificações
 12/06/2016 | 1h | CPPcheck 			| Tirando warnings utilizando cppcheck.
 12/06/2016 | 3h	| Revisar código	| Continuação da revisão dos códigos e implementação de detalhes que faltam.
+
+FALTA INCLUIR DIAS 13 E 14 (Estão em toggl.com)
