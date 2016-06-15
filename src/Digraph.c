@@ -277,7 +277,7 @@ void DIGRAPHremoveE(Digraph G, Edge e) {
 */
 void DIGRAPHinsertV(Digraph G) {
 	Vertex w;
-	int id, i;
+	int id, duration, min_start, reqs, i;
 	char exec;
 
 	printf("Entre com o ID da tarefa:\n");
@@ -322,18 +322,28 @@ void DIGRAPHinsertV(Digraph G) {
 	}
 
 	printf("Entre com a duracao da tarefa:\n");
-	scanf("%d", &G->array[G->V-1]->duration);
+	scanf("%d", &duration);
+	while (duration < 0) {
+		printf("(!) Duracao invalida. Entre outro valor: ");
+		scanf("%d", &duration);
+	}
+	G->array[G->V-1]->duration = duration;
 
-	printf("Entre com o ciclo minimo de inicio da tarefa:\n");
-	scanf("%d", &G->array[G->V-1]->min_start);
+	printf("Entre com o inicio minimo da tarefa:\n");
+	scanf("%d", &min_start);
+	while (min_start < 0) {
+		printf("(!) Inicio invalido. Entre outro valor: ");
+		scanf("%d", &min_start);
+	}
+	G->array[G->V-1]->min_start = min_start;
 
 	printf("Esta tarefa possui quantos requisitos?\n");
-	scanf("%d", &G->array[G->V-1]->reqs);
-
-	while (G->array[G->V-1]->reqs > G->V-1) {
-		printf("Numero excede o maximo de requisitos possiveis. Entre outro valor: ");
-		scanf("%d", &G->array[G->V-1]->reqs);
+	scanf("%d", &reqs);
+	while (reqs < 0 || reqs >= G->V) {
+		printf("Numero invalido ou excede o maximo de requisitos possiveis. Entre outro valor: ");
+		scanf("%d", &reqs);
 	}
+	G->array[G->V-1]->reqs = reqs;
 
 	if(G->array[G->V-1]->reqs > 0) {
 		G->array[G->V-1]->reqs_id = (int*)malloc(G->array[G->V-1]->reqs * sizeof(int));
@@ -341,8 +351,8 @@ void DIGRAPHinsertV(Digraph G) {
 			printf("Entre com o ID do pre-requisito %d: ", i+1);
 			scanf("%d", &id);
 			w = VERTEXreturn(G, id);
-			while(w == -1) {
-				printf("ID inexistente. Entre outro valor: ");
+			while(w == -1 || w >= G->V-1 || FINDreqs_id(G->array[G->V-1]->reqs_id, G->array[G->V-1]->reqs, id) != -1) {
+				printf("ID invalido ou inexistente. Entre outro valor: ");
 				scanf("%d", &id);
 				w = VERTEXreturn(G, id);
 			}
@@ -396,6 +406,7 @@ void DIGRAPHremoveV(Digraph G, int id) {
 	Vertex v = VERTEXreturn(G, id);
 
 	if (v == -1) {
+		printf("ID inexistente. Nenhuma tarefa removida.\n");
 		return;
 	}
 	
