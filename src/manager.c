@@ -224,7 +224,7 @@ int NEWreqs(Digraph G, Vertex v) {
 			printf("> Entre a ID a ser inserida: ");
 			scanf("%d", &id);
 			w = VERTEXreturn(G, id);
-			while (w == -1 || w >= v || FINDreqs_id(G->array[v]->reqs_id, reqs, id) != -1) {
+			while (w == -1 || w >= v || FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, id) != -1) {
 				printf("(!) ID invalida. Entre com outra ID: ");
 				scanf("%d", &id);
 				w = VERTEXreturn(G, id);

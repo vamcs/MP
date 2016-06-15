@@ -1,0 +1,2 @@
+Digite no diretório raiz:
+make MP_Final
