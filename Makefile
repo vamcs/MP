@@ -74,7 +74,7 @@ $(EXEC): $(OBJS)
 	$(CC) -o $@ $^
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCL)/ -c $< -o $@
+	$(CC) $(CFLAGS) $(INCL) -c $< -o $@
 
 Digraph.o : $(SRC_DIR)/Digraph.c $(INCLUDE_DIR)/Digraph.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/Digraph.c

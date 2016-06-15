@@ -3,7 +3,7 @@
 #include "../include/manager.h"
 
 int main(){
-	Digraph G = DIGRAPHinit("instructions.txt");
+	Digraph G = DIGRAPHinit("./supporting_files/input.txt");
 	DIGRAPHshow(G);
 
 	modify(G);
