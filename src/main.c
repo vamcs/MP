@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "Digraph.h"
-#include "manager.h"
+#include "../include/Digraph.h"
+#include "../include/manager.h"
 
 int main(){
 	Digraph G = DIGRAPHinit("instructions.txt");

@@ -1,4 +1,4 @@
-/*Gerenciador.h*/
+/*Cabeçalho de Definições do Gerenciador de Tarefas*/
 
-void reader(FILE*);
-FILE* openFile(char*, char*);
+void TIME(Digraph, Vertex);
+void modify(Digraph);

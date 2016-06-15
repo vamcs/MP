@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "Digraph.h"
-#include "manager.h"
+#include "../include/Digraph.h"
+#include "../include/manager.h"
 
 /*	Funcão TIME que calcula o tempo necessário para executar uma tarefa em "v".
 *	Esta função começa o cálculo a partir de tarefas que não possuem dependências,

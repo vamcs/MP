@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include "Digraph.h"
-#include "manager.h"
+#include "../include/Digraph.h"
+#include "../include/manager.h"
 
 //Definição do tipo das variáveis de endereçamento dos vértices (int).
 #define Vertex int
@@ -80,7 +80,7 @@ Digraph DIGRAPHinit(char* file) {
 	//As listas de adjacência são inicializadas como nulas.
 	G->array = (VertexArray*)malloc(V * sizeof(VertexArray));
 	for (v = 0; v < V; v++) {
-		G->array[v] = malloc(sizeof(struct vertexArray));
+		G->array[v] = (struct vertexArray*)malloc(sizeof(struct vertexArray));
 		G->array[v]->adj = NULL;
 		G->array[v]->id = -1;
 	}
@@ -289,8 +289,8 @@ void DIGRAPHinsertV(Digraph G) {
 	}
 
 	G->V++;
-	G->array = realloc(G->array, G->V * sizeof(VertexArray));
-	G->array[G->V-1] = malloc(sizeof(struct vertexArray));
+	G->array = (VertexArray*)realloc(G->array, G->V * sizeof(VertexArray));
+	G->array[G->V-1] = (struct vertexArray*)malloc(sizeof(struct vertexArray));
 	
 	G->array[G->V-1]->id = id;
 
