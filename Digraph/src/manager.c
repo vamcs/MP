@@ -99,11 +99,11 @@ void NEWname(Digraph G, Vertex v) {
 	Vertex w;
 	char name[100];
 	printf("> Entre com o novo nome (ate 100 caracteres): ");
-	scanf("%100s", name);
+	scanf("%99s", name);
 	for (w = 0; w < G->V-1; w++) {
 		if (strcmp(name, G->array[w]->name) == 0) {
 			printf("(!) Nome ja existente. Entre com outra string (ate 100 caracteres): ");
-			scanf("%100s", name);
+			scanf("%99s", name);
 			w = -1;
 		}
 	}
@@ -163,11 +163,12 @@ int NEWreqs(Digraph G, Vertex v) {
 	Vertex w;
 	printf("> Entre com o novo numero de pre-requisitos: ");
 	scanf("%d", &reqs);
-	while (reqs < 0 || reqs >= G->V) {
-		printf("> Numero invalido ou excede o total de dependecias possivel. Entre outro valor: ");
+	while (reqs < 0 || reqs >= v + 1) {
+		printf("(!) Numero invalido ou excede o total de dependecias possivel. Entre outro valor: ");
 		scanf("%d", &reqs);
 	}
 	if (reqs == G->array[v]->reqs) {
+		printf("> Nada alterado.\n");
 		return reqs;
 	}
 	else if (reqs == 0) {
@@ -216,13 +217,13 @@ int NEWreqs(Digraph G, Vertex v) {
 			printf("> Entre a ID a ser inserida: ");
 			scanf("%d", &id);
 			w = VERTEXreturn(G, id);
-			while (w == -1 || w >= v) {
+			while (w == -1 || w >= v || FINDreqs_id(G->array[v]->reqs_id, reqs, id) != -1) {
 				printf("(!) ID invalida. Entre com outra ID: ");
 				scanf("%d", &id);
 				w = VERTEXreturn(G, id);
 			}
 			DIGRAPHinsertE(G, EDGE(w, v, G->array[v]->id));
-			G->array[v]->reqs_id[G->array[v]->reqs + i + 1] = id;		//i começa em 0, então +1 é necessário. Adiciona o ID ao array de dependências.
+			G->array[v]->reqs_id[G->array[v]->reqs + i] = id;		//i começa em 0, então +1 é necessário. Adiciona o ID ao array de dependências.
 		}
 	}
 	return reqs;
@@ -232,7 +233,7 @@ void NEWreqs_id(Digraph G, Vertex v) {
 	int old_id, new_id, i;
 	Vertex w;
 
-	printf("> Qual dependencia deseja alterar?");
+	printf("> Qual dependencia deseja alterar?\n");
 	scanf("%d", &old_id);
 	i = 0;
 	while (G->array[v]->reqs_id[i] != old_id) {
