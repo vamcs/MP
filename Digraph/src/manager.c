@@ -99,7 +99,8 @@ void NEWname(Digraph G, Vertex v) {
 	Vertex w;
 	char name[100];
 	printf("> Entre com o novo nome (ate 100 caracteres): ");
-	scanf("%99s", name);
+	getchar();
+	scanf("%99[^\n]s", name);
 	for (w = 0; w < G->V-1; w++) {
 		if (strcmp(name, G->array[w]->name) == 0) {
 			printf("(!) Nome ja existente. Entre com outra string (ate 100 caracteres): ");
@@ -172,7 +173,7 @@ int NEWreqs(Digraph G, Vertex v) {
 		return reqs;
 	}
 	else if (reqs == 0) {
-		printf("> Todas dependencias serao retiradas.\n");
+		printf("> Todas dependencias foram retiradas.\n");
 		for (i = 0; i < G->array[v]->reqs; i++) {
 			w = VERTEXreturn(G, G->array[v]->reqs_id[i]);
 			DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));
@@ -181,7 +182,7 @@ int NEWreqs(Digraph G, Vertex v) {
 		G->array[v]->reqs_id = NULL;
 	}
 	else if (reqs < G->array[v]->reqs) {
-		printf("> %d tarefa(s) sera(ao) removida(s).\nDependecias de %s:", G->array[v]->reqs - reqs, G->array[v]->name);
+		printf("> %d tarefa(s) sera(ao) removida(s).\nDependencias de %s:", G->array[v]->reqs - reqs, G->array[v]->name);
 		for(i = 0; i < G->array[v]->reqs; i++) {
 			printf(" %d", G->array[v]->reqs_id[i]);
 		}
@@ -207,9 +208,15 @@ int NEWreqs(Digraph G, Vertex v) {
 		G->array[v]->reqs_id = (int*)realloc(G->array[v]->reqs_id, reqs * sizeof(int));		//Realoca array de IDs que a tarefa depende.
 	}
 	else {		//novo reqs > reqs atual
-		printf("> %d tarefa(s) sera(ao) inseridas(s).\nDependecias de %s:", reqs - G->array[v]->reqs, G->array[v]->name);
-		for(i = 0; i < G->array[v]->reqs; i++) {
-			printf(" %d", G->array[v]->reqs_id[i]);
+		printf("> %d tarefa(s) sera(ao) inseridas(s).\n", reqs - G->array[v]->reqs);
+		if (G->array[v]->reqs_id != NULL) {
+			printf("Dependencias de %s:", G->array[v]->name);
+			for(i = 0; i < G->array[v]->reqs; i++) {
+				printf(" %d", G->array[v]->reqs_id[i]);
+			}
+		}
+		else {
+			printf("%s nao possui dependencias.", G->array[v]->name);
 		}
 		G->array[v]->reqs_id = (int*)realloc(G->array[v]->reqs_id, reqs * sizeof(int));		//Extensão do array de IDs.
 		printf("\n");
@@ -248,14 +255,19 @@ void NEWreqs_id(Digraph G, Vertex v) {
 	DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));
 	printf("> Insira nova ID: ");
 	scanf("%d", &new_id);
-	w = VERTEXreturn(G, new_id);
-	while (w == -1 || w >= v) {
-		printf("(!) ID invalida. Entre com outra ID: ");
-		scanf("%d", &new_id);
-		w = VERTEXreturn(G, new_id);
+	if (FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, new_id) != -1) {
+		printf("(!) ID ja existente nas dependencias. Nada alterado.\n");
 	}
-	DIGRAPHinsertE(G, EDGE(w, v, G->array[v]->id));
-	G->array[v]->reqs_id[i] = new_id;
+	else {
+		w = VERTEXreturn(G, new_id);
+		while (w == -1 || w >= v) {
+			printf("(!) ID invalida. Entre com outra ID: ");
+			scanf("%d", &new_id);
+			w = VERTEXreturn(G, new_id);
+		}
+		DIGRAPHinsertE(G, EDGE(w, v, G->array[v]->id));
+		G->array[v]->reqs_id[i] = new_id;
+	}
 }
 
 void modify(Digraph G) {
@@ -274,7 +286,7 @@ void modify(Digraph G) {
 	}
 
 	printf("\n> Qual campo deseja alterar?\n");
-	printf("\tID:\t\t\t\t[1]\n\tNome:\t\t\t\t[2]\n\tTarefa Executada:\t\t[3]\n\tDuracao:\t\t\t[4]\n\tInicio Minimo:\t\t\t[5]\n\tNumero de Pre-Requisitos:\t[6]\n\tDependencias:\t\t\t[7]\n\tSair:\t\t\t\t[-1]\n");
+	printf("\tID:\t\t\t\t[1]\n\tNome:\t\t\t\t[2]\n\tTarefa Executada:\t\t[3]\n\tDuracao:\t\t\t[4]\n\tInicio Minimo:\t\t\t[5]\n\tNumero de Pre-Requisitos:\t[6]\n\tAlterar Pre-Requisito:\t\t[7]\n\tSair:\t\t\t\t[-1]\n");
 	scanf("%d", &option);
 
 	while (option != -1) {
@@ -350,7 +362,7 @@ void modify(Digraph G) {
 			case 'S':
 			case 's':
 				printf("> Qual campo deseja alterar?\n");
-				printf("\tID:\t\t\t\t[1]\n\tNome:\t\t\t\t[2]\n\tTarefa Executada:\t\t[3]\n\tDuracao:\t\t\t[4]\n\tInicio Minimo:\t\t\t[5]\n\tNumero de Pre-Requisitos:\t[6]\n\tDependencias:\t\t\t[7]\n");
+				printf("\tID:\t\t\t\t[1]\n\tNome:\t\t\t\t[2]\n\tTarefa Executada:\t\t[3]\n\tDuracao:\t\t\t[4]\n\tInicio Minimo:\t\t\t[5]\n\tNumero de Pre-Requisitos:\t[6]\n\tAlterar Pre-Requisito:\t\t[7]\n");
 				scanf("%d", &option);
 				break;
 			case 'N':
