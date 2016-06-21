@@ -8,5 +8,11 @@
 12/06/2016 | 3h | Revisar código	| Revisão e testes de funcionamento das modificações
 12/06/2016 | 1h | CPPcheck 			| Tirando warnings utilizando cppcheck.
 12/06/2016 | 3h	| Revisar código	| Continuação da revisão dos códigos e implementação de detalhes que faltam.
-
-FALTA INCLUIR DIAS 13 E 14 (Estão em toggl.com)
+13/06/2016 | 9m | Revisar especif. 	| Leitura do roteiro
+13/06/2016 | 30m| Revisar código    | Revisão das implementações feitas para introdução de novos módulos
+13/06/2016 | 30m| Projetar			| Projeção do que será implementado a seguir.
+13/06/2016 |1,5h| Codificar módulo  | Codificação dos módulos projetados (funções de cálculo de tempo, inserção e remoção de tarefas, modifições de tarefas).
+14/06/2016 | 4h | Codificar módulo  | Continuação da codificação dos módulos.
+14/06/2016 | 15m| CPPcheck 			| Verificação com o CPPcheck e retirada de warnings.
+15/06/2016 | 15m| Revisar código    | Revisão e retirada de bugs.
+20/06/2016 | 1h | Codificar			| Codificação da função de execução.

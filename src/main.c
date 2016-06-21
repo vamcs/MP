@@ -20,7 +20,8 @@ int main(){
 
 	// DIGRAPHshow(G);
 
-	modify(G);
+	//modify(G);
+	execution(G);
 
 	DIGRAPHshow(G);
 	

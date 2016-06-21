@@ -13,8 +13,8 @@
 // #define true 1
 // #define false 0
 
-#define INFINITO 1000000000000.0f	//Valor virtualmente infinito utilizado no algoritmo de Dijkstra.
-#define maxV 20						//Valor máximo da franja da arborecência em SPT.
+//#define INFINITO 1000000000000.0f	//Valor virtualmente infinito utilizado no algoritmo de Dijkstra.
+//#define maxV 20						//Valor máximo da franja da arborecência em SPT.
 
 /*	************ALTERAÇÃO PROJETO FINAL************
 

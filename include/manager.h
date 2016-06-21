@@ -2,3 +2,4 @@
 
 void TIME(Digraph, Vertex);
 void modify(Digraph);
+void execution(Digraph);
