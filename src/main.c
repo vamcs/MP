@@ -20,10 +20,11 @@ int main(){
 
 	// DIGRAPHshow(G);
 
-	//modify(G);
-	execution(G);
+	// modify(G);
 
-	DIGRAPHshow(G);
+	execution(G, -1);
+
+	// DIGRAPHshow(G);
 	
 	printf("Salvando o grafo em output.txt...\n");
 	DIGRAPHsave(G);
