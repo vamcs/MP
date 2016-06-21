@@ -372,3 +372,29 @@ void modify(Digraph G) {
 		}
 	}
 }
+
+void execution(Digraph G) {
+	bool flag = false;
+	int ciclo = 0;
+	Vertex i;
+	while (flag == false) {
+		printf("\nCiclo Atual: %d\n", ciclo);
+		for (i = 0; i < G->V; i++) {
+			if (G->array[i]->time == ciclo && G->array[i]->exec == false) {
+				G->array[i]->exec = true;
+				flag = true;
+			}
+			else if (G->array[i]->time != ciclo && G->array[i]->exec == false) {
+				flag = false;
+			}
+		}
+		printf("Tarefas executadas:\n");
+		for (i = 0; i < G->V; i++) {
+			if (G->array[i]->exec) {
+				printf("%s\n", G->array[i]->name);
+			}
+		}
+		getchar();
+		ciclo++;
+	}
+}
