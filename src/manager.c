@@ -60,7 +60,7 @@ void TIME(Digraph G, Vertex v) {
 
 int NEWid(Digraph G, Vertex v) {
 	int new_id, i;
-	link l;
+	lista l;
 	Vertex w;
 
 	//Leitura do novo ID
@@ -272,7 +272,7 @@ void NEWreqs_id(Digraph G, Vertex v) {
 
 void modify(Digraph G) {
 	int id, option, i;
-	char sair;
+	char exit;
 	Vertex v, w;
 
 	printf("> Insira a ID da tarefa a ser modificada: ");
@@ -353,12 +353,12 @@ void modify(Digraph G) {
 		}
 
 		printf("> Continuar alterando? [s/n]\n");
-		scanf(" %c", &sair);
-		while (sair != 's' && sair != 'S' && sair != 'n' && sair != 'N') {
+		scanf(" %c", &exit);
+		while (exit != 's' && exit != 'S' && exit != 'n' && exit != 'N') {
 			printf("Opcao invalida, entre s/n: ");
-			scanf(" %c", &sair);
+			scanf(" %c", &exit);
 		}
-		switch (sair) {
+		switch (exit) {
 			case 'S':
 			case 's':
 				printf("> Qual campo deseja alterar?\n");
@@ -374,15 +374,66 @@ void modify(Digraph G) {
 }
 
 void execution(Digraph G, int end) {
-	bool flag = false;
-	int cycle = 0;
+	bool flag = false, same = true;
+	lista l1, l2;
+	int cycle = 0, j, k;
 	Vertex i;
+	int *path, *alt;
+
+	path = (int*)malloc(G->V * sizeof(int));
+	alt = (int*)malloc((2 * (G->V - 1) - 1) * sizeof(int)); //No pior caso, "alt"irá precisar de (2 * (G->V - 1) - 1) posições.
+
+	j = 0;
+	k = 0;
+
 	while (flag == false || end > -1) {
 		printf("\nCiclo Atual: %d\n", cycle);
 		for (i = 0; i < G->V; i++) {
 			if (G->array[i]->time == cycle && G->array[i]->exec == false) {
 				G->array[i]->exec = true;
 				flag = true;
+				path[j++] = G->array[i]->id;
+
+				if (i > 1) {
+					if (G->array[i]->time == G->array[i - 1]->time) {
+						same = true;
+						l1 = G->array[i]->adj;
+						l2 = G->array[i - 1]->adj;
+
+						/*Verifica se as listas de adjacência são iguais (as mesmas tarefas dependentes)*/
+						for (; l1 != NULL && same == true; l1 = l1->next) {
+							same = false;
+							for (; l2 != NULL; l2 = l2->next) {
+								if (l1->id == l2->id) {
+									same = true;
+								}
+							}
+						}
+
+						/*Se l1 for NULL e l2 não, então não são iguais.*/
+						if (l1 == NULL && l2 != NULL) {
+							same = false;
+						}
+
+						/*Salva no vetor de caminho alternativo*/
+						if (same == true) {
+							if (k > 0) {
+								if (alt[k - 1] != G->array[i - 1]->id) {
+									alt[k++] = -1;
+									alt[k++] = G->array[i - 1]->id;
+									alt[k++] = G->array[i]->id;
+								}
+								else {
+									alt[k++] = G->array[i]->id;
+								}
+							}
+							else {
+								alt[k++] = G->array[i - 1]->id;
+								alt[k++] = G->array[i]->id;
+							}
+						}
+					}
+				}
 			}
 			else if (G->array[i]->time != cycle && G->array[i]->exec == false) {
 				flag = false;
@@ -403,4 +454,50 @@ void execution(Digraph G, int end) {
 		getchar();
 		cycle++;
 	}
+
+	
+	int w = 0;
+	//Vertex v, w;
+
+	if (k > 0) {
+		printf("Caminhos de execução:");
+		for (j = 0; j < G->V; j++) {
+			if (alt[w] == path[j]) {
+				if (w == 0) {
+					printf(" (%d", path[j]);
+					w++;
+				}
+				else if (w == k - 1) {
+					printf(" ou %d)", path[j]);
+				}
+				else if (alt[w - 1] == -1) {
+					printf(" (%d", path[j]);
+					w++;
+				}
+				else if (alt[w + 1] == -1) {
+					printf(" ou %d)", path[j]);
+					w = w + 2;
+				}
+				else {
+					printf(" ou %d", path[j]);
+					w++;
+				}
+			}
+			else {
+				printf(" %d", path[j]);
+			}
+		}
+		printf("\n");
+	}
+	
+	else {
+		printf("Caminho de execução:");
+		for (j = 0; j < G->V; j++) {
+			printf(" %d", path[j]);
+		}
+		printf("\n");
+	}
+
+	free(alt);
+	free(path);
 }

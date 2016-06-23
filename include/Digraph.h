@@ -8,7 +8,7 @@
 // #define true 1
 // #define false 0
 
-typedef struct node * link;
+typedef struct node * lista;
 typedef struct vertexArray * VertexArray;
 typedef struct digraph * Digraph;
 typedef struct edge Edge;
@@ -20,7 +20,7 @@ typedef struct edge Edge;
 struct node {				/*!< Nós do tipo "node" representam os nós da lista encadeada.*/
 	Vertex w;				/*!< Posição do vértice adjacente no array de vértices, contido neste nó da lista.*/
 	int id;					/*!< Indentificador único do nó.*/
-	link next; 				/*!< próximo nó da lista de adjacência.*/
+	lista next; 				/*!< próximo nó da lista de adjacência.*/
 };
 
 /** \Brief Estrutura de dados que representa a lista de adjacências do grafo.
@@ -34,7 +34,7 @@ struct vertexArray {
 	int reqs;				/*!< Quantidade de tarefas que são pré-requisitos para que esta seja executada.*/
 	int time;				/*!< Tempo de execução da tarefa.*/
 	int* reqs_id;			/*!< Lista de identificadores para as tarefas pré-requisito.*/
-	link adj;				/*!< Lista de vértices os quais a tarefa corrent é dependente.*/
+	lista adj;				/*!< Lista de vértices os quais a tarefa corrent é dependente.*/
 };
 
 /** \Brief Estrutura de dados que representa a cabeça do grafo.
@@ -130,7 +130,7 @@ void DIGRAPHsave(Digraph);
 // bool isConnected(Digraph);
 
 /*Criação de um vértice da lista de adjacência.*/
-link NEWnode(Vertex, int, link);
+lista NEWnode(Vertex, int, lista);
 
 /*! \brief Cria uma aresta para o grafo.
  *

@@ -8,14 +8,6 @@
 //Definição do tipo das variáveis de endereçamento dos vértices (int).
 #define Vertex int
 
-//Definição do tipo booleano utilizado para comparações.
-// #define bool int
-// #define true 1
-// #define false 0
-
-//#define INFINITO 1000000000000.0f	//Valor virtualmente infinito utilizado no algoritmo de Dijkstra.
-//#define maxV 20						//Valor máximo da franja da arborecência em SPT.
-
 /*	************ALTERAÇÃO PROJETO FINAL************
 
 	** DIGRAPHinit ** (Inicialização do Digrafo)
@@ -26,7 +18,7 @@
 	po origem.
 	
 	O digrafo definido aqui é composto de um array de listas de adjacência do tipo VertexArray e 
-	em cada um de seus nós foi definida uma lista de adjacência do tipo link. Além disso, é veri-
+	em cada um de seus nós foi definida uma lista de adjacência do tipo lista. Além disso, é veri-
 	ficado caso o arquivo exista, se não será requisitado do usuário a entrada de um arquivo vá-
 	lido.
 	
@@ -49,10 +41,8 @@
 */
 Digraph DIGRAPHinit(char* file) {
 	Vertex v = 0, w;
-	int V = 1, i, dep;
-	//char string[100], origem[100], dest[100];
+	int V = 1, i, dep, exec;
 	char aux;
-	//float weight;
 	
 	//Declaração e inicialização do digrafo.
 	Digraph G = (Digraph)malloc(sizeof *G);
@@ -91,7 +81,9 @@ Digraph DIGRAPHinit(char* file) {
 	v = 0;
 	do {
 		fscanf(fp, "%d %*c %100[^']'", &G->array[v]->id, G->array[v]->name);
-		fscanf(fp, "%d %d %d %d", &G->array[v]->exec, &G->array[v]->duration, &G->array[v]->min_start, &G->array[v]->reqs);
+		fscanf(fp, "%d %d %d %d", &exec, &G->array[v]->duration, &G->array[v]->min_start, &G->array[v]->reqs);
+
+		G->array[v]->exec = exec;	//Evitar warning de incompatibilidade int/bool;
 
 		if (G->array[v]->reqs > 0) {
 			G->array[v]->reqs_id = (int*)malloc(G->array[v]->reqs * sizeof(int));
@@ -163,7 +155,7 @@ void DIGRAPHinsertE(Digraph G, Edge e) {
 	
 	Utilização da função:
 	
-	link l = NEWnode(w, weight, l);
+	lista l = NEWnode(w, weight, l);
 	
 	A função então cria um nó e o aponta para 'l':
 		new_node --> l
@@ -172,11 +164,11 @@ void DIGRAPHinsertE(Digraph G, Edge e) {
 	de adjacências irá apontar, weight do tipo float que contém o peso da aresta criada e nó de
 	origem da lista de adjacência, já que novos nós são adicionados ao início.
 	
-	- Retorno da função: novo ponteiro do tipo link ao nó criado.
+	- Retorno da função: novo ponteiro do tipo lista ao nó criado.
 */
-link NEWnode(Vertex w, int id, link next) {
-	link a;
-	a = (link)malloc(sizeof (struct node));
+lista NEWnode(Vertex w, int id, lista next) {
+	lista a;
+	a = (lista)malloc(sizeof (struct node));
 	a->w = w;
 	a->id = id;
 	a->next = next;
@@ -219,7 +211,7 @@ link NEWnode(Vertex w, int id, link next) {
 */
 void DIGRAPHremoveE(Digraph G, Edge e) {
 	Vertex v = e.v, w = e.w;
-	link current, prev;
+	lista current, prev;
 	if(DIGRAPHadj(G, v, w)) {
 		for (current = G->array[v]->adj; current != NULL && current->w != w; current = current->next);	//Encontra o nó a ser removido
 		if(G->array[v]->adj != current) {																//Caso este nó não seja o primeiro da lista
@@ -412,8 +404,8 @@ void DIGRAPHremoveV(Digraph G, int id) {
 	
 	Vertex w;
 	int i , j;
-	link temp = G->array[v]->adj;
-	link l = G->array[v]->adj;
+	lista temp = G->array[v]->adj;
+	lista l = G->array[v]->adj;
 	VertexArray temp_array = G->array[v];
 
 	//Remover referências ao vértice
@@ -525,34 +517,12 @@ Edge EDGE(Vertex v, Vertex w, int id) {
 	- Retorno da função: true (1) caso a aresta exista, false (0) caso contrário.
 */
 bool DIGRAPHadj(Digraph G, Vertex v, Vertex w) {
-	link x;
+	lista x;
 	for (x = G->array[v]->adj; x != NULL; x = x->next)
 		if(x->w == w)
 			return true;
 	return false;
 }
-
-/*	************ALTERAÇÃO PROJETO FINAL************
-	*****************NÃO UTILIZADA*****************
-
-	Função auxiliar que remove a vírgula das strings lidas do arquivo.
-	
-	Utilização da função:
-	
-	removeComma(teste);
-	
-	Sendo teste = "teste,", a função modifica a string para "teste".
-	
-	- Paramêtros da função: vetor de caracteres (string).
-	
-	- Retorno da função: void.
-*/
-// void removeComma(char* string) {
-// 	int i;
-// 	for (i = 0; string[i] != '\0' && i < 100; i++) {
-// 		if(string[i] == ',') string[i] = '\0';		//Remove a vírgula substituindo por fim de string.
-// 	}
-// }
 
 /*	************ALTERAÇÃO PROJETO FINAL************
 
@@ -562,7 +532,7 @@ bool DIGRAPHadj(Digraph G, Vertex v, Vertex w) {
 	
 	Utilização da função:
 	
-	DIGRAPHdestro(G);
+	DIGRAPHdestroy(G);
 	
 	Desloca toda memória alocada ao digrafo G.
 	
@@ -572,7 +542,7 @@ bool DIGRAPHadj(Digraph G, Vertex v, Vertex w) {
 */
 void DIGRAPHdestroy(Digraph G) {
 	int v;
-	link temp, l;
+	lista temp, l;
 	
 	//Desalocar listas encadeadas
 	for (v = 0; v < G->V; v++) {
@@ -625,7 +595,7 @@ void DIGRAPHdestroy(Digraph G) {
 	- Retorno da função: void.
 */
 void DIGRAPHshow(Digraph G) {
-	link l;
+	lista l;
 	Vertex v;
 	int i;
 	
