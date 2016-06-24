@@ -4,12 +4,18 @@
 
 int main(){
 
-	Digraph G = DIGRAPHinit("./supporting_files/input.txt");
+	bool (*nameCheck)(Digraph, char*, int);
+	nameCheck = NAMEcheck;
+
+	bool (*inputCheck)(int);
+	inputCheck = INPUTcheck;
+
+	Digraph G = DIGRAPHinit("./supporting_files/input.txt", inputCheck, nameCheck);
 
 	DIGRAPHshow(G);
 
 	// printf("Inserindo uma tarefa nova:\n");
-	// DIGRAPHinsertV(G);
+	// DIGRAPHinsertV(G, inputCheck, nameCheck);
 
 	// DIGRAPHshow(G);
 
@@ -22,9 +28,9 @@ int main(){
 
 	// modify(G);
 
-	execution(G, -1);
-
 	// DIGRAPHshow(G);
+
+	execution(G, -1);
 	
 	printf("Salvando o grafo em output.txt...\n");
 	DIGRAPHsave(G);
