@@ -12,7 +12,7 @@ Digraph DIGRAPHinit()
 {
 	Vertex 	v = 0, 
 			w;
-	int V = 1, 
+	int V = 0, 
 		i, 
 		id,
 		exec,
@@ -32,12 +32,12 @@ Digraph DIGRAPHinit()
 	G->array = (VertexArray*)malloc(V * sizeof(VertexArray));
 	assert(G->array);
 
-	for (v = 0; v < V; v++) {
-		G->array[v] 		= (struct vertexArray*)malloc(sizeof(struct vertexArray));
-		assert(G->array[v]);
-	}
+	// for (v = 0; v < V; v++) {
+	// 	G->array[v] 		= (struct vertexArray*)malloc(sizeof(struct vertexArray));
+	// 	assert(G->array[v]);
+	// }
 
-	G->V = V;
+	G->V = v;
 	G->E = 0;
 
 	return G;
@@ -57,7 +57,7 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 		return DigraphInvalidVertexMinStartError;
 	}
 
-	if ((!inputCheck(w->reqs)) || (w->reqs >= G->V))  {
+	if ((!inputCheck(w->reqs)) || (w->reqs > G->V))  {
 		return DigraphInvalidVertexReqsError;
 	} 
 	if(w->reqs == 0){
@@ -596,6 +596,11 @@ void DIGRAPHshow(Digraph G)
 Vertex VERTEXreturn(Digraph G, int id)
 {
 	Vertex v = 0;
+	
+	if(G->V == 0){
+		return -1;
+	}
+
 	while (G->array[v]->id != id && v < G->V - 1) 
 	{
 		v++;
