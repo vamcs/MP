@@ -4,26 +4,22 @@
 /*Declaração dos tipos utilizados*/
 #define Vertex int
 
-// #define bool int
-// #define true 1
-// #define false 0
-
-typedef struct node * link;
+typedef struct node * LinkedList;
 typedef struct vertexArray * VertexArray;
 typedef struct digraph * Digraph;
 typedef struct edge Edge;
 
 /*Estruturas do digrafo*/
 
-/** \Brief Estrutura de dados que representa um nó da lista encadeada.
+/*! \Brief Estrutura de dados que representa um nó da LinkedList encadeada.
  */
-struct node {				/*!< Nós do tipo "node" representam os nós da lista encadeada.*/
-	Vertex w;				/*!< Posição do vértice adjacente no array de vértices, contido neste nó da lista.*/
+struct node {				/*!< Nós do tipo "node" representam os nós da LinkedList encadeada.*/
+	Vertex w;				/*!< Posição do vértice adjacente no array de vértices, contido neste nó da LinkedList.*/
 	int id;					/*!< Indentificador único do nó.*/
-	link next; 				/*!< próximo nó da lista de adjacência.*/
+	LinkedList next; 				/*!< próximo nó da LinkedList de adjacência.*/
 };
 
-/** \Brief Estrutura de dados que representa a lista de adjacências do grafo.
+/*! \Brief Estrutura de dados que representa a LinkedList de adjacências do grafo.
  */
 struct vertexArray {
 	int id;					/*!< Identificador único do vértice.*/
@@ -34,18 +30,18 @@ struct vertexArray {
 	int reqs;				/*!< Quantidade de tarefas que são pré-requisitos para que esta seja executada.*/
 	int time;				/*!< Tempo de execução da tarefa.*/
 	int* reqs_id;			/*!< Lista de identificadores para as tarefas pré-requisito.*/
-	link adj;				/*!< Lista de vértices os quais a tarefa corrent é dependente.*/
+	LinkedList adj;				/*!< Lista de vértices os quais a tarefa corrent é dependente.*/
 };
 
-/** \Brief Estrutura de dados que representa a cabeça do grafo.
+/*! \Brief Estrutura de dados que representa a cabeça do grafo.
  */
 struct digraph {
 	int V;					/*!< Quantidade de vértices no grafo.*/
 	int E;					/*!< Quantidade de arestas no grafo.*/
-	VertexArray * array;	/*!< Ponteiro para o vetor de listas de adjacências.*/
+	VertexArray * array;	/*!< Ponteiro para o vetor de LinkedLists de adjacências.*/
 };
 
-/** \Brief Estrutura de dados que representa uma aresta do grafo.
+/*! \Brief Estrutura de dados que representa uma aresta do grafo.
  */
 struct edge {				//Define uma aresta (edge) v -> w.
 	Vertex v;               /*!< Vértice de origem.*/
@@ -53,7 +49,7 @@ struct edge {				//Define uma aresta (edge) v -> w.
 	int id;					/*!< Identificador da aresta*/
 };
 
-/** \brief Inicialização do Digrafo
+/*! \Brief Inicialização do Digrafo
  *
  *  Detailed Constrói e retorna um digrafo com vértices 0 ... V-1 e todas arestas definidas no arquivo txt
  *	passado à função.
@@ -61,9 +57,9 @@ struct edge {				//Define uma aresta (edge) v -> w.
  *  \param file Nome do arquivo de definições do grafo.
  *  \return Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado.
  */
-Digraph DIGRAPHinit(char* file);
+Digraph DIGRAPHinit(char*, bool(*input)(int), bool(*name)(Digraph, char*, int));
 
-/*! \brief Insere uma aresta no grafo.
+/*! \Brief Insere uma aresta no grafo.
  *
  *  Detailed Insere um arco v-w contido na struct Edge 'e' no digrafo 'G'.
  *
@@ -71,9 +67,9 @@ Digraph DIGRAPHinit(char* file);
  *  \param e Aresta a ser inserida no grafo 'G'
  *  \return
  */
-void DIGRAPHinsertE(Digraph G, Edge e);
+void DIGRAPHinsertE(Digraph, Edge);
 
-/*! \brief Remove uma aresta no grafo.
+/*! \Brief Remove uma aresta no grafo.
  *
  *  Detailed Remove um arco v-w contido na struct Edge 'e' no digrafo 'G'.
  *
@@ -81,23 +77,23 @@ void DIGRAPHinsertE(Digraph G, Edge e);
  *  \param e Aresta a ser removida no grafo 'G'
  *  \return
  */
-void DIGRAPHremoveE(Digraph G, Edge e);
+void DIGRAPHremoveE(Digraph, Edge);
 
-/*! \brief Insere um vértice no grafo.
+/*! \Brief Insere um vértice no grafo.
  *
  *  \param G Grafo onde será inserido o vértice.
  *  \return
  */
-void DIGRAPHinsertV(Digraph G);
+void DIGRAPHinsertV(Digraph, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int));
 
-/*! \brief Remove um vértice no grafo.
+/*! \Brief Remove um vértice no grafo.
  *
  *  \param G Grafo onde será removido o vértice.
  *  \return
  */
 void DIGRAPHremoveV(Digraph, int);
 
-/*! \brief Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um
+/*! \Brief Esta função faz a verificação da existência de uma aresta checando a LinkedList de adjacência de um
  *  vértice do digrafo G.
  *
  *  \param G Grafo onde será verificada a existência da aresta.
@@ -105,12 +101,12 @@ void DIGRAPHremoveV(Digraph, int);
  *  \param w Vértice de destino.
  *  \return Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado.
  */
-bool DIGRAPHadj(Digraph G, Vertex v, Vertex w);
+bool DIGRAPHadj(Digraph, Vertex, Vertex);
 
-/*! \brief Desaloca um grafo.
+/*! \Brief Desaloca um grafo.
  *
  *  Detailed Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices,
- *  além de cada um dos nós das listas de adjacências de cada um destes vértices.
+ *  além de cada um dos nós das LinkedLists de adjacências de cada um destes vértices.
  *
  *  \param G Grafo onde será verificada a existência da aresta.
  *  \param v Vértice de origem.
@@ -123,16 +119,10 @@ void DIGRAPHdestroy(Digraph);
 void DIGRAPHshow(Digraph);
 void DIGRAPHsave(Digraph);
 
-/*Funções e algoritmos de busca. SPT de Dijkstra é utilizada.*/
-// float FindPath(Digraph, char*, char*);
-// void SPT(Digraph, Vertex, Vertex*, float*);
-// void initialize(Digraph, Vertex, Vertex*, float*, Vertex*);
-// bool isConnected(Digraph);
+/*Criação de um vértice da LinkedList de adjacência.*/
+LinkedList NEWnode(Vertex, int, LinkedList);
 
-/*Criação de um vértice da lista de adjacência.*/
-link NEWnode(Vertex, int, link);
-
-/*! \brief Cria uma aresta para o grafo.
+/*! \Brief Cria uma aresta para o grafo.
  *
  *  Detailed Esta fun ção simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas-
  *	sados a outra função que as utilizará de acordo com o que for implementado.
@@ -142,7 +132,7 @@ link NEWnode(Vertex, int, link);
  *  \param id Identificador da Aresta.
  *  \return Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado.
  */
-Edge EDGE(Vertex v, Vertex w, int id);
+Edge EDGE(Vertex, Vertex, int);
 
 /*Funções auxiliares de busca de índice do vértice e remoção de vírgulas da string.*/
 int VERTEXreturn(Digraph, int);
@@ -150,3 +140,6 @@ int VERTEXreturn(Digraph, int);
 
 
 int FINDreqs_id(int*, int, int);
+
+bool INPUTcheck(int);
+bool NAMEcheck(Digraph, char*, int);
