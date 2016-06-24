@@ -3,3 +3,6 @@
 13/06/2016 | 5h | Doxygen		| Criação de toda documentação do arquivo Digraph.h
 13/06/2016 | 2h | Revisão		| Revisão de código implementado
 14/06/2016 | 3h | Makefile		| Criação de Makefile único para compilação de diferentes targets.
+22/06/2016 | 5h | Makefile		| Ajuste do Makefile pra corrigir a compilação e organizar melhor a estrutura do projeto.
+23/06/2016 | 5h | Melhoria de código 	| Melhor modularização de código para facilitar os testes
+24/06/2016 | 10h | Testes		| Produção de testes para o projeto

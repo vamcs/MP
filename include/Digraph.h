@@ -1,3 +1,7 @@
+#ifndef DIGRAPH_H
+#define DIGRAPH_H
+#endif
+
 /*Cabeçalho de Definições do Grafo*/
 #include <stdbool.h>
 
@@ -16,8 +20,11 @@ enum DigraphErrors{
     DigraphEdgeAlreadyExistsError = -3,
     DigraphOriginEqualDestinyError = -4,
     DigraphInvalidEdgeIDError = -5,
-    DigraphInvalidVertexID = -6,
+    DigraphInvalidVertexIDError = -6,
     DigaphVertexAlreadyExistError = -7,
+    DigraphInvalidVertexDurationError = -8,
+    DigraphInvalidVertexMinStartError = -9,
+    DigraphInvalidVertexReqsError = -9,
 };
 
 
@@ -69,7 +76,7 @@ struct edge {				//Define uma aresta (edge) v -> w.
  *  \param file Nome do arquivo de definições do grafo.
  *  \return Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado.
  */
-Digraph DIGRAPHinit(char*, bool(*input)(int), bool(*name)(Digraph, char*, int));
+Digraph DIGRAPHinit();
 
 /*! \Brief Insere uma aresta no grafo.
  *
@@ -96,7 +103,7 @@ void DIGRAPHremoveE(Digraph, Edge);
  *  \param G Grafo onde será inserido o vértice.
  *  \return
  */
-void DIGRAPHinsertV(Digraph, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int));
+int DIGRAPHinsertV(Digraph, VertexArray w, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int));
 
 /*! \Brief Remove um vértice no grafo.
  *
@@ -149,7 +156,7 @@ Edge EDGE(Vertex, Vertex, int);
 /*Funções auxiliares de busca de índice do vértice e remoção de vírgulas da string.*/
 int VERTEXreturn(Digraph, int);
 //void removeComma(char*);
-
+VertexArray cnvInputStrToVertex(char* str);
 
 int FINDreqs_id(int*, int, int);
 

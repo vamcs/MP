@@ -1,3 +1,7 @@
+#ifndef MANAGER_H
+#define MANAGER_H
+#endif
+
 /*Cabeçalho de Definições do Gerenciador de Tarefas*/
 
 /*!	\Brief Calcula o tempo de execução de uma tarefa

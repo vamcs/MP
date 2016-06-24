@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "../include/Digraph.h"
 #include "../include/manager.h"
+#include "../include/fileReader.h"
 
 int main(){
 
@@ -9,8 +10,16 @@ int main(){
 
 	bool (*inputCheck)(int);
 	inputCheck = INPUTcheck;
+	FILE* fp = fopen("./supporting_files/input.txt","r");
 
-	Digraph G = DIGRAPHinit("./supporting_files/input.txt", inputCheck, nameCheck);
+	Digraph G = DIGRAPHinit();
+	
+	while (!feof(fp)) {
+		char* vertexSTR = readFileLine(fp);
+		VertexArray V = cnvInputStrToVertex(vertexSTR);
+		printf("%d",DIGRAPHinsertV(G, V, inputCheck, nameCheck));
+	
+	}
 
 	DIGRAPHshow(G);
 
