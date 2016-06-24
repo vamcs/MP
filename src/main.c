@@ -2,6 +2,7 @@
 #include "../include/Digraph.h"
 #include "../include/manager.h"
 #include "../include/fileReader.h"
+#include "../include/GUI.h"
 
 int main(){
 
@@ -21,7 +22,9 @@ int main(){
 	
 	}
 
-	DIGRAPHshow(G);
+	GUI(G);
+
+	//DIGRAPHshow(G);
 
 	// printf("Inserindo uma tarefa nova:\n");
 	// DIGRAPHinsertV(G, inputCheck, nameCheck);

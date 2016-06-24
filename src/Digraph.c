@@ -300,7 +300,6 @@ void DIGRAPHremoveE(Digraph G, Edge e)
 }
 
 
-
 /*	************ALTERAÇÃO PROJETO FINAL************
 
 	Como nesta implementação foi criado um array de vértices em vez de uma LinkedList encadeada, algumas
