@@ -20,11 +20,11 @@ SRC_DIR = src
 
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
-CXXFLAGS += -g -Wall -Wextra -pthread
+CXXFLAGS += -g -Wall -Wextra
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = Test_Digraph_gtest
+TESTS = Digraph_Test
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -65,23 +65,23 @@ gtest_main.a : gtest-all.o gtest_main.o
 # Builds a sample test.  A test should link with either gtest.a or
 # gtest_main.a, depending on whether it defines its own main()
 # function.
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
 CFLAGS = -g -Wall
 
 $(EXEC): $(OBJS)
-	$(CC) -o $@ $^
+	$(CXX) -o $@ $^
 
-$(OBJDIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCL) -c $< -o $@
+$(OBJDIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) $(INCL) -c $< -o $@
 
-Digraph.o : $(SRC_DIR)/Digraph.c $(INCLUDE_DIR)/Digraph.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(SRC_DIR)/Digraph.c
 
-Test_Digraph_gtest.o : $(TEST_DIR)/Test_Digraph_gtest.cpp \
-                     $(INCLUDE_DIR)/Digraph.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(TEST_DIR)/Test_Digraph_gtest.cpp
+SRCSTEST = $(wildcard $(TEST_DIR)/*.cpp)
+OBJSTEST = $(patsubst $(TEST_DIR)/%.cpp,test_obj/%.o, $(SRCSTEST))
 
-Test_Digraph_gtest : Digraph.o Test_Digraph_gtest.o gtest_main.a
+TESTE: ./obj/Digraph.o ./obj/manager.o $(OBJSTEST) gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+test_obj/%.o: $(TEST_DIR)/%.cpp $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
