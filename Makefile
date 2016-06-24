@@ -65,16 +65,16 @@ gtest_main.a : gtest-all.o gtest_main.o
 # Builds a sample test.  A test should link with either gtest.a or
 # gtest_main.a, depending on whether it defines its own main()
 # function.
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 
 CFLAGS = -g -Wall
 
 $(EXEC): $(OBJS)
-	$(CXX) -o $@ $^
+	$(CC) -o $@ $^
 
-$(OBJDIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $(INCL) -c $< -o $@
+$(OBJDIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) $(CCFLAGS) $(INCL) -c $< -o $@
 
 
 SRCSTEST = $(wildcard $(TEST_DIR)/*.cpp)

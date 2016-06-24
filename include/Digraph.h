@@ -9,6 +9,18 @@ typedef struct vertexArray * VertexArray;
 typedef struct digraph * Digraph;
 typedef struct edge Edge;
 
+
+enum DigraphErrors{
+    DigraphInvalidStringError = -1,
+    DigraphInvalidDependenceOnFileError = -2,
+    DigraphEdgeAlreadyExistsError = -3,
+    DigraphOriginEqualDestinyError = -4,
+    DigraphInvalidEdgeIDError = -5,
+    DigraphInvalidVertexID = -6,
+    DigaphVertexAlreadyExistError = -7,
+};
+
+
 /*Estruturas do digrafo*/
 
 /*! \Brief Estrutura de dados que representa um nó da LinkedList encadeada.
