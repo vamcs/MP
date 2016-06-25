@@ -59,7 +59,7 @@ TEST(InsertVertex_Test, InsertVertex_Duration_Error){
     w->exec = 1;
     w->duration = 0;
     w->min_start = 0;
-    w->reqs = 1;
+    w->reqs = 0;
 
 	int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
 	EXPECT_EQ(ret, DigraphInvalidVertexDurationError);
@@ -102,7 +102,7 @@ TEST(InsertVertex_Test, InsertVertex_Req_Error){
     w->exec = 1;
     w->duration = 1;
     w->min_start = 0;
-    w->reqs = 0;
+    w->reqs = 1;
     w->reqs_id = NULL;
     w->reqs_id = (int*)malloc(1*sizeof(int));
     w->reqs_id[0] = 1;
