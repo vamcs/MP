@@ -1,24 +1,11 @@
 #include "../include/fileReader.h"
 
-int numberOfLinesOnFile(FILE* fp) {
-	int count = 0;
-	char aux;
-	if(fp == NULL){
-		return FileReaderCannotOpenFileError;
-	}
-
-	while(!feof(fp)) 
-	{
-		aux = fgetc(fp);
-		if (aux == '\n') 
-		{
-			count++;
-		}
-	}
-
-	return count;
-}
 char* readFileLine(FILE* fp){
+
+    if (fp == NULL) {
+        return NULL;
+    }
+
 	char* str = (char*)malloc(1000*sizeof(char));
 	fscanf (fp, "%1000[^\n]", str);
 	fgetc(fp);

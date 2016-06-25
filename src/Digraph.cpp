@@ -387,7 +387,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 
 	if (v == -1)
 	{
-		return -1;
+		return DigraphInvalidEdgeIDError;
 	} /*if*/
 	
 	Vertex w;

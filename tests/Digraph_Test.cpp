@@ -194,7 +194,6 @@ TEST(RemoveVertex_Test, RemoveVertex_Success){
 
 TEST(RemoveVertex_Test, RemoveVertex_Error){
     Digraph digraph = DIGRAPHinit();
-
     int ret = DIGRAPHremoveV(digraph, 0);
     EXPECT_EQ(ret, DigraphInvalidEdgeIDError);
     DIGRAPHdestroy(digraph);
@@ -262,6 +261,7 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Success){\
     EXPECT_EQ(v->duration,2);
     EXPECT_EQ(v->min_start,0);
     EXPECT_EQ(v->reqs,0);
+    free(str);
 }
 
 TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error){
