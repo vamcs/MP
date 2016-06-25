@@ -71,10 +71,10 @@ OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 CFLAGS = -g -Wall
 
 $(EXEC): $(OBJS)
-	$(CC) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CCFLAGS) $(INCL) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCL) -c $< -o $@
 
 
 SRCSTEST = $(wildcard $(TEST_DIR)/*.cpp)

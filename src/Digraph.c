@@ -10,18 +10,18 @@
 
 Digraph DIGRAPHinit()
 {
-	Vertex 	v = 0, 
-			w;
-	int V = 0, 
-		i, 
-		id,
-		exec,
-		duration,
-		min_start,
-		reqs,
-		dep;
-	char 	name[100], 
-			aux;
+	Vertex 	v = 0; 
+	//		w;
+	int V = 0; 
+	// 	i, 
+	// 	id,
+	// 	exec,
+	// 	duration,
+	// 	min_start,
+	// 	reqs,
+	// 	dep;
+	// char 	name[100], 
+			// aux;
 	
 	/*Declaração e inicialização do digrafo.*/
 	Digraph G = (Digraph)malloc(sizeof *G);
@@ -81,7 +81,7 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 
 	for (i = 0; i < w->reqs; i++) {
 		Vertex k = VERTEXreturn(G, w->reqs_id[i]);
-		DIGRAPHinsertE(G, EDGE(G->V - 1, G->V - 1, w->id));
+		DIGRAPHinsertE(G, EDGE(k, G->V - 1, w->id));
 	}
 
 	G->array[G->V - 1]->adj = NULL;
@@ -92,7 +92,7 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 }
 
 VertexArray cnvInputStrToVertex(char* str){
-	VertexArray w;
+	VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
 	printf("%s\n",str);
 	char* resp = strtok(str, "\'");
     int i=0;
@@ -149,6 +149,10 @@ VertexArray cnvInputStrToVertex(char* str){
  				w->reqs_id[k] = strtol (resp,NULL,0);
  			}
     	}
+    	else {
+    		w->reqs_id = NULL;
+    	}
+    	free(str);
     	return w;
 }
 

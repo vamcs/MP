@@ -39,6 +39,8 @@ int main(){
 
 	// DIGRAPHshow(G);
 
+	fclose(fp);
+
 	execution(G, -1);
 	
 	printf("Salvando o grafo em output.txt...\n");
