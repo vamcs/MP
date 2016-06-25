@@ -96,16 +96,17 @@ VertexArray cnvInputStrToVertex(char* str){
 	//printf("%s\n",str);
 	char* resp = strtok(str, "\'");
     int i=0;
-	for(i = 0; i < 6; i++) { 
+    char* ch;
+    int j =0;
+	for(i = 0; i < 6; i++) {
     	switch(i){
-    		char* ch;
     		case 0:
     			w->id = strtol (resp,NULL,0);
     			//printf("(w->id = %d)\n",w->id);
     			break;
     		case 1:
     			ch = resp;
-    			int j =0;
+
     			for(j =0; j<sizeof(w->name); j++){
     				if(*ch == '\''){
     					w->name[j] = '\0';

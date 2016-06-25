@@ -4,8 +4,7 @@
 using namespace std;
 
 TEST(DigraphInit_Test, Initialize_Digraph){
-	char filePath[] = "./supporting_files/input.txt";
-	Digraph digraph = DIGRAPHinit(filePath);
+	Digraph digraph = DIGRAPHinit();
 	EXPECT_TRUE(digraph);
 	DIGRAPHdestroy(digraph);
 }
