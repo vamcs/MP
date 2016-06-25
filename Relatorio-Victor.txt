@@ -17,6 +17,17 @@
 15/06/2016 | 15m| Revisar código    | Revisão e retirada de bugs.
 20/06/2016 | 1h | Codificar			| Codificação da função de execução.
 20/06/2016 | 40m| Revisar especif.	| Revisão das especificações e anotações de tudo que falta a se feito.
-
+22/06/2016 | 1h | Estudar			| Revisão dos tipos de comentário e regras de codificação
+22/06/2016 | 15m| Revisar código 	| Revisão do código do módulo
+22/06/2016 |3h20| Codificar módulo 	| Codificação dos módulos de execução de tarefas
+23/06/2016 | 1h	| Estudar 			| Revisão de mais tópicos das aulas.
+23/06/2016 | 25m| Revisar código 	| Revisão e retirada de bugs
+23/06/2016 |4h33| Revisar código 	| Revisão de código e consertos de erros na função de computação de caminho mínimo.
+24/06/2016 |1h35| Revisar código 	| Revisão de um código no geral, inserção de comentários e busca por erros.
+24/06/2016 |12h19| Codificar 		| Codificação e integração do NCurses ao código.
+25/06/2016 |2h27| Codificar			| Finalização do NCurses e de todo projeto.
+25/06/2016 |5h33| Revisar			| Comentários e assertivas em todo o código.
 25/06/2016 | 15m| CPPcheck 			| Retirada final de warnings.
 25/06/2016 | 5m | GCOV				| Habilitação do GCOV
+
+Total: 67h36min
