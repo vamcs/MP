@@ -260,7 +260,6 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Success){\
     EXPECT_EQ(v->duration,2);
     EXPECT_EQ(v->min_start,0);
     EXPECT_EQ(v->reqs,0);
-    free(str);
 }
 
 TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error){
@@ -282,7 +281,6 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error3){
     strcpy(str,"100 'TR 0' 0");
     VertexArray v = cnvInputStrToVertex(str);
     EXPECT_EQ(v,nullptr);
-    free(str);
 }
 
 TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error4){
@@ -290,7 +288,6 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error4){
     strcpy(str,"100 'TR 0' 0 2");
     VertexArray v = cnvInputStrToVertex(str);
     EXPECT_EQ(v,nullptr);
-    free(str);
 }
 
 TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error5){
@@ -298,5 +295,4 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error5){
     strcpy(str,"100 'TR 0' 0 2 0");
     VertexArray v = cnvInputStrToVertex(str);
     EXPECT_EQ(v,nullptr);
-    free(str);
 }
