@@ -135,9 +135,11 @@ VertexArray cnvInputStrToVertex(char* str){
     		default:
     			break;
     		}
-    		if(i != 5){
-    			resp = strtok (NULL, " "); 
-    		}
+    		if(i == 0){
+                resp = strtok(NULL, "\'");
+            }else if(i != 5){
+    		  resp = strtok (NULL, " "); 
+    	   }
     	}
     	//printf("%s\n",str);
     	if(w->reqs > 0){
