@@ -1,3 +1,6 @@
+#ifndef GUI_H
+#define GUI_H
+#endif
 /*Cabeçalho de Definições da Interface Gráfica.*/
 
 /*!	\Brief Interface gráfica do ambiente de execução de tarefas.
@@ -7,57 +10,43 @@
 *	no digrafo G, por inserir, deletar e modificar tarefas, e executar as tarefas até um determinado ciclo ou
 *	até que todas sejam executadas.
 *
-*	Função servidora: TIME() e dependências em manager.cpp.
-*	Função cliente: GUI().
-*
 *	Assertivas de Entrada:
-*	WINDOW* win - ponteiro que contém uma janela ncurses y = 30, x = 50.
 *	Digraph G 	- é o digrafo que contém todas as tarefas.
-*	int id 		- id da tarefa a ser modificada.
-*	int choice 	- escolha de qual modificação será executada. A função modification_window é responsável por este valor.
 *	
 *	Assertivas de Saída:
-*	Imprime na janela win informações e os valores alterados, além de efetuar todas as modificações no digrafo descritas e
-*	detalhadas na descrição de cada uma das funções em manager.cpp.
+*	Ambiente de execução e tela em NCurses.
+*	São impressos na tela:
+*		- Tela principal.
+*		- Janela do ambiente de execução.
+*		- Janela de inserção de nova tarefa.
+*		- Janela de deleção de uma tarefa.
+*		- Janela de modificação de uma tarefa.
+*		- Opções de execução de tarefas.
+*		- Informação sobre o ciclo atual e caminhos de execução.
 *
 *	Todo input é verificado antes de ser atualizado.
 *
-*	\param WINDOW* win
 *	\param Digraph G 
-*	\param int id
-*	\param int choice
 *	\return
 */
 void GUI(Digraph);
 
-/*!	\Brief Menu que dá opções para alterar os campos da tarefa.
+/*!	\Brief Função de Impressão das Tarefas no Ambiente de Execução.
 *
-*	Detailed A função modify recebe uma ID tratada e entrada pelo usuário e oferece opções de modificação
-*	de cada um dos campos da tarefa. Sendo estes ID, nome, exec, duração, início mínimo, número de pré-re-
-*	quisitos e os pré-requisitos em si, caso existam. Após maior parte das modificações, tratamentos da
-*	estrutura do digrafo devem ser feitos como alterar, adicionar ou remover arestas ou realocar o array 
-*	de pré-requisitos. Além disso, caso seja necessário, o tempo de execução das tarefas será recalculado
-*	caso for necessário. A função imprime diretamente na tela "modification_window" da GUI.
+*	Detailed Esta função imprime todos os campos da tarefas no ambiente de execução, assim como o tempo de execução
+*	de cada tarefa.
 *
-*	Função servidora: TIME() e dependências em manager.cpp.
+*	Função servidora: modify() e GUI().
 *	Função cliente: GUI().
 *
 *	Assertivas de Entrada:
-*	WINDOW* win - ponteiro que contém uma janela ncurses y = 30, x = 50.
 *	Digraph G 	- é o digrafo que contém todas as tarefas.
-*	int id 		- id da tarefa a ser modificada.
-*	int choice 	- escolha de qual modificação será executada. A função modification_window é responsável por este valor.
 *	
 *	Assertivas de Saída:
-*	Imprime na janela win informações e os valores alterados, além de efetuar todas as modificações no digrafo descritas e
-*	detalhadas na descrição de cada uma das funções em manager.cpp.
+*	Imprime na janela execution_environment todos os campos do digrafo, assim como o tempo de execução. Caso uma tarefa
+*	já tenha sido executada, imprime a tarefa em azul.
 *
-*	Todo input é verificado antes de ser atualizado.
-*
-*	\param WINDOW* win
 *	\param Digraph G 
-*	\param int id
-*	\param int choice
 *	\return
 */
 void print_instructions(Digraph G);
