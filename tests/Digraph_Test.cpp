@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "gtest/gtest.h"
 #include "../include/Digraph.h"
 
@@ -269,7 +268,6 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error){
     strcpy(str,"100");
     VertexArray v = cnvInputStrToVertex(str);
     EXPECT_EQ(v,nullptr);
-    free(str);
 }
 
 TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error2){
@@ -277,7 +275,6 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error2){
     strcpy(str,"100 'TR 0'");
     VertexArray v = cnvInputStrToVertex(str);
     EXPECT_EQ(v,nullptr);
-    free(str);
 }
 
 TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error3){

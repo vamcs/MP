@@ -436,7 +436,11 @@ int DIGRAPHremoveV(Digraph G, int id)
 	G->V--;
 	free(temp_array);
 	G->array = (VertexArray*)realloc(G->array, G->V * sizeof(VertexArray));
-	assert(G->array);
+	if(G->V == 0) {
+        assert(G->array == nullptr);
+    } else {
+	    assert(G->array);
+    }
 
 	/*Caso o vértice removido não tiver sido o último do vetor, é necessário corrigir os índices
 	  dos nós das LinkedLists de adjacência.*/
