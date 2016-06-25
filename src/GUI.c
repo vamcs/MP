@@ -1,5 +1,8 @@
 #include <ncurses.h>
+#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+#include <assert.h>
 #include "../include/Digraph.h"
 #include "../include/GUI.h"
 
@@ -133,7 +136,7 @@ void print_modification(WINDOW* win, int highlight)
 	wrefresh(win);
 }
 
-void insertion_window(Digraph G) 
+void userInsertion(WINDOW *win, Digraph G)
 {
 	bool (*nameCheck)(Digraph, char*, int);
 	nameCheck = NAMEcheck;
@@ -141,7 +144,86 @@ void insertion_window(Digraph G)
 	bool (*inputCheck)(int);
 	inputCheck = INPUTcheck;
 
-	//int id;
+	int length;
+	char id[5],
+		exec,
+		duration[3],
+		min_start[3],
+		reqs[3];
+	char name[100];
+	char* str = (char*)malloc(1000 * sizeof(char));
+
+	mvwprintw(win, 3, 1, "[ID]: ");
+	wscanw(win, "%5s", id);
+	mvwprintw(win, 4, 1, "[Nome]: ");
+	wscanw(win, "%100[^\n]s", name);
+	//getchar();
+	mvwprintw(win, 5, 1, "[Exec]: ");
+	wscanw(win, " %c", &exec);
+	mvwprintw(win, 6, 1, "[Duração]: ");
+	wscanw(win, "%3s", duration);
+	mvwprintw(win, 7, 1, "[Início]: ");
+	wscanw(win, "%3s", min_start);
+	mvwprintw(win, 8, 1, "[Pré-requisitos]: ");
+	wscanw(win, "%3s", reqs);
+
+	strcpy(str, id);
+	length = strlen(str);
+	str[length++] = ' ';
+	str[length++] = '\'';
+	str[length] = '\0';
+	
+	strcat(str, name);
+	length = strlen(str);
+	str[length++] = '\'';
+	str[length++] = ' ';
+	
+	str[length++] = exec;
+	str[length++] = ' ';
+	str[length] = '\0';
+	
+	strcat(str, duration);
+	length = strlen(str);
+	str[length++] = ' ';
+	str[length] = '\0';
+	
+	strcat(str, min_start);
+	length = strlen(str);
+	str[length++] = ' ';
+	str[length] = '\0';
+	
+	strcat(str, reqs);
+	//length = strlen(str);
+	//str[length++] = ' ';
+	//str[length] = '\0';
+
+	mvwprintw(win, 18, 1, "str: %s", str);
+
+	getchar();
+
+	int int_reqs = atoi(reqs);
+
+	if (int_reqs > 0) {
+		mvwprintw(win, 9, 1, "[Dependências]: ");
+		char deps[5];
+		int i;
+		for (i = 0; i < int_reqs; i++)
+		{
+			mvwprintw(win, 10 + i, 1, "[Dep %d]: ", i + 1);
+			wscanw(win, "%5s", deps);
+			length = strlen(str);
+			str[length++] = ' ';
+			str[length] = '\0';
+			strcat(str, deps);
+		}
+	}
+
+	VertexArray array = cnvInputStrToVertex(str);
+	assert(DIGRAPHinsertV(G, array, inputCheck, nameCheck) == 0);
+}
+
+void insertion_window(Digraph G) 
+{
 
 	WINDOW *win = newwin(20, 50, 3, 101);
 	keypad(win, TRUE);
@@ -149,9 +231,10 @@ void insertion_window(Digraph G)
 	touchwin(win);
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 	wattron(win, COLOR_PAIR(1));
-	mvwprintw(win, 1, 1, "Inserindo nova tarefa:\n");
+	mvwprintw(win, 1, 1, "Inserindo nova tarefa:");
 	wattroff(win, COLOR_PAIR(1));
 
+	userInsertion(win, G);
 	// mvwprintw(win, 3, 1, "[ID]: ");
 	// wscanw(win, "%d", &id);
 	// mvwprintw(win, 4, 1, "[Nome]: ");
@@ -310,6 +393,7 @@ void GUI(Digraph G) {
 
 		if (choice == 1) {
 			insertion_window(G);
+			print_instructions(G);
 		} else if (choice == 2) 
 		{
 			modification_window();

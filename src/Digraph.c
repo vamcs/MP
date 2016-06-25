@@ -86,14 +86,14 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 
 	G->array[G->V - 1]->adj = NULL;
 
-	printf("\n\n%d\n\n",G->array[G->V - 1]->id);
+	//printf("\n\n%d\n\n",G->array[G->V - 1]->id);
 	TIME(G, G->V - 1);
 	return 0;
 }
 
 VertexArray cnvInputStrToVertex(char* str){
 	VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
-	printf("%s\n",str);
+	//printf("%s\n",str);
 	char* resp = strtok(str, "\'");
     int i=0;
 	for(i = 0; i < 6; i++) { 
@@ -101,7 +101,7 @@ VertexArray cnvInputStrToVertex(char* str){
     		char* ch;
     		case 0:
     			w->id = strtol (resp,NULL,0);
-    			printf("(w->id = %d)\n",w->id);
+    			//printf("(w->id = %d)\n",w->id);
     			break;
     		case 1:
     			ch = resp;
@@ -114,23 +114,23 @@ VertexArray cnvInputStrToVertex(char* str){
     				w->name[j] = *ch;
     				ch = ch+1;
     			}
-    			printf("( w->name= %s)\n",w->name);
+    			//printf("( w->name= %s)\n",w->name);
     			break;
     		case 2:
     			w->exec = strtol (resp,NULL,0);
-    			printf("(w->exec = %d)\n",w->exec);
+    			//printf("(w->exec = %d)\n",w->exec);
     			break;
     		case 3:
     			w->duration = strtol (resp,NULL,0);
-    			printf("(w->duration = %d)\n",w->duration);
+    			//printf("(w->duration = %d)\n",w->duration);
     			break;
     		case 4:
     			w->min_start = strtol (resp,NULL,0);
-    			printf("(w->min_start = %d)\n",w->min_start);
+    			//printf("(w->min_start = %d)\n",w->min_start);
     			break;
     		case 5:
     			w->reqs = strtol (resp,NULL,0);
-    			printf("( w->reqs= %d)\n",w->reqs);
+    			//printf("( w->reqs= %d)\n",w->reqs);
     			break;
     		default:
     			break;
@@ -139,13 +139,13 @@ VertexArray cnvInputStrToVertex(char* str){
     			resp = strtok (NULL, " "); 
     		}
     	}
-    	printf("%s\n",str);
+    	//printf("%s\n",str);
     	if(w->reqs > 0){
     		int k = 0;
     		w->reqs_id = (int*)malloc(w->reqs * sizeof(int));
  			for (k = 0; k < w->reqs; k++ ) {
  				resp = strtok (NULL, " ");
- 				printf("(HERE == %s)\n",resp);
+ 				//printf("(HERE == %s)\n",resp);
  				w->reqs_id[k] = strtol (resp,NULL,0);
  			}
     	}
@@ -153,6 +153,7 @@ VertexArray cnvInputStrToVertex(char* str){
     		w->reqs_id = NULL;
     	}
     	free(str);
+    	str = NULL;
     	return w;
 }
 

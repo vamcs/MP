@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <assert.h>
 #include "../include/Digraph.h"
 #include "../include/manager.h"
 #include "../include/fileReader.h"
@@ -18,13 +19,18 @@ int main(){
 	while (!feof(fp)) {
 		char* vertexSTR = readFileLine(fp);
 		VertexArray V = cnvInputStrToVertex(vertexSTR);
-		printf("%d",DIGRAPHinsertV(G, V, inputCheck, nameCheck));
+		assert(DIGRAPHinsertV(G, V, inputCheck, nameCheck) == 0);	/*DIGRAPHinsertV retorna 0 se funcionou normalmente.*/
 	
 	}
 
 	GUI(G);
 
 	//DIGRAPHshow(G);
+
+	// char *str = (char*)malloc(200 * sizeof(char));
+	// scanf("%[^\n]%*c", str);
+	// VertexArray array = cnvInputStrToVertex(str);
+	// assert(DIGRAPHinsertV(G, array, inputCheck, nameCheck) == 0);
 
 	// printf("Inserindo uma tarefa nova:\n");
 	// DIGRAPHinsertV(G, inputCheck, nameCheck);
