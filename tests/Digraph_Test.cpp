@@ -198,3 +198,55 @@ TEST(RemoveVertex_Test, RemoveVertex_Error){
     EXPECT_EQ(ret, DigraphInvalidEdgeIDError);
     DIGRAPHdestroy(digraph);
 }
+
+TEST(VertexReturn_Test, VertexReturn_Error){
+    Digraph digraph = DIGRAPHinit();
+    int ret = VERTEXreturn(digraph, 0);
+    EXPECT_EQ(ret, -1);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(VertexReturn_Test, VertexReturn_Success){
+    Digraph digraph = DIGRAPHinit();
+    
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+    EXPECT_EQ(digraph->array[0]->id,0);
+    EXPECT_STREQ(digraph->array[0]->name,"TR 0");
+    EXPECT_EQ(digraph->array[0]->exec,1);
+    EXPECT_EQ(digraph->array[0]->duration,1);
+    EXPECT_EQ(digraph->array[0]->min_start,0);
+    EXPECT_EQ(digraph->array[0]->reqs,0);
+
+    ret = VERTEXreturn(digraph, 0);
+    EXPECT_EQ(ret, 0);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(EdgeInstantiation_Test, EdgeInstantiation_Success){
+    Edge e = EDGE(0,1,0);
+    EXPECT_EQ(e.v, 0);
+    EXPECT_EQ(e.w,1);
+    EXPECT_EQ(e.id, 0);
+}
+
+TEST(EdgeInstantiation_Test, EdgeInstantiation_Error){
+    Edge e = EDGE(0,-1,0);
+    EXPECT_EQ(e.v, -1);
+    EXPECT_EQ(e.w,-1);
+    EXPECT_EQ(e.id, -1);
+}

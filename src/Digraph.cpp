@@ -420,7 +420,7 @@ Edge EDGE(Vertex v, Vertex w, int id)
 		printf("Aresta invalida. Valores menores do que zero inseridos.\n");
 		printf("Error code: -1.\n");
 		e.v 	= -1;
-		e.v 	= -1;
+		e.w 	= -1;
 		e.id 	= -1;
 	} /*if*/
 	return e;
