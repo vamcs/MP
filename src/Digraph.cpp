@@ -116,8 +116,16 @@ VertexArray cnvInputStrToVertex(char* str){
     		}
     		if(i == 0){
                 resp = strtok(NULL, "\'");
+                if(resp == NULL){
+    				free(w);
+    				return NULL;
+    			}
             }else if(i != 5){
     		  resp = strtok (NULL, " "); 
+    		  if(resp == NULL){
+    				free(w);
+    				return NULL;
+    			}
     	   }
     	}
 

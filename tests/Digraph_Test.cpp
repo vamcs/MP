@@ -250,3 +250,56 @@ TEST(EdgeInstantiation_Test, EdgeInstantiation_Error){
     EXPECT_EQ(e.w,-1);
     EXPECT_EQ(e.id, -1);
 }
+
+TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Success){\
+    char* str = (char*)malloc(20*sizeof(char));
+    strcpy(str,"100 'TR 0' 0 2 0 0");
+    VertexArray v = cnvInputStrToVertex(str);
+    printf("HERE");
+    EXPECT_EQ(v->id,100);
+    EXPECT_STREQ(v->name,"TR 0");
+    EXPECT_EQ(v->exec,0);
+    EXPECT_EQ(v->duration,2);
+    EXPECT_EQ(v->min_start,0);
+    EXPECT_EQ(v->reqs,0);
+}
+
+TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error){
+    char* str = (char*)malloc(20*sizeof(char));
+    strcpy(str,"100");
+    VertexArray v = cnvInputStrToVertex(str);
+    EXPECT_EQ(v,nullptr);
+    free(str);
+}
+
+TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error2){
+    char* str = (char*)malloc(20*sizeof(char));
+    strcpy(str,"100 'TR 0'");
+    VertexArray v = cnvInputStrToVertex(str);
+    EXPECT_EQ(v,nullptr);
+    free(str);
+}
+
+TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error3){
+    char* str = (char*)malloc(20*sizeof(char));
+    strcpy(str,"100 'TR 0' 0");
+    VertexArray v = cnvInputStrToVertex(str);
+    EXPECT_EQ(v,nullptr);
+    free(str);
+}
+
+TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error4){
+    char* str = (char*)malloc(20*sizeof(char));
+    strcpy(str,"100 'TR 0' 0 2");
+    VertexArray v = cnvInputStrToVertex(str);
+    EXPECT_EQ(v,nullptr);
+    free(str);
+}
+
+TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error5){
+    char* str = (char*)malloc(20*sizeof(char));
+    strcpy(str,"100 'TR 0' 0 2 0");
+    VertexArray v = cnvInputStrToVertex(str);
+    EXPECT_EQ(v,nullptr);
+    free(str);
+}
