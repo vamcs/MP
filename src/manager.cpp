@@ -10,15 +10,13 @@
 /*Função de cálculo do tempo de execução de cada tarefa.*/
 void TIME(Digraph G, Vertex v) 
 {
-
 	/*Caso não haja dependências*/
 	if (G->array[v]->reqs == 0) 
 	{
 		G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;	/*time = min_start + duration*/
 		return;
-	}
-
-	else {
+	} else 
+	{
 		int i, 
 			longest_time = 0;
 		Vertex w;
@@ -30,15 +28,15 @@ void TIME(Digraph G, Vertex v)
 				longest_time = G->array[w]->time;						/*Procura pela dependência de maior duração.*/
 			} /*if*/
 		} /*for*/
-		if (G->array[v]->min_start < longest_time) /*Se min_start < longest_time.*/
+		if (G->array[v]->min_start < longest_time) 						/*Se min_start < longest_time.*/
 		{						
 			G->array[v]->time = longest_time + G->array[v]->duration;	/*time = longest_time + duration.*/
-		} else /*Se min_start >= longest_time.*/
+		} else 															/*Se min_start >= longest_time.*/
 		{
 			G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;		/*time = min_start + duration.*/
 		} /*if*/
 		return;
-	}
+	} /*if*/
 }
 
 /*Todas as funções a seguir são auxiliares para modify().
@@ -71,7 +69,7 @@ int NEWid(WINDOW* win, Digraph G, Vertex v)
 	mvwprintw(win, 10, 1, "> Entre com o novo ID: ");
 	wrefresh(win);
 	wscanw(win, "%d", &new_id);
-	w = VERTEXreturn(G, new_id);
+	w = VERTEXreturnF(G, new_id);
 
 	while (w != -1 || w < -2) 
 	{
