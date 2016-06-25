@@ -255,7 +255,6 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Success){\
     char* str = (char*)malloc(20*sizeof(char));
     strcpy(str,"100 'TR 0' 0 2 0 0");
     VertexArray v = cnvInputStrToVertex(str);
-    printf("HERE");
     EXPECT_EQ(v->id,100);
     EXPECT_STREQ(v->name,"TR 0");
     EXPECT_EQ(v->exec,0);
