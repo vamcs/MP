@@ -2,6 +2,7 @@
 #define MANAGER_H
 #endif
 
+#include <ncurses.h>
 /*Cabeçalho de Definições do Gerenciador de Tarefas*/
 
 /*!	\Brief Calcula o tempo de execução de uma tarefa

@@ -31,6 +31,10 @@ Digraph DIGRAPHinit()
 
 int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int)) 
 {
+	if (!nameCheck(G, w->name, G->V)) {
+		return DigraphInvalidStringError;
+	}
+
 	if (!inputCheck(w->duration) || w->duration == 0) {
 		return DigraphInvalidVertexDurationError;
 	}
@@ -90,7 +94,7 @@ VertexArray cnvInputStrToVertex(char* str){
     		case 1:
     			ch = resp;
 
-    			for(j =0; j<sizeof(w->name); j++){
+    			for(j =0; j < (int) sizeof(w->name); j++){
     				if(*ch == '\''){
     					w->name[j] = '\0';
     					break;
