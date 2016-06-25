@@ -312,14 +312,14 @@ void DIGRAPHremoveE(Digraph G, Edge e)
 	
 	- Retorno da função: void.	
 */
-void DIGRAPHremoveV(Digraph G, int id)
+int DIGRAPHremoveV(Digraph G, int id)
 {
 	Vertex v = VERTEXreturn(G, id);
 
 	if (v == -1)
 	{
 		printf("ID inexistente. Nenhuma tarefa removida.\n");
-		return;
+		return DigraphInvalidEdgeIDError;
 	} /*if*/
 	
 	Vertex w;
@@ -388,6 +388,7 @@ void DIGRAPHremoveV(Digraph G, int id)
 			TIME(G, i);	 /*Recalcula o tempo da tarefa em i*/
 		} /*for*/
 	} /*if*/
+	return 0;
 }
 
 /*	************ALTERAÇÃO PROJETO FINAL************

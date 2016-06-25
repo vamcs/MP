@@ -160,3 +160,41 @@ TEST(InsertVertex_Test, InsertVertex_Dep_Success){
 
     DIGRAPHdestroy(digraph);
 }
+
+TEST(RemoveVertex_Test, RemoveVertex_Success){
+    Digraph digraph = DIGRAPHinit();
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+    EXPECT_EQ(digraph->array[0]->id,0);
+    EXPECT_STREQ(digraph->array[0]->name,"TR 0");
+    EXPECT_EQ(digraph->array[0]->exec,1);
+    EXPECT_EQ(digraph->array[0]->duration,1);
+    EXPECT_EQ(digraph->array[0]->min_start,0);
+    EXPECT_EQ(digraph->array[0]->reqs,0);
+
+    ret = DIGRAPHremoveV(digraph, 0);
+    EXPECT_EQ(ret, 0);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(RemoveVertex_Test, RemoveVertex_Error){
+    Digraph digraph = DIGRAPHinit();
+
+    int ret = DIGRAPHremoveV(digraph, 0);
+    EXPECT_EQ(ret, DigraphInvalidEdgeIDError);
+    DIGRAPHdestroy(digraph);
+}

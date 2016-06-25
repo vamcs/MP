@@ -110,7 +110,7 @@ int DIGRAPHinsertV(Digraph, VertexArray w, bool (*inputCheck)(int), bool (*nameC
  *  \param G Grafo onde será removido o vértice.
  *  \return
  */
-void DIGRAPHremoveV(Digraph, int);
+int DIGRAPHremoveV(Digraph, int);
 
 /*! \Brief Esta função faz a verificação da existência de uma aresta checando a LinkedList de adjacência de um
  *  vértice do digrafo G.
