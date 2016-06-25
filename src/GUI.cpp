@@ -198,6 +198,9 @@ void userInsertion(WINDOW *win, Digraph G)
 		str[length] = '\0';
 		
 		strcat(str, reqs);
+		//length = strlen(str);
+		//str[length++] = ' ';
+		//str[length] = '\0';
 
 		int_reqs = atoi(reqs);
 
@@ -222,7 +225,6 @@ void userInsertion(WINDOW *win, Digraph G)
 			}
 		}
 
-		/*String lida*/
 		mvwprintw(win, 18, 1, "str: %s", str);
 
 		getchar();
@@ -233,7 +235,6 @@ void userInsertion(WINDOW *win, Digraph G)
 		{
 			mvwprintw(win, 18, 1, "Erro: algum valor foi inválido. Repetir.");
 			int i, j;
-			/*Limpeza da tela*/
 			for (i = 3; i < 17; i++)
 			{
 				for (j = 1; j < 49; j++)
@@ -258,8 +259,23 @@ void insertion_window(Digraph G)
 	wattroff(win, COLOR_PAIR(1));
 
 	userInsertion(win, G);
-	
+	// mvwprintw(win, 3, 1, "[ID]: ");
+	// wscanw(win, "%d", &id);
+	// mvwprintw(win, 4, 1, "[Nome]: ");
+	// mvwprintw(win, 5, 1, "[Exec]: ");
+	// mvwprintw(win, 6, 1, "[Duracao]: ");
+	// mvwprintw(win, 7, 1, "[Inicio]: ");
+	// mvwprintw(win, 8, 1, "[Pre-requisitos]: ");
+	//mvwprintw(win, 12, 1, "Lido: %d", id);
+	// mvwprintw(win, 12, 1, "Erro, entre novamente: TR0");
+	// mvwprintw(win, 13, 1, "Erro, entre novamente: TR0");
+	// mvwprintw(win, 14, 1, "Erro, entre novamente: TR0");
+	// mvwprintw(win, 15, 1, "Erro, entre novamente: TR0");
+	// mvwprintw(win, 16, 1, "Erro, entre novamente: TR0");
+	// mvwprintw(win, 17, 1, "Erro, entre novamente: TR0");
+	// mvwprintw(win, 18, 1, "Erro, entre novamente: TR0");
 	wrefresh(win);
+	//DIGRAPHinsertV(G, inputCheck, nameCheck);
 	getchar();
 	destroy_win(win, 20, 50);
 }
