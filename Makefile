@@ -56,10 +56,10 @@ OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 CFLAGS = -g -Wall
 
 $(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lncurses
+	$(CXX) $(CXXFLAGS) -o $@ $^ -lncurses -ftest-coverage -fprofile-arcs
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $(INCL) -lncurses -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCL) -lncurses -c $< -o $@ -ftest-coverage -fprofile-arcs
 
 SRCSTEST = $(wildcard $(TEST_DIR)/*.cpp)
 OBJSTEST = $(patsubst $(TEST_DIR)/%.cpp,test_obj/%.o, $(SRCSTEST))

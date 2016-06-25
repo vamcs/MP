@@ -134,8 +134,7 @@ bool DIGRAPHadj(Digraph, Vertex, Vertex);
  */
 void DIGRAPHdestroy(Digraph);
 
-/*Impressão do grafo na tela e criação de um arquivo de saída*/
-void DIGRAPHshow(Digraph);
+/*Criação de um arquivo de saída*/
 void DIGRAPHsave(Digraph);
 
 /*Criação de um vértice da LinkedList de adjacência.*/
@@ -162,3 +161,5 @@ int FINDreqs_id(int*, int, int);
 
 bool INPUTcheck(int);
 bool NAMEcheck(Digraph, char*, int);
+
+void DIGRAPHread(Digraph);

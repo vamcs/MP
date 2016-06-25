@@ -7,40 +7,14 @@
 #include "../include/manager.h"
 #include "../include/GUI.h"
 
-/*	Funcão TIME que calcula o tempo necessário para executar uma tarefa em "v".
-*	Esta função começa o cálculo a partir de tarefas que não possuem dependências,
-*	pois o cálculo é trivial: o ciclo mínimo de início + duração da tarefa. Nos
-*	outros casos, considera-se que todas as dependências estejam acima da tarefa
-*	atual, o que significa que seu tempo já foi calculado. Dessa forma, existem
-*	dois casos: o que o ciclo de início < tempo mais longo das dependências e o
-*	caso em que o ciclo é maior. Na primeira situação, o tempo da tarefa atual
-*	será o tempo de executar a dependência mais demorada + tempo de duração da
-*	tarefa atual, já que o ciclo de início da tarefa já terá passado. Já no se-
-*	gundo caso, como o tempo de início da tarefa > tempo das dependências, pode-
-*	-se ignorar o tempo de execução das dependências e somar o ciclo de início
-*	da tarefa à sua duração.
-*
-*	Em resumo:
-*
-*	reqs == 0:	(tarefa sem dependências)
-*		time = min_start + duration
-*
-*	reqs > 0:	(tarefa com pelo menos uma dependência)
-*		min_start < longest_time (tempo mais longo de todas dependências)
-*			time = longest_time + duration
-*		min_start >= longest_time
-*			time = min_start + duration
-*
-*	@param: digrafo G e vértice da tarefa atual v.
-*	@return: void.
-*/
+/*Função de cálculo do tempo de execução de cada tarefa.*/
 void TIME(Digraph G, Vertex v) 
 {
 
 	/*Caso não haja dependências*/
 	if (G->array[v]->reqs == 0) 
 	{
-		G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;	//time = min_start + duration*/
+		G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;	/*time = min_start + duration*/
 		return;
 	}
 
@@ -50,23 +24,36 @@ void TIME(Digraph G, Vertex v)
 		Vertex w;
 		for(i = 0; i < G->array[v]->reqs; i++) 
 		{
-			w = VERTEXreturn(G, G->array[v]->reqs_id[i]);				//Encontra o vértice da dependência reqs_id[i]*/
+			w = VERTEXreturn(G, G->array[v]->reqs_id[i]);				/*Encontra o vértice da dependência reqs_id[i]*/
 			if(G->array[w]->time > longest_time && !G->array[w]->exec) 
-			{	//Se a instrução já tiver sido executada, seu tempo de executação não é levado em conta.*/
-				longest_time = G->array[w]->time;						//Procura pela dependência de maior duração.*/
+			{	/*Se a instrução já tiver sido executada, seu tempo de executação não é levado em conta.*/
+				longest_time = G->array[w]->time;						/*Procura pela dependência de maior duração.*/
 			} /*if*/
 		} /*for*/
-		if (G->array[v]->min_start < longest_time) //Se min_start < longest_time.*/
+		if (G->array[v]->min_start < longest_time) /*Se min_start < longest_time.*/
 		{						
-			G->array[v]->time = longest_time + G->array[v]->duration;	//time = longest_time + duration.*/
-		} else //Se min_start >= longest_time.*/
+			G->array[v]->time = longest_time + G->array[v]->duration;	/*time = longest_time + duration.*/
+		} else /*Se min_start >= longest_time.*/
 		{
-			G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;		//time = min_start + duration.*/
+			G->array[v]->time = G->array[v]->min_start + G->array[v]->duration;		/*time = min_start + duration.*/
 		} /*if*/
 		return;
 	}
 }
 
+/*Todas as funções a seguir são auxiliares para modify().
+* Elas alteram cada um dos campos do vértice do digrafo selecionado
+* e atualizam todas as estruturas necessárias para que a mudança seja
+* válida.
+*/
+
+/*Alteração do ID da tarefa.
+*
+* Assertiva de Entrada:
+*
+* Assertiva de Saída:
+*
+*/
 int NEWid(WINDOW* win, Digraph G, Vertex v) 
 {
 	int new_id, 
@@ -74,11 +61,12 @@ int NEWid(WINDOW* win, Digraph G, Vertex v)
 	LinkedList l;
 	Vertex w;
 
-	//Leitura do novo ID.*/
+	/*Leitura do novo ID.*/
 	mvwprintw(win, 10, 1, "> Entre com o novo ID: ");
 	wrefresh(win);
 	wscanw(win, "%d", &new_id);
 	w = VERTEXreturn(G, new_id);
+
 	while (w != -1 || w < -2) 
 	{
 		mvwprintw(win, 28, 1, "(!) ID invalida. Entre com outro valor: ");
@@ -86,7 +74,7 @@ int NEWid(WINDOW* win, Digraph G, Vertex v)
 		w = VERTEXreturn(G, new_id);
 	} /*while*/
 
-	//Atualização do vetor de IDs das tarefas que dependem desta tarefa em "v"
+	/*Atualização do vetor de IDs das tarefas que dependem desta tarefa em "v".*/
 	l = G->array[v]->adj;
 	while (l != NULL) 
 	{
@@ -95,7 +83,7 @@ int NEWid(WINDOW* win, Digraph G, Vertex v)
 		l = l->next;
 	} /*while*/
 
-	//Atualização da LinkedList de adjacência das tarefas que "v" depende
+	/*Atualização da lista de adjacência das tarefas que "v" depende.*/
 	for (i = 0; i < G->array[v]->reqs; i++) 
 	{
 		w = VERTEXreturn(G, G->array[v]->reqs_id[i]);
@@ -117,7 +105,6 @@ void NEWname(WINDOW* win, Digraph G, Vertex v)
 	Vertex w;
 	char name[100];
 	mvwprintw(win, 10, 1, "> Entre com o novo nome: ");
-	//getchar();
 	wscanw(win, "%99[^\n]s", name);
 	for (w = 0; w < G->V; w++) 
 	{
@@ -168,7 +155,7 @@ int NEWduration(WINDOW* win)
 	int duration;
 	mvwprintw(win, 10, 1, "> Entre com a nova duracao: ");
 	wscanw(win, "%d", &duration);
-	while (duration < 0) 
+	while (duration <= 0) 
 	{
 		mvwprintw(win, 28, 1, "(!) Duracao invalida. Entre outro valor: ");
 		wscanw(win, "%d", &duration);
@@ -230,13 +217,13 @@ int NEWreqs(WINDOW* win, Digraph G, Vertex v)
 		{
 			mvwprintw(win, 12 + i, 1, " %d", G->array[v]->reqs_id[i]);
 		}
-		for (i = 0; i < G->array[v]->reqs - reqs; i++) //Executa "reqs_atual - reqs_novo" vezes.*/
+		for (i = 0; i < G->array[v]->reqs - reqs; i++) /*Executa "reqs_atual - reqs_novo" vezes.*/
 		{				
 			mvwprintw(win, 27, 1, "                                               ");
 			mvwprintw(win, 28, 1, "                                               ");
 			mvwprintw(win, 27, 1, "> Entre a ID a ser removida: ");
 			wscanw(win, "%d", &id);
-			//"reqs - i", porque G->array[v]->reqs só é atualizado ao final da função.*/
+			/*"reqs - i", porque G->array[v]->reqs só é atualizado ao final da função.*/
 			j = FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs - i, id);
 			while (j == -1) 
 			{
@@ -246,16 +233,16 @@ int NEWreqs(WINDOW* win, Digraph G, Vertex v)
 			} /*while*/
 			/*Remover arestas w->v ("tarefa que nossa tarefa depende" -> "nossa tarefa")*/
 			w = VERTEXreturn(G, G->array[v]->reqs_id[j]);
-			DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));				//Remove aresta tarefa -> tarefa dependente.*/
+			DIGRAPHremoveE(G, EDGE(w, v, G->array[v]->id));				/*Remove aresta tarefa -> tarefa dependente.*/
 			
 			/*Remover a tarefa à qual dependemos do array de IDs*/
-			for (k = j; k < G->array[v]->reqs-1; k++) //Coloca as posições a serem removidas no final do array.*/
+			for (k = j; k < G->array[v]->reqs-1; k++) /*Coloca as posições a serem removidas no final do array.*/
 			{					
-				//Array será realocado ao final após o "for" atual, então estas posições serão removidas.*/
+				/*Array será realocado ao final após o "for" atual, então estas posições serão removidas.*/
 				G->array[v]->reqs_id[k] = G->array[v]->reqs_id[k+1];
 			} /*for*/
 		}
-		//Realoca array de IDs que a tarefa depende.*/
+		/*Realoca array de IDs que a tarefa depende.*/
 		G->array[v]->reqs_id = (int*)realloc(G->array[v]->reqs_id, reqs * sizeof(int));
 		assert(G->array[v]->reqs_id);
 	} else 	/*Caso 4 - Número maior de dependências em relação ao atual*/
@@ -273,17 +260,17 @@ int NEWreqs(WINDOW* win, Digraph G, Vertex v)
 		{
 			mvwprintw(win, 12, 1, "%s nao possui dependencias.", G->array[v]->name);
 		} /*if*/
-		//Extensão do array de IDs.*/
+		/*Extensão do array de IDs.*/
 		G->array[v]->reqs_id = (int*)realloc(G->array[v]->reqs_id, reqs * sizeof(int));
 		assert(G->array[v]->reqs_id);
-		//Pede por novas IDs para a LinkedList de  "reqs_novo - reqs_atual" vezes.*/
+		/*Pede por novas IDs para a LinkedList de  "reqs_novo - reqs_atual" vezes.*/
 		for (i = 0; i < reqs - G->array[v]->reqs; i++) 
 		{
 			mvwprintw(win, 27, 1, "                                               ");
 			mvwprintw(win, 27, 1, "> Entre a ID a ser inserida: ");
 			wscanw(win, "%d", &id);
 			w = VERTEXreturn(G, id);
-			//reqs+i: G->array[v]->reqs só é atualizada ao final do programa.*/
+			/*reqs+i: G->array[v]->reqs só é atualizada ao final do programa.*/
 			while ((w == -1) || (w >= v) || (FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs + i, id) != -1)) {
 				mvwprintw(win, 28, 1, "(!) ID invalida. Entre com outra ID: ");
 				wscanw(win, "%d", &id);
@@ -291,7 +278,7 @@ int NEWreqs(WINDOW* win, Digraph G, Vertex v)
 			} /*while*/
 			/*Insere o ID da tarefa atual à LinkedList de adjacência da tarefa em w.*/
 			DIGRAPHinsertE(G, EDGE(w, v, G->array[v]->id));
-			//Adiciona o ID ao array de dependências.*/
+			/*Adiciona o ID ao array de dependências.*/
 			G->array[v]->reqs_id[G->array[v]->reqs + i] = id;
 		} /*for*/
 	} /*if*/
@@ -341,139 +328,87 @@ void NEWreqs_id(WINDOW* win, Digraph G, Vertex v)
 	} /*if*/
 }
 
+/*Modifica alguma das tarefas entrada de acordo com o ID.
+* Qualquer um dos campos pode ser alterado.
+*/
 void modify(WINDOW* win, Digraph G, int id, int choice) 
-{
-	//int id, 
-	//	option, 
+{ 
 	int	i;
-	//char exit;
 	Vertex 	v, 
 			w;
 
-	// printf("> Insira a ID da tarefa a ser modificada: ");
-	// scanf("%d", &id);
-
 	v = VERTEXreturn(G, id);
-	// while (v == -1) 
-	// {
-	// 	printf("> ID nao existente. Entre com outro valor: ");
-	// 	scanf("%d", &id);
-	// 	v = VERTEXreturn(G, id);
-	// } /*while*/
 
-	// printf("\n> Qual campo deseja alterar?\n");
-	// printf(	"\tID:\t\t\t\t[1]\n"
-	// 		"\tNome:\t\t\t\t[2]\n"
-	// 		"\tTarefa Executada:\t\t[3]\n"
-	// 		"\tDuracao:\t\t\t[4]\n"
-	// 		"\tInicio Minimo:\t\t\t[5]\n"
-	// 		"\tNumero de Pre-Requisitos:\t[6]\n"
-	// 		"\tAlterar Pre-Requisito:\t\t[7]\n"
-	// 		"\tSair:\t\t\t\t[-1]\n");
-	// scanf("%d", &option);
-
-	// while (option != -1) 
-	// {
-		switch (choice) 
-		{
-			case 1:
-				mvwprintw(win, 27, 1, "> ID atual: %d", id);
-				//touchwin(win);
-				//wrefresh(win);
-				G->array[v]->id = NEWid(win, G, v);
-				break;
-			case 2:
-				mvwprintw(win, 27, 1, "> Nome atual: %s", G->array[v]->name);
-				NEWname(win, G, v);
-				break;
-			case 3:
-				G->array[v]->exec = NEWexec(win, G->array[v]->exec);
-				for (w = 0; w < G->V; w++) {
-					TIME(G, w);
-				}
-				break;
-			case 4:
-				mvwprintw(win, 27, 1, "> Duracao atual: %d", G->array[v]->duration);
-				G->array[v]->duration = NEWduration(win);
+	switch (choice) 
+	{
+		case 1:
+			mvwprintw(win, 27, 1, "> ID atual: %d", id);
+			G->array[v]->id = NEWid(win, G, v);
+			break;
+		case 2:
+			mvwprintw(win, 27, 1, "> Nome atual: %s", G->array[v]->name);
+			NEWname(win, G, v);
+			break;
+		case 3:
+			G->array[v]->exec = NEWexec(win, G->array[v]->exec);
+			for (w = 0; w < G->V; w++) {
+				TIME(G, w);
+			}
+			break;
+		case 4:
+			mvwprintw(win, 27, 1, "> Duracao atual: %d", G->array[v]->duration);
+			G->array[v]->duration = NEWduration(win);
+			for (w = 0; w < G->V; w++) 
+			{
+				TIME(G, w);
+			} /*for*/
+			break;
+		case 5:
+			mvwprintw(win, 27, 1, "> Inicio minimo atual: %d", G->array[v]->min_start);
+			G->array[v]->min_start = NEWmin_start(win);
+			for (w = 0; w < G->V; w++) 
+			{
+				TIME(G, w);
+			} /*for*/
+			break;
+		case 6:
+			mvwprintw(win, 27, 1, "> Numero de pre-requisitos atual: %d", G->array[v]->reqs);
+			if (v == 0)
+			{
+				mvwprintw(win, 28, 1, "Erro. Tarefa inicial. Reqs = 0.");
+			} else 
+			{
+				G->array[v]->reqs = NEWreqs(win, G, v);
 				for (w = 0; w < G->V; w++) 
 				{
 					TIME(G, w);
 				} /*for*/
-				break;
-			case 5:
-				mvwprintw(win, 27, 1, "> Inicio minimo atual: %d", G->array[v]->min_start);
-				G->array[v]->min_start = NEWmin_start(win);
+			} /*if*/
+			break;
+		case 7:
+			if (G->array[v]->reqs > 0) 
+			{
+				mvwprintw(win, 27, 1, "> Dependencias atuais:");
+				for (i = 0; i < G->array[v]->reqs; i++) 
+				{
+					wprintw(win, " %d", G->array[v]->reqs_id[i]);
+				} /*for*/
+				NEWreqs_id(win, G, v);
 				for (w = 0; w < G->V; w++) 
 				{
 					TIME(G, w);
 				} /*for*/
-				break;
-			case 6:
-				mvwprintw(win, 27, 1, "> Numero de pre-requisitos atual: %d", G->array[v]->reqs);
-				if (v == 0)
-				{
-					mvwprintw(win, 28, 1, "Erro. Tarefa inicial. Reqs = 0.");
-				} else 
-				{
-					G->array[v]->reqs = NEWreqs(win, G, v);
-					for (w = 0; w < G->V; w++) 
-					{
-						TIME(G, w);
-					} /*for*/
-				} /*if*/
-				break;
-			case 7:
-				if (G->array[v]->reqs > 0) 
-				{
-					mvwprintw(win, 27, 1, "> Dependencias atuais:");
-					for (i = 0; i < G->array[v]->reqs; i++) 
-					{
-						wprintw(win, " %d", G->array[v]->reqs_id[i]);
-					} /*for*/
-					NEWreqs_id(win, G, v);
-					for (w = 0; w < G->V; w++) 
-					{
-						TIME(G, w);
-					} /*for*/
-				} else 
-				{
-					mvwprintw(win, 27, 1, "> Esta tarefa nao possui dependencias.");
-				} /*if*/
-				break;
-			// default:
-			// 	printf("> Opcao invalida. Return.\n");
-			// 	break;
-		} /*switch*/
-
-		// printf("> Continuar alterando? [s/n]\n");
-		// scanf(" %c", &exit);
-		// while (exit != 's' && exit != 'S' && exit != 'n' && exit != 'N') 
-		// {
-		// 	printf("Opcao invalida, entre s/n: ");
-		// 	scanf(" %c", &exit);
-		// } /*while*/
-		// switch (exit) 
-		// {
-		// 	case 'S':
-		// 	case 's':
-		// 		printf("> Qual campo deseja alterar?\n");
-		// 		printf(	"\tID:\t\t\t\t[1]\n"
-		// 				"\tNome:\t\t\t\t[2]\n"
-		// 				"\tTarefa Executada:\t\t[3]\n"
-		// 				"\tDuracao:\t\t\t[4]\n"
-		// 				"\tInicio Minimo:\t\t\t[5]\n"
-		// 				"\tNumero de Pre-Requisitos:\t[6]\n"
-		// 				"\tAlterar Pre-Requisito:\t\t[7]\n");
-		// 		scanf("%d", &option);
-		// 		break;
-		// 	case 'N':
-		// 	case 'n':
-		// 		option = -1;
-		// 		break;
-		// } /*switch*/
-	// } /*while*/
+			} else 
+			{
+				mvwprintw(win, 27, 1, "> Esta tarefa nao possui dependencias.");
+			} /*if*/
+			break;
+		default:
+			break;
+	} /*switch*/
 }
 
+/*Faz a execução e computação do caminho mínimo das tarefas.*/
 void execution(Digraph G, int end) 
 {
 	bool 	same = true;
@@ -645,9 +580,14 @@ void execution(Digraph G, int end)
 	alt[k] = -1;
 	if (k > 0) {
 		mvprintw(50, 1, "Caminhos de execução:");
-		for (cont = 0; cont < j; cont++) {
-			if (alt[w] == path[cont]) {	/*Verifica se o valor a ser impresso está no vetor de caminho alternativo.*/
-				if (w == 0) {			//Se for o primeiro valor do vetor, imprime "(valor", assim no final teremos (valor1 ou valor2 ou ...).*/
+		for (cont = 0; cont < j; cont++) 
+		{
+			/*Verifica se o valor a ser impresso está no vetor de caminho alternativo.*/
+			if (alt[w] == path[cont]) 
+			{
+				//Se for o primeiro valor do vetor, imprime "(valor", assim no final teremos (valor1 ou valor2 ou ...).*/
+				if (w == 0) 
+				{
 					printw(" (%d", path[cont]);
 					w++;
 				} else if (w == k - 1) 
@@ -672,14 +612,19 @@ void execution(Digraph G, int end)
 			} /*if*/
 		} /*for*/
 	} else
-	 {
+	{
 		mvprintw(50, 1, "Caminho de execução:");
 		for (cont = 0; cont < j; cont++) 
 		{
 			printw(" %d", path[cont]);
 		} /*for*/
 	} /*if*/
-	mvprintw(51, 1, "Tempo mínimo: %d", G->array[VERTEXreturn(G, path[j - 1])]->time);
+
+	if (j > 0)
+	{
+		/*Imprime o tempo mínimo de execução a partir da última tarefa salva em path[j - 1]*/
+		mvprintw(51, 1, "Tempo mínimo: %d", G->array[VERTEXreturn(G, path[j - 1])]->time);
+	} /*if*/
 
 	free(alt);
 	free(path);

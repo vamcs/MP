@@ -4,22 +4,23 @@
 #include <assert.h>
 #include "../include/Digraph.h"
 #include "../include/manager.h"
+#include "../include/fileReader.h"
 
 /*Definição do tipo das variáveis de endereçamento dos vértices (int).*/
 #define Vertex int
 
+/*Alocação de memória para o digrafo.*/
 Digraph DIGRAPHinit()
 {
 	Vertex 	v = 0;
-	int V = 0; 
-
+	int 	V = 0; 
 	
 	/*Declaração e inicialização do digrafo.*/
 	Digraph G = (Digraph)malloc(sizeof *G);
 	assert(G);
 	
-	/*Alocação de memória do vetor de LinkedLists adjacentes.*/
-	/*As LinkedLists de adjacência são inicializadas como nulas.*/
+	/*Alocação de memória do vetor de listas adjacentes.*/
+	/*As listas de adjacência são inicializadas como nulas.*/
 	G->array = (VertexArray*)malloc(V * sizeof(VertexArray));
 	assert(G->array);
 
@@ -29,147 +30,195 @@ Digraph DIGRAPHinit()
 	return G;
 }
 
+/*Leitura do arquivo de entrada e inserção dos valores no digrafo.*/
+void DIGRAPHread(Digraph G)
+{
+	/*Ponteiros de função - Checam a validade de entradas e nomes.*/
+	bool (*nameCheck)(Digraph, char*, int);
+	nameCheck = NAMEcheck;
+
+	bool (*inputCheck)(int);
+	inputCheck = INPUTcheck;
+
+	/*Abertura do arquivo de entrada*/
+	FILE* fp = fopen("./supporting_files/input.txt","r");
+	assert(fp);
+	while (!feof(fp)) {
+		/*Lê uma linha inteira do arquivo em vertexSTR.*/
+		char* vertexSTR = readFileLine(fp);
+		/*Converte essa linha em um vértice do grafo do tipo VertexArray.*/
+		VertexArray array = cnvInputStrToVertex(vertexSTR);
+		/*Insere o vértice lido em G.*/
+		/*DIGRAPHinsertV retorna 0 se funcionou normalmente.*/
+		int error_check = DIGRAPHinsertV(G, array, inputCheck, nameCheck);
+		assert(error_check == 0);
+	}
+	fclose(fp);
+}
+
+/*Insere um vértice do tipo VertexArray no digrafo G.*/
 int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int)) 
 {
-	if (!nameCheck(G, w->name, G->V)) {
+	/*Checa se o nome é válido e não existe no grafo.*/
+	if (!nameCheck(G, w->name, G->V)) 
+	{
 		return DigraphInvalidStringError;
-	}
+	} /*if*/
 
-	if (!inputCheck(w->duration) || w->duration == 0) {
+	/*Checa se a duração é 0 ou negativa.*/
+	if (!inputCheck(w->duration) || w->duration == 0) 
+	{
 		return DigraphInvalidVertexDurationError;
-	}
+	} /*if*/
 
-	if (!inputCheck(w->min_start)) {
+	/*Checa se o início mínimo é negativo.*/
+	if (!inputCheck(w->min_start)) 
+	{
 		return DigraphInvalidVertexMinStartError;
-	}
+	} /*if*/
 
-	if ((!inputCheck(w->reqs)) || (w->reqs > G->V))  {
+	/*Checa se o número de pré-requisitos é negativo ou maior do que o total de vértices.*/
+	if ((!inputCheck(w->reqs)) || (w->reqs > G->V))  
+	{
 		return DigraphInvalidVertexReqsError;
-	}
+	} /*if*/
     
-	if(w->reqs == 0){
+    /*Se o número de pré-requisitos for igual a 0, verifica se é o array de dependências é nulo.*/
+	if (w->reqs == 0)
+	{
 		assert(w->reqs_id == NULL);
-	}else{
+	} else /*Caso contrário, verifica se o array não é nulo.*/
+	{
 		assert(w->reqs_id);
-	}
+	} /*if*/
 
-	int i =0;
-	for (i = 0; i < w->reqs; i++) {
+	int i;
+	/*Verifica se as dependências são válidas. 
+	* Elas só podem ser de tarefas anteriores à tarefa atual no arquivo de entrada.
+	*/
+	for (i = 0; i < w->reqs; i++) 
+	{
 		Vertex k = VERTEXreturn(G, w->reqs_id[i]);
-		if ((k == -1) || (G->array[k]->id >= w->id)){
-			printf("Returning Here = %d",FINDreqs_id(w->reqs_id, w->reqs, k));
+		/*Caso k == -1, o ID não existe.*/
+		if ((k == -1))
+		{
+			//printf("Returning Here = %d",FINDreqs_id(w->reqs_id, w->reqs, k));
 			return DigraphInvalidVertexReqsError;
-		} 
-	}
+		} /*if*/
+	} /*for*/
 
+	/*Inserção do novo vértice em G.*/
 	G->V++;
 	G->array 				= (VertexArray*)realloc(G->array, G->V * sizeof(VertexArray));
 	assert(G->array);
 	G->array[G->V - 1] 		= w;
 	assert(G->array[G->V-1]);
 
+	/*Insere o ID da tarefa nas listas de adjacência das tarefas que ela depende.*/
 	for (i = 0; i < w->reqs; i++) {
 		Vertex k = VERTEXreturn(G, w->reqs_id[i]);
 		DIGRAPHinsertE(G, EDGE(k, G->V - 1, w->id));
-	}
+	} /*for*/
 
+	/*Nenhuma tarefa pode depender desta nova, pois é a última do arquivo de entrada.*/
 	G->array[G->V - 1]->adj = NULL;
 
+	/*Calcula o tempo de execução dessa tarefa.*/
 	TIME(G, G->V - 1);
 	return 0;
 }
 
-VertexArray cnvInputStrToVertex(char* str){
+/*Faz a conversão da string lida para um vértice do digrafo do tipo VertexArray.*/
+VertexArray cnvInputStrToVertex(char* str)
+{
+	/*Aloca memória para o novo vértice.*/
 	VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
-	//printf("%s\n",str);
+	
+	/*A seguir é feito o tratamento da string para separar os campos necessários.*/
 	char* resp = strtok(str, "\'");
-    int i=0;
     char* ch;
-    int j =0;
-	for(i = 0; i < 6; i++) {
-    	switch(i){
+    int i = 0,
+    	j = 0;
+
+	for (i = 0; i < 6; i++) 
+	{
+    	switch(i)
+    	{
     		case 0:
-    			w->id = strtol (resp,NULL,0);
+    			w->id = strtol (resp, NULL, 0);
     			break;
     		case 1:
     			ch = resp;
 
-    			for(j =0; j < (int) sizeof(w->name); j++){
-    				if(*ch == '\''){
+    			for (j = 0; j < (int) sizeof(w->name); j++)
+    			{
+    				if (*ch == '\'')
+    				{
     					w->name[j] = '\0';
     					break;
-    				}
+    				} /*if*/
     				w->name[j] = *ch;
     				ch = ch+1;
-    			}
+    			} /*if*/
     			break;
     		case 2:
-    			w->exec = strtol (resp,NULL,0);
+    			w->exec = strtol (resp, NULL, 0);
     			break;
     		case 3:
-    			w->duration = strtol (resp,NULL,0);
+    			w->duration = strtol (resp, NULL, 0);
     			break;
     		case 4:
-    			w->min_start = strtol (resp,NULL,0);
+    			w->min_start = strtol (resp, NULL, 0);
     			break;
     		case 5:
-    			w->reqs = strtol (resp,NULL,0);
+    			w->reqs = strtol (resp, NULL, 0);
     			break;
     		default:
     			break;
-    		}
-    		if(i == 0){
-                resp = strtok(NULL, "\'");
-                if(resp == NULL){
-    				free(w);
-    				return NULL;
-    			}
-            }else if(i != 5){
-    		  resp = strtok (NULL, " "); 
-    		  if(resp == NULL){
-    				free(w);
-    				return NULL;
-    			}
-    	   }
-    	}
+    	} /*switch*/
+    	if (i == 0)
+    	{
+            resp = strtok(NULL, "\'");
+            if (resp == NULL)
+            {
+    			free(w);
+    			return NULL;
+    		} /*if*/
+        } else if (i != 5)
+        {
+    		resp = strtok (NULL, " "); 
+    		if (resp == NULL)
+    		{
+    			free(w);
+    			return NULL;
+    		} /*if*/
+    	} /*if*/
+    } /*for*/
 
-    	if(w->reqs > 0){
-    		int k = 0;
-    		w->reqs_id = (int*)malloc(w->reqs * sizeof(int));
- 			for (k = 0; k < w->reqs; k++ ) {
- 				resp = strtok (NULL, " ");
- 				w->reqs_id[k] = strtol (resp,NULL,0);
- 			}
-    	}
-    	else {
-    		w->reqs_id = NULL;
-    	}
-    	free(str);
-    	str = NULL;
-    	return w;
+    /*Se o número de requisitos lido foi maior do que 0, então há pré-requisitos.*/
+    /*Aloca-se memória para o array de pré-requisitos e os insere lá.*/
+    if (w->reqs > 0)
+    {
+    	int k;
+    	w->reqs_id = (int*)malloc(w->reqs * sizeof(int));
+ 		for (k = 0; k < w->reqs; k++) 
+ 		{
+ 			resp = strtok(NULL, " ");
+ 			w->reqs_id[k] = strtol(resp, NULL, 0);
+ 		} /*for*/
+    } else /*Caso contrário, o array de pré-requisitos será nulo.*/
+    {
+    	w->reqs_id = NULL;
+    } /*if*/
+
+    /*Libera memória da string de leitura.*/
+    free(str);
+
+    /*Retorna o novo vértice.*/
+    return w;
 }
 
-bool INPUTcheck(int value) 
-{
-	if (value < 0)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool NAMEcheck(Digraph G, char* name, int V)
-{
-	Vertex w;
-	for (w = 0; w < V; w++) {
-		if (strcmp(G->array[w]->name, name) == 0) {
-			return 0;
-		}
-	} 
-	return 1;
-}
-
+/*Faz inserção de uma nova aresta no digrafo.*/
 void DIGRAPHinsertE(Digraph G, Edge e) 
 {
 	/*Leitura de Edge 'e'.*/
@@ -182,15 +231,15 @@ void DIGRAPHinsertE(Digraph G, Edge e)
 		G->E++;	/*Incremento número de arestas adicionadas no grafo.*/
 	} else
 	{
-		printf("Aresta ja existente no digrafo ou vertice de destino eh origem.\n%s->%s nao foi inserida.\n", 
-																	G->array[v]->name, G->array[w]->name);
+		printf("Aresta ja existente no digrafo.\n%s->%s nao foi inserida.\n", 
+												G->array[v]->name, G->array[w]->name);
 	} /*if*/
 	return;
 }
 
 /*	************ALTERAÇÃO PROJETO FINAL************
 
-	Esta função cria um novo nó da LinkedList de adjacências ao receber as informações necessárias
+	Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias
 	contidas em cada um dos nós.
 	
 	Utilização da função:
@@ -205,6 +254,10 @@ void DIGRAPHinsertE(Digraph G, Edge e)
 	origem da LinkedList de adjacência, já que novos nós são adicionados ao início.
 	
 	- Retorno da função: novo ponteiro do tipo LinkedList ao nó criado.
+*/
+/*Função que cria e retorna um novo nó para uma lista de adjência
+* contendo um índice w para um vértice do digrafo, a ID desse vér-
+* tice e um ponteiro para o próximo nó da lista de adjacência.
 */
 LinkedList NEWnode(Vertex w, int id, LinkedList next)
 {
@@ -250,6 +303,7 @@ LinkedList NEWnode(Vertex w, int id, LinkedList next)
 	
 	-Retorno da função: void.
 */
+/*Faz a remoção de uma aresta da lista de adjacência de um vértice do digrafo.*/
 void DIGRAPHremoveE(Digraph G, Edge e)
 {
 	Vertex 	v = e.v, 
@@ -324,13 +378,13 @@ void DIGRAPHremoveE(Digraph G, Edge e)
 	
 	- Retorno da função: void.	
 */
+/*Esta função remove um vértice do digrafo. Atualiza as listas de adjacência, assim com*/
 int DIGRAPHremoveV(Digraph G, int id)
 {
 	Vertex v = VERTEXreturn(G, id);
 
 	if (v == -1)
 	{
-		//printf("ID inexistente. Nenhuma tarefa removida.\n");
 		return -1;
 	} /*if*/
 	
@@ -353,7 +407,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 		free(G->array[v]->reqs_id);
 	} /*if*/
 
-	/*Verificar LinkedList de adjacência (vértices que dependem deste).*/
+	/*Verificar lista de adjacência (vértices que dependem deste).*/
 	while (l != NULL) 
 	{
 		w = l->w;
@@ -363,6 +417,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 		{		
 			G->array[w]->reqs_id[j] = G->array[w]->reqs_id[j+1];
 		} /*for*/
+		/*Decrementa a quantidade de elementos no array de pré-requisitos e realoca o tamanho do vetor, efetuando a remoção.*/
 		G->array[w]->reqs--;
 		G->array[w]->reqs_id = (int*)realloc(G->array[w]->reqs_id, G->array[w]->reqs * sizeof(int));
 		temp 	= l;
@@ -393,7 +448,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 				{
 					if (l->w >= v)
 					{
-						l->w--; /*Se o índice dessa LinkedList for maior ou igual ao índice do vértice removido, atualize-o.*/
+						l->w--; /*Se o índice dessa lista for maior ou igual ao índice do vértice removido, atualize-o.*/
 					}
 				} /*for*/
 			} /*if*/
@@ -420,6 +475,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 	
 	- Retorno da função: aresta do tipo Edge.
 */
+/*Cria e retorna uma aresta do digrafo contendo dois índices que indicam a direção da aresta e o ID do vértice w.*/
 Edge EDGE(Vertex v, Vertex w, int id)
 {
 	Edge e;
@@ -440,7 +496,7 @@ Edge EDGE(Vertex v, Vertex w, int id)
 }
 
 /*
-	Esta função faz a verificação da existência de uma aresta checando a LinkedList de adjacência de um
+	Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um
 	vértice do digrafo G.
 	
 	Utilização da função:
@@ -450,6 +506,8 @@ Edge EDGE(Vertex v, Vertex w, int id)
 	- Paramêtros da função: digrafo do tipo Digraph e dois vértices do tipo Vertex.
 	
 	- Retorno da função: true (1) caso a aresta exista, false (0) caso contrário.
+
+	As funções de inserção e remoção de arestras fazem uso desta função.
 */
 bool DIGRAPHadj(Digraph G, Vertex v, Vertex w) 
 {
@@ -480,6 +538,7 @@ bool DIGRAPHadj(Digraph G, Vertex v, Vertex w)
 	
 	- Retorno da função: void.
 */
+/*Desaloca todo o digrafo, incluindo listas de adjacência, arrays de IDs e array de vértices.*/
 void DIGRAPHdestroy(Digraph G) 
 {
 	int v;
@@ -517,64 +576,6 @@ void DIGRAPHdestroy(Digraph G)
 	
 	/*Desalocar grafo*/
 	free(G);
-    //G = NULL;
-}
-
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Função de impressão do digrafo explicitado por seus vetores e lístas de adjacência. A impressão é feita
-	no formato:
-	
-	||Vertex A||:
-			--(5.0)-->[Vertex G]
-			--(10.0)-->[Vertex F]
-	||Vertex B||:
-			...
-	
-	Utilização da função:
-	
-	DIGRAPHshow(G);
-	
-	Resultados obtidos como mostrado acima.
-	
-	- Paramêtros da função: digrafo do tipo Digraph.
-	- Retorno da função: void.
-*/
-void DIGRAPHshow(Digraph G) 
-{
-	LinkedList l;
-	Vertex v;
-	int i;
-	
-	printf("Grafo:\tV:%d\tE:%d\n\n", G->V, G->E);
-	printf("ID\tNOME\t\tEXEC\tDURACAO\tINICIO_MIN\tPRE_REQS\tDEPS\n");
-	for (v = 0; v < G->V; v++) 
-	{
-		printf("%d\t%s\t\t%d\t%d\t%d\t\t%d\t", 
-				G->array[v]->id, G->array[v]->name, G->array[v]->exec, G->array[v]->duration, G->array[v]->min_start, G->array[v]->reqs);
-		if (G->array[v]->reqs > 0) 
-		{
-			for (i = 0; i < G->array[v]->reqs; i++) 
-			{
-				printf("\t%d", G->array[v]->reqs_id[i]);
-			} /*for*/
-		} else 
-		{
-			printf("\t-");
-		} /*if*/
-		printf("\n");
-		if (G->array[v]->adj != NULL) 
-		{
-			printf("Adj:");
-			for (l = G->array[v]->adj; l != NULL; l = l->next) 
-			{
-				printf(" %d", l->id);
-			} /*for*/
-			printf("\n");
-		} /*if*/
-		printf("Time: %d\n", G->array[v]->time);
-		printf("\n");
-	} /*for*/
 }
 
 /*	************ALTERAÇÃO PROJETO FINAL************
@@ -592,14 +593,18 @@ void DIGRAPHshow(Digraph G)
 	
 	- Retorno da função: Vertex contendo o índice do vértice com nome "vertexName".
 */
+/*Busca por um ID no digrafo. Retorna a posição caso encontre ou -1 se ocorrer um erro.*/
 Vertex VERTEXreturn(Digraph G, int id)
 {
 	Vertex v = 0;
 	
-	if(G->V == 0){
+	/*Caso não haja arestas no grafo.*/
+	if (G->V == 0)
+	{
 		return -1;
-	}
+	} /*if*/
 
+	/*Percorre o array de vértices em busca da ID desejada.*/
 	while (G->array[v]->id != id && v < G->V - 1) 
 	{
 		v++;
@@ -609,7 +614,6 @@ Vertex VERTEXreturn(Digraph G, int id)
 		return v;
 	} else
 	{
-		/*printf("Vertice nao encontrado. Error code: -1.\n");*/
 		return -1;
 	} /*if*/
 }
@@ -630,12 +634,14 @@ Vertex VERTEXreturn(Digraph G, int id)
 	
 	- Retorno da função: void.
 */
+/*Salva a configuração atual do digrafo em um arquivo de saída no mesmo formato do arquivo de entrada.*/
 void DIGRAPHsave(Digraph G) 
 {
 	FILE* fp = fopen("output.txt", "w");
 	int i, j, id, exec, duration, min_start, reqs;
 	char name[100];
 	
+	/*Imprime os G->V vértices do digrafo.*/
 	for (i = 0; i < G->V; i++) 
 	{
 		id 			= G->array[i]->id;
@@ -645,8 +651,11 @@ void DIGRAPHsave(Digraph G)
 		min_start 	= G->array[i]->min_start;
 		reqs 		= G->array[i]->reqs;
 
+		/*Impressão de uma linha.*/
 		fprintf(fp, "%d '%s' %d %d %d %d", 
 					id, name, exec, duration, min_start, reqs);
+		
+		/*Se houver pré-requisitos, imprime-os a seguir.*/
 		if (reqs > 0) 
 		{
 			for (j = 0; j < reqs; j++) 
@@ -662,7 +671,9 @@ void DIGRAPHsave(Digraph G)
 	fclose(fp);
 }
 
-
+/*Busca por um ID dentro de um array de IDs. 
+* Retorna a posição caso encontre ou -1 se não existir.
+*/
 int FINDreqs_id(int* reqs_id, int reqs, int id) 
 {
 	int i;
@@ -673,4 +684,34 @@ int FINDreqs_id(int* reqs_id, int reqs, int id)
 		}
 	}
 	return -1;
+}
+
+/*Esta função faz a simples verificação de um valor menor do que zero.
+* Se menor do que zero, retorna falso. Caso contrário, verdadeiro.
+*/
+bool INPUTcheck(int value) 
+{
+	if (value < 0)
+	{
+		return false;
+	} /*if*/
+
+	return true;
+}
+
+/*Esta função verifica a existência de um nome no digrafo.
+* Isto serve pra evitar a inserção de duplicatas.
+*/
+bool NAMEcheck(Digraph G, char* name, int V)
+{
+	Vertex w;
+	
+	for (w = 0; w < V; w++) 
+	{
+		if (strcmp(G->array[w]->name, name) == 0) {
+			return 0;
+		} /*if*/
+	} /*for*/
+	
+	return 1;
 }

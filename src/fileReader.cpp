@@ -20,7 +20,7 @@ int numberOfLinesOnFile(FILE* fp) {
 }
 char* readFileLine(FILE* fp){
 	char* str = (char*)malloc(1000*sizeof(char));
-	fscanf (fp, "%[^\n]", str);
+	fscanf (fp, "%1000[^\n]", str);
 	fgetc(fp);
 	return str;
 }

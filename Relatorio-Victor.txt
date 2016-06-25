@@ -17,3 +17,5 @@
 15/06/2016 | 15m| Revisar código    | Revisão e retirada de bugs.
 20/06/2016 | 1h | Codificar			| Codificação da função de execução.
 20/06/2016 | 40m| Revisar especif.	| Revisão das especificações e anotações de tudo que falta a se feito.
+
+25/06/2016 | 15m| CPPcheck 			| Retirada final de warnings.
