@@ -24,7 +24,7 @@ enum DigraphErrors{
     DigaphVertexAlreadyExistError = -7,
     DigraphInvalidVertexDurationError = -8,
     DigraphInvalidVertexMinStartError = -9,
-    DigraphInvalidVertexReqsError = -9,
+    DigraphInvalidVertexReqsError = -10,
 };
 
 

@@ -52,7 +52,8 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 	int i =0;
 	for (i = 0; i < w->reqs; i++) {
 		Vertex k = VERTEXreturn(G, w->reqs_id[i]);
-		if ((k == -1) || (G->array[k]->id >= w->id) || (FINDreqs_id(w->reqs_id, w->reqs, k) != -1)){
+		if ((k == -1) || (G->array[k]->id >= w->id)){
+			printf("Returning Here = %d",FINDreqs_id(w->reqs_id, w->reqs, k));
 			return DigraphInvalidVertexReqsError;
 		} 
 	}
