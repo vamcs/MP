@@ -22,20 +22,32 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 CXXFLAGS += -g -Wall -Wextra
 
+# All tests produced by this Makefile.  Remember to add new tests you
+# created to the list.
 TESTS = Digraph_Test
 
+# All Google Test headers.  Usually you shouldn't change this
+# definition.
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
 
+# House-keeping build targets.
 
 all : $(TESTS) $(EXEC)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
 
+# Builds gtest.a and gtest_main.a.
+
+# Usually you shouldn't tweak such internal variables, indicated by a
+# trailing _.
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
-
+# For simplicity and to avoid depending on Google Test's
+# implementation details, the dependencies specified below are
+# conservative and not optimized.  This is fine as Google Test
+# compiles fast and for ordinary users its source rarely changes.
 gtest-all.o : $(GTEST_SRCS_)
 	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest-all.cc
@@ -50,23 +62,25 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
+# Builds a sample test.  A test should link with either gtest.a or
+# gtest_main.a, depending on whether it defines its own main()
+# function.
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
 
 CFLAGS = -g -Wall
 
 $(EXEC): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^ -lncurses -ftest-coverage -fprofile-arcs
+	$(CXX) -o $@ $^ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
 
 $(OBJDIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $(INCL) -lncurses -c $< -o $@ -ftest-coverage -fprofile-arcs
+	$(CXX) $(CXXFLAGS) $(INCL) -c $< -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
 
 SRCSTEST = $(wildcard $(TEST_DIR)/*.cpp)
 OBJSTEST = $(patsubst $(TEST_DIR)/%.cpp,test_obj/%.o, $(SRCSTEST))
 
-
-TESTE: ./obj/Digraph.o ./obj/manager.o ./obj/GUI.o ./obj/fileReader.o $(OBJSTEST) gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
+TESTE: ./obj/Digraph.o ./obj/manager.o ./obj/fileReader.o ./obj/GUI.o $(OBJSTEST) gtest_main.a
+	$(CXX) $(CXXFLAGS) -std=c++0x gtest_main.a -lpthread $^ -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
 
 test_obj/%.o: $(TEST_DIR)/%.cpp $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
+	$(CXX) $(CXXFLAGS) -std=c++0x -c $< -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
