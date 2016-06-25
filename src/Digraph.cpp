@@ -326,8 +326,8 @@ int DIGRAPHremoveV(Digraph G, int id)
 
 	if (v == -1)
 	{
-		printf("ID inexistente. Nenhuma tarefa removida.\n");
-		return DigraphInvalidEdgeIDError;
+		//printf("ID inexistente. Nenhuma tarefa removida.\n");
+		return;
 	} /*if*/
 	
 	Vertex w;
