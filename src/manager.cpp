@@ -50,8 +50,14 @@ void TIME(Digraph G, Vertex v)
 /*Alteração do ID da tarefa.
 *
 * Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Digrafo G do tipo Digraph contendo o vértice "v" (com a ID entrada em modify()).
+*	Índice v do vértice de G que contém a ID entrada em modify.
+*	Valor inteiro para a nova ID da tarefa.
 *
 * Assertiva de Saída:
+*	Retorna um ID válido que já não exista no digrafo.
+*	Altera todas as listas de adjacência e arrays de pre-requisitos que contêm o ID antigo desta tarefa em v.
 *
 */
 int NEWid(WINDOW* win, Digraph G, Vertex v) 
@@ -100,6 +106,19 @@ int NEWid(WINDOW* win, Digraph G, Vertex v)
 	return new_id;
 }
 
+/*Alteração do nome da tarefa.
+*
+* Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Digrafo G do tipo Digraph contendo o vértice "v" (com a ID entrada em modify()).
+*	Índice v do vértice de G que contém a ID entrada em modify.
+*	Nova string de até 100 caracteres para o nome da tarefa.
+*
+* Assertiva de Saída:
+*	Retorna um nome válido que já não exista no digrafo.
+*	A alteração é local, portanto não é necessário atualizar outros vértices/tarefas.
+*
+*/
 void NEWname(WINDOW* win, Digraph G, Vertex v) 
 {
 	Vertex w;
@@ -118,6 +137,19 @@ void NEWname(WINDOW* win, Digraph G, Vertex v)
 	strcpy(G->array[v]->name, name);
 }
 
+/*Alteração do estado de execução da tarefa.
+*
+* Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Variável booleana exec que vale true ou false.
+*
+* Assertiva de Saída:
+*	Retorna a mesma variável booleana de entrada exec.
+*	Se o usuário decidir por uma alteração, o valor de saída será o oposto do de entrada:
+*		true -> false (e vice-versa).
+*	Caso contrário, o valor original se manterá (true ou false).
+*
+*/
 bool NEWexec(WINDOW* win, bool exec) 
 {
 	char option;
@@ -150,6 +182,18 @@ bool NEWexec(WINDOW* win, bool exec)
 	return exec;
 }
 
+/*Alteração da duração da tarefa.
+*
+* Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Valor inteiro para a nova duração da tarefa.
+*
+* Assertiva de Saída:
+*	Retorna um valor inteiro para a duração da tarefa de acordo com a entrada do usuário.
+*	A duração precisa ser maior do que zero.
+*	O tempo de duração da tarefa será recalculado em modify().
+*
+*/
 int NEWduration(WINDOW* win) 
 {
 	int duration;
@@ -163,6 +207,19 @@ int NEWduration(WINDOW* win)
 	return duration;
 }
 
+/*Alteração do ciclo de início mínimo da tarefa.
+*
+* Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Valor inteiro para o novo início mínimo.
+*
+* Assertiva de Saída:
+*	Retorna um valor inteiro para o início mínimo de execução da tarefa 
+*	de acordo com a entrada do usuário.
+*	O valor precisa ser maior ou igual a zero.
+*	O tempo de duração da tarefa será recalculado em modify().
+*
+*/
 int NEWmin_start(WINDOW* win) 
 {
 	int min_start;
@@ -176,6 +233,40 @@ int NEWmin_start(WINDOW* win)
 	return min_start;
 }
 
+/*Alteração do número de pré-requisitos da tarefa.
+*
+* Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Digrafo G do tipo Digraph contendo todas as tarefas atuais.
+*	Índice do vértice v, o qual terá suas dependências modificadas, cujo ID foi inserido em modify.
+*
+* Assertiva de Saída:
+*	reqs < 0:
+*		Imprime erro e pede novo valor
+*	reqs == 0:
+*		Remove todas os pré-requisitos da tarefa atual
+*		- Remove os nós das listas de adjacências das tarefas que estão no array de pré-requisitos da tarefa atual que contêm a ID desta tarefa.
+*		- Desalocando o array de pré-requisitos da tarefas atual.
+*	reqs == reqs_atual:
+*		Não faz modificações
+*	reqs > reqs_atual:
+*		Realoca o array de pré-requisitos da tarefa atual para conter mais dependências.
+*		Insere (reqs - reqs_atual) pré-requisitos lidos do usuário para a tarefa atual que são verificadas de acordo com alguns critérios:
+*			- Se não estão situadas abaixo da tarefa atual.
+*			- Se já não estão no array de pré-requisitos.
+*			- Se não forem a tarefa atual.
+*		Insere novas arestas nas listas de adjacência dos pré-requisitos da tarefa atual.
+*	reqs < reqs_atual:
+*		Remove (reqs_atual - reqs) pré-requisitos lidos do usuário para a tarefa atual que são verificadas de acordo com alguns critérios:
+*			- Se existem no array de pré-requisitos da tarefa atual.
+*		Remove arestas das listas de adjacência dos pré-requisitos removidos.
+*		Realoca o array de pré-requisitos
+*
+*	Retorna o valor reqs válido que atualizará o reqs do vértice do digrafo.
+*
+*	O tempo de execução de todas as tarefas será recalculado em modify.
+*
+*/
 int NEWreqs(WINDOW* win, Digraph G, Vertex v)
 {
 	int reqs, 
@@ -285,6 +376,24 @@ int NEWreqs(WINDOW* win, Digraph G, Vertex v)
 	return reqs;
 }
 
+/*Alteração de um pré-requisito da tarefa.
+*
+* Assertiva de Entrada:
+*	Janela do ncurses WINDOW* win contendo uma janela y = 30, x = 50.
+*	Digrafo G do tipo Digraph contendo todas as tarefas atuais.
+*	Índice do vértice v, o qual terá suas dependências modificadas, cujo ID foi inserido em modify.
+*	ID a ser modificada.
+*
+* Assertiva de Saída:
+*	É lida uma ID do usuário e pede-se uma nova para se alterar:
+*		- Caso a nova ID seja a mesma seleciona, nada é feito.
+*		- Caso a ID não exista no digrafo, imprime erro.
+*		- Caso a ID já exista nas dependências, também imprime erro.
+*		- Caso a ID esteja abaixo da tarefa atual no arquivo de entrada, imprime erro.
+*		- ID aceita caso esteja acima da tarefa atual no arquivo de entrada.
+*
+*	O tempo de execução de todas tarefas é recalculado em modify.
+*/
 void NEWreqs_id(WINDOW* win, Digraph G, Vertex v) 
 {
 	int old_id, 
@@ -292,14 +401,14 @@ void NEWreqs_id(WINDOW* win, Digraph G, Vertex v)
 		i;
 	Vertex w;
 
-	mvwprintw(win, 10, 1, "> Qual dependencia deseja alterar? ");
+	mvwprintw(win, 10, 1, "> Qual dependência deseja alterar? ");
 	wscanw(win, "%d", &old_id);
 	i = 0;
 	while (G->array[v]->reqs_id[i] != old_id) 
 	{
 		if (i == G->array[v]->reqs) 
 		{
-			mvwprintw(win, 28, 1, "(!) ID nao encontrada. Entre com uma nova ID: ");
+			mvwprintw(win, 28, 1, "(!) ID não encontrada. Entre com uma nova ID: ");
 			wscanw(win, "%d", &old_id);
 			i = -1;
 		} /*if*/
@@ -309,7 +418,7 @@ void NEWreqs_id(WINDOW* win, Digraph G, Vertex v)
 	wscanw(win, "%d", &new_id);
 	if (FINDreqs_id(G->array[v]->reqs_id, G->array[v]->reqs, new_id) != -1) 
 	{
-		mvwprintw(win, 28, 1, "(!) ID ja existente nas deps. Nada alterado.");
+		mvwprintw(win, 28, 1, "(!) ID já existente nas deps. Nada alterado.");
 	} else 
 	{
 		/*Removendo ID antiga*/
@@ -319,7 +428,7 @@ void NEWreqs_id(WINDOW* win, Digraph G, Vertex v)
 		w = VERTEXreturn(G, new_id);
 		while ((w == -1) || (w >= v)) 
 		{
-			mvwprintw(win, 28, 1, "(!) ID invalida. Entre com outra ID: ");
+			mvwprintw(win, 28, 1, "(!) ID inválida. Entre com outra ID: ");
 			wscanw(win, "%d", &new_id);
 			w = VERTEXreturn(G, new_id);
 		} /*while*/

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "gtest/gtest.h"
 #include "../include/Digraph.h"
 

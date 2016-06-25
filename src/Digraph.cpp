@@ -182,6 +182,7 @@ VertexArray cnvInputStrToVertex(char* str)
             if (resp == NULL)
             {
     			free(w);
+    			free(str);
     			return NULL;
     		} /*if*/
         } else if (i != 5)
@@ -190,6 +191,7 @@ VertexArray cnvInputStrToVertex(char* str)
     		if (resp == NULL)
     		{
     			free(w);
+    			free(str);
     			return NULL;
     		} /*if*/
     	} /*if*/

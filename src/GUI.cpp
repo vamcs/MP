@@ -8,11 +8,13 @@
 #include "../include/fileReader.h"
 #include "../include/GUI.h"
 
-#define WORLD_WIDTH 100  //definir altura e largura da "janela"
+/*Altura e largura do ambiente de execução.*/
+#define WORLD_WIDTH 100
 #define WORLD_HEIGHT 40
 
 WINDOW* execution_environment;
 
+/*Opções do Menu Principal*/
 const char *choices[] = 
 {
 	"1 - Adicionar tarefa.", 
@@ -22,8 +24,9 @@ const char *choices[] =
 	"5 - Executar.",
 	"6 - Sair."
 };
-int n_choices = sizeof(choices)/sizeof(char*);
+int n_choices = sizeof (choices)/sizeof (char*);
 
+/*Opções do Menu da Janela de Modificações*/
 const char *fields[] = 
 {
 	"[ID]",
@@ -34,10 +37,12 @@ const char *fields[] =
 	"[Pre-requisitos]",
 	"[Dependências]"
 };
-int n_fields = sizeof(fields)/sizeof(char*);
+int n_fields = sizeof (fields)/sizeof (char*);
 
+/*Fecha a janela aberta e limpa tudo o que foi impresso na tela.*/
 void destroy_win(WINDOW *local_win, int Y, int X)
 {	
+	/*Limpa as bordas da janela.*/
 	/* box(local_win, ' ', ' '); : This won't produce the desired
 	 * result of erasing the window. It will leave it's four corners 
 	 * and so an ugly remnant of window. 
@@ -54,6 +59,8 @@ void destroy_win(WINDOW *local_win, int Y, int X)
 	 * 8. bl: character to be used for the bottom left corner of the window 
 	 * 9. br: character to be used for the bottom right corner of the window
 	 */
+
+	/*Limpa a janela com espaços em branco.*/
 	int i, j;
 	for (j = 1; j < Y - 1; j++) {
 		for (i = 1; i < X - 1; i++) {
@@ -64,6 +71,7 @@ void destroy_win(WINDOW *local_win, int Y, int X)
 	delwin(local_win);
 }
 
+/*Impressão do menu principal*/
 void print_menu(int highlight) 
 {
 	int x, y, i;  
@@ -72,7 +80,7 @@ void print_menu(int highlight)
 	y = 44;
 	for(i = 0; i < n_choices; ++i)
 	{  
-		if(highlight == i + 1){ /* High light the present choice */  
+		if(highlight == i + 1){ /* Destaca a seleção presente */  
 			attron(A_REVERSE); 
 			mvprintw(y, x, "%s", choices[i]);
 			attroff(A_REVERSE);
@@ -83,11 +91,13 @@ void print_menu(int highlight)
 	refresh();
 }
 
+/*Imprime todas as tarefas contidas no digrafo G na janela execution_envirionment.*/
 void print_instructions(Digraph G) 
 {
 	Vertex i;
 	int k, j;
 
+	/*Limpa a janela do ambiente de execução.*/
 	for (k = 2; k < 39; k++)
 	{
 		for (j = 2; j < 99; j++)
@@ -96,6 +106,8 @@ void print_instructions(Digraph G)
 		}
 	}
 
+	/*Impressão das tarefas e tempos de execução.*/
+	/*Tarefas executadas serão destacadas na cor ciano.*/
 	for (i = 0; i < G->V; i++)
 	{
 		if (G->array[i]->exec == true) 
@@ -114,7 +126,7 @@ void print_instructions(Digraph G)
 		  		for (j = 0; j < G->array[i]->reqs; j++)
 		  		{
 		  			wprintw(execution_environment, " %d", G->array[i]->reqs_id[j]);
-		  		}
+		  		} /*for*/
 		  	} else
 		  	{
 		  		mvwprintw(execution_environment, i + 2, 68, "-");
@@ -123,20 +135,20 @@ void print_instructions(Digraph G)
 		{
 		  	wattroff(execution_environment, COLOR_PAIR(1));
 		} /*if*/
-
+		/*Verifica se a tarefa foi executada. Se sim, imprime seu tempo de execução. Caso contrário, imprime um traço "-".*/
 		if (G->array[i]->exec) 
 		{
 			mvwprintw(execution_environment, i + G->V + 5, 2, "Tempo %s:\t%d", G->array[i]->name, G->array[i]->time);
 		} else 
 		{
 			mvwprintw(execution_environment, i + G->V + 5, 2, "Tempo %s:\t-", G->array[i]->name);
-		}
-
+		} /*if*/
 	} /*for*/
 
   	wrefresh(execution_environment);
 }
 
+/*Imprime o menu da janela de modificações. As opções estão contidas em fields definido acima.*/
 void print_modification(WINDOW* win, int highlight) 
 {
 	int x, y, i;  
@@ -156,6 +168,9 @@ void print_modification(WINDOW* win, int highlight)
 	wrefresh(win);
 }
 
+/*Lê a entrada do usuário para a inserção de uma nova tarefa e formata a string para ser inserida. Caso haja
+* algum problema, o programa requisita novamente a entrada de todos os valores.
+*/
 void userInsertion(WINDOW *win, Digraph G)
 {
 	bool (*nameCheck)(Digraph, char*, int);
@@ -176,13 +191,17 @@ void userInsertion(WINDOW *win, Digraph G)
 
 	do
 	{
-		char* str = (char*)malloc(1000 * sizeof(char));
+		/*String que contera toda a linha a ser inserida.
+		* Esta linha será formata como a linha de um arquivo de entrada.
+		* A string é desalocada em cnvInputStrToVertex() seja aceita ou não.
+		*/
+		char* str = (char*)malloc(1000 * sizeof (char));
 
+		/*Leitura dos campos da nova tarefa.*/
 		mvwprintw(win, 3, 1, "[ID]: ");
 		wscanw(win, "%5s", id);
 		mvwprintw(win, 4, 1, "[Nome]: ");
 		wscanw(win, "%100[^\n]s", name);
-		//getchar();
 		mvwprintw(win, 5, 1, "[Exec]: ");
 		wscanw(win, " %c", &exec);
 		mvwprintw(win, 6, 1, "[Duração]: ");
@@ -192,38 +211,56 @@ void userInsertion(WINDOW *win, Digraph G)
 		mvwprintw(win, 8, 1, "[Pré-requisitos]: ");
 		wscanw(win, "%3s", reqs);
 
+		/*
+		*	Formato atual: "ID '"
+		*/
 		strcpy(str, id);
 		length = strlen(str);
 		str[length++] = ' ';
 		str[length++] = '\'';
 		str[length] = '\0';
 		
+		/*
+		*	Formato atual: "ID 'NOME' "
+		*/
 		strcat(str, name);
 		length = strlen(str);
 		str[length++] = '\'';
 		str[length++] = ' ';
 		
+		/*
+		*	Formato atual: "ID 'NOME' EXEC "
+		*/
 		str[length++] = exec;
 		str[length++] = ' ';
 		str[length] = '\0';
 		
+		/*
+		*	Formato atual: "ID 'NOME' EXEC DURATION "
+		*/
 		strcat(str, duration);
 		length = strlen(str);
 		str[length++] = ' ';
 		str[length] = '\0';
 		
+		/*
+		*	Formato atual: "ID 'NOME' EXEC DURATION MIN_START "
+		*/
 		strcat(str, min_start);
 		length = strlen(str);
 		str[length++] = ' ';
 		str[length] = '\0';
 		
+		/*
+		*	Formato atual: "ID 'NOME' EXEC DURATION MIN_START REQS"
+		*/
 		strcat(str, reqs);
-		//length = strlen(str);
-		//str[length++] = ' ';
-		//str[length] = '\0';
 
 		int_reqs = atoi(reqs);
 
+		/*	Se reqs > 0, então:
+		*	Formato final: "ID 'NOME' EXEC DURATION MIN_START DEP1 DEP2 ..."
+		*/
 		if (int_reqs > 0) {
 			mvwprintw(win, 9, 1, "[Dependências]: ");
 			char deps[5];
@@ -245,10 +282,10 @@ void userInsertion(WINDOW *win, Digraph G)
 			}
 		}
 
-		mvwprintw(win, 18, 1, "str: %s", str);
+		/*Impressão da string final para controle do usuário.*/
+		mvwprintw(win, 17, 1, "str: %s", str);
 
-		//getchar();
-
+		/*Inserção da nova tarefa no digrafo. Retorna um valor negativo em caso de erro.*/
 		VertexArray array = cnvInputStrToVertex(str);
 		error_check = DIGRAPHinsertV(G, array, inputCheck, nameCheck);
 		if (error_check < 0)
@@ -266,32 +303,38 @@ void userInsertion(WINDOW *win, Digraph G)
 	} while (error_check < 0);
 }
 
+/*Inicia a janela de inserção de uma nova tarefa.*/
 void insertion_window(Digraph G) 
 {
-
-	WINDOW *win = newwin(20, 50, 3, 101);
-	keypad(win, TRUE);
-	box(win, 0, 0);
-	touchwin(win);
-	wrefresh(win);
-	init_pair(1, COLOR_CYAN, COLOR_BLACK);
+	WINDOW *win = newwin(20, 50, 3, 101);	/*Janela do tamanho y = 20, x = 50, na posição y = 3, x = 101.*/
+	keypad(win, TRUE);	/*Teclado habilitado.*/
+	box(win, 0, 0);		/*Possui uma caixa ao redor.*/
+	touchwin(win);		/*Atualização da janela.*/
+	wrefresh(win);		/*Atualização da janela.*/
+	init_pair(1, COLOR_CYAN, COLOR_BLACK);	/*Imprime a frase principal em ciano.*/
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, 1, "Inserindo nova tarefa:");
 	wattroff(win, COLOR_PAIR(1));
 
+	/*A função userInsertion é responsável pela leitura e inserção dos valores novo.*/
 	userInsertion(win, G);
 
+	/*Atualiza a janela.*/
 	wrefresh(win);
 
-	//getchar();
+	/*Fecha a janela.*/
 	destroy_win(win, 20, 50);
 }
 
+/*Janela que chama a função de remoção de uma tarefa.
+* Uma ID é entrada e verificada e caso exista no grafo, é removida.
+*/
 void deletion_window(Digraph G) 
 {
 	int id,
 		error_check;
 
+	/*Inicialização da janela.*/
 	WINDOW *win = newwin(7, 25, 3, 101);
 	keypad(win, TRUE);
 	box(win, 0, 0);
@@ -302,10 +345,12 @@ void deletion_window(Digraph G)
 	mvwprintw(win, 1, 1, "Deletando uma tarefa:");
 	wattroff(win, COLOR_PAIR(1));
 
+	/*Enquanto a ID entrada não seja válida, o programa continua aqui.*/
 	do {
 		mvwprintw(win, 3, 1, "[ID]: ");
 		wscanw(win, "%d", &id);
 
+		/*Se error_check == 0, a tarefa foi removida.*/
 		error_check = DIGRAPHremoveV(G, id);
 		if (error_check < 0)
 		{
@@ -315,13 +360,19 @@ void deletion_window(Digraph G)
 	}
 	while (error_check < 0);
 
+	/*Atualiza a janela.*/
 	wrefresh(win);
 
+	/*Fecha a janela.*/
 	destroy_win(win, 7, 25);
 }
 
+/*Tarefa responsável por chamar a função modify().
+* Lê uma ID e verifica se é válida ou não. Após pede ao usuário qual campo será modificado.
+*/
 void modification_window(Digraph G) 
 {
+	/*Inicialização da janela.*/
 	WINDOW *win = newwin(30, 50, 3, 101);
 	keypad(win, TRUE);
 	box(win, 0, 0);
@@ -334,6 +385,7 @@ void modification_window(Digraph G)
  	int id;
  	Vertex v;
 
+ 	/*Lê a ID a ser modificada.*/
  	mvwprintw(win, 1, 1, "Insira ID a ser modificada: ");
  	wscanw(win, "%d", &id);
  	v = VERTEXreturn(G, id);
@@ -345,7 +397,7 @@ void modification_window(Digraph G)
 	} /*while*/
 	mvwprintw(win, 28, 1, "                                                ");
 
- 	//mvwprintw(win, 10, 1, "Erro, insira novamente: ");
+	/*Imprime o menu*/
  	print_modification(win, highlight);
  	while (1)
  	{  
@@ -360,7 +412,7 @@ void modification_window(Digraph G)
     			} else
     			{
     				--highlight;
-    			}
+    			} /*if*/
     			break;
     		case KEY_DOWN:
 			    if(highlight == n_fields) {
@@ -368,7 +420,7 @@ void modification_window(Digraph G)
 			    }
 			    else {
 			    	++highlight;
-			    }
+			    } /*if*/
 			    break;
     		case 10:
 			    choice = highlight;
@@ -377,27 +429,32 @@ void modification_window(Digraph G)
 			    break;
     	} /*switch*/
 	    print_modification(win, highlight);
-	    if(choice != 0) /* User did a choice come out of the infinite loop */
+	    if(choice != 0) /* Usuário fez uma escolha, então sai do loop infinito. */
 	    {
-	    	wrefresh(win);
+	    	wrefresh(win);	/*Atualiza a janela.*/
 	    	break;
 	    } /*if*/
 	} /*while*/
+
+	/*Chama a função modify() que irá alterar o campo especificado em choice.*/
 	modify(win, G, id, choice);
-	wgetch(win);
+	
+	/*Fecha a janela.*/
 	destroy_win(win, 30, 50);
 }
 
+/*Inicializa a tela NCurses e o ambiente de execução.*/
 void setupGUI() {
 	int i,
-		highlight = 1;
+		highlight = 1;	/*Primeira opção do menu estará selecionada*/
 
+	/*Inicia a tela.*/
 	initscr();
 	start_color();
 	cbreak();
-	//noecho();
 	keypad(stdscr, TRUE);
 
+	/*Imprime header*/
 	for (i = 0; i < 100; i++) 
 	{
 		mvaddch(0, i + 1, '-');
@@ -411,6 +468,7 @@ void setupGUI() {
 	}
 	refresh();
 
+	/*Inicializa o ambiente de execução.*/
 	execution_environment = newwin(WORLD_HEIGHT,WORLD_WIDTH,3,1);
 	box(execution_environment, 0, 0);
 	mvwprintw(execution_environment, 1, 3, "ID");
@@ -422,11 +480,15 @@ void setupGUI() {
 	touchwin(execution_environment);
   	wrefresh(execution_environment);
 
+  	/*Imprime mensagens auxiliares e o menu.*/
   	mvprintw(43, 80, "Ciclo 0");
   	mvprintw(43, 1, "Menu:");
  	print_menu(highlight);
 }
 
+/*Reinicia o grafo à configuração anterior à chamada da função de execução.
+* Os valores anteriores de exec estão salvos no vetor de inteiros prev_config.
+*/
 void DIGRAPHrestart(Digraph G, int* prev_config)
 {
 	int i;
@@ -435,22 +497,26 @@ void DIGRAPHrestart(Digraph G, int* prev_config)
 		G->array[i]->exec = prev_config[i];
 	}
 
+	free(prev_config);
 }
 
-void GUI(Digraph G) {
-	int 	highlight 	= 1,
- 			c 			= 0,
- 			choice 		= 0,
- 			i;
+/*Interface Gráfica do ambiente de execução em NCurses.*/
+void GUI(Digraph G) 
+{
+	int 	highlight 	= 1,	/*Opção marcada atual do menu*/
+ 			c 			= 0,	/*Buffer de escolha do menu.*/
+ 			choice 		= 0,	/*Opção de seleção do menu*/
+ 			i,
+ 			cycle;				/*Ciclo de execução atual.*/
+ 	int* prev_config;			/*Guarda a configuração anterior à execução das tarefas.*/
 
- 	int* prev_config;
-
+ 	/*Inicializa o ambiente de execução.*/
 	setupGUI();
 
+	/*Imprime as instruções.*/
   	print_instructions(G);
 
-  	int cycle;
-
+  	/*Faz a seleção do menu principal.*/
  	while (choice != 6)	/*Opção 6 é "sair".*/
  	{	
  		choice = 0;
@@ -466,7 +532,7 @@ void GUI(Digraph G) {
 	    			} else
 	    			{
 	    				--highlight;
-	    			}
+	    			} /*if*/
 	    			break;
 	    		case KEY_DOWN:
 				    if (highlight == n_choices)
@@ -474,7 +540,7 @@ void GUI(Digraph G) {
 				    	highlight = 1;
 				    } else { 
 				    	++highlight;
-				    }
+				    } /*if*/
 				    break;
 	    		case 10:
 				    choice = highlight;
@@ -493,18 +559,18 @@ void GUI(Digraph G) {
 		    } /*if*/
 		} /*while*/
 
-		if (choice == 1) {
+		if (choice == 1) {			/*Escolha 1 - Inserção de nova tarefa*/
 			insertion_window(G);
 			print_instructions(G);
-		} else if (choice == 2) 
+		} else if (choice == 2) 	/*Escolha 2 - Modificação dos campos de uma tarefa*/
 		{
 			modification_window(G);
 			print_instructions(G);
-		} else if (choice == 3) 
+		} else if (choice == 3) 	/*Escolha 3 - Deleção de uma tarefa*/
 		{
 			deletion_window(G);
 			print_instructions(G);
-		} else if (choice == 4) 
+		} else if (choice == 4) 	/*Escolha 4 - Execução até um determinado ciclo*/
 		{
 			do
 			{
@@ -513,37 +579,29 @@ void GUI(Digraph G) {
 				if (cycle < 0) 
 				{
 					mvprintw(48, 70, "Erro, ciclo inválido.");
-				}
+				} /*if*/
 			} while (cycle < 0);
 			mvprintw(47, 70, "\n");
 			mvprintw(48, 70, "\n");
-			//DIGRAPHsave(G);
-			prev_config = (int*)malloc(G->V * sizeof(int));
+			prev_config = (int*)malloc(G->V * sizeof (int));
 			for (i = 0; i < G->V; i++)
 			{
 				prev_config[i] = G->array[i]->exec;
 			}
 			execution(G, cycle);
-			//DIGRAPHdestroy(G);
 			DIGRAPHrestart(G, prev_config);
-			free(prev_config);
-		} 
-		else if (choice == 5) 
+		} else if (choice == 5) 	/*Escolha 5 - Execução até que todas tarefas tenham executado*/
 		{
-			//DIGRAPHsave(G);
-			prev_config = (int*)malloc(G->V * sizeof(int));
+			prev_config = (int*)malloc(G->V * sizeof (int));
 			for (i = 0; i < G->V; i++)
 			{
 				prev_config[i] = G->array[i]->exec;
-			}
+			} /*for*/
 			execution(G, -1);
-			//DIGRAPHdestroy(G);
-			//G = DIGRAPHrestart();
 			DIGRAPHrestart(G, prev_config);
-			free(prev_config);
-		}
+		} /*if*/
 		print_menu(highlight);
-	}
+	} /*While*/
 
 	delwin(execution_environment);
 	endwin();

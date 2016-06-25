@@ -65,8 +65,8 @@ SRCSTEST = $(wildcard $(TEST_DIR)/*.cpp)
 OBJSTEST = $(patsubst $(TEST_DIR)/%.cpp,test_obj/%.o, $(SRCSTEST))
 
 
-TESTE: ./obj/Digraph.o ./obj/manager.o $(OBJSTEST) gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+TESTE: ./obj/Digraph.o ./obj/manager.o ./obj/GUI.o ./obj/fileReader.o $(OBJSTEST) gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses
 
 test_obj/%.o: $(TEST_DIR)/%.cpp $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@ -std=c++0x -ftest-coverage -fprofile-arcs -lncurses

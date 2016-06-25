@@ -19,3 +19,4 @@
 20/06/2016 | 40m| Revisar especif.	| Revisão das especificações e anotações de tudo que falta a se feito.
 
 25/06/2016 | 15m| CPPcheck 			| Retirada final de warnings.
+25/06/2016 | 5m | GCOV				| Habilitação do GCOV
