@@ -342,70 +342,91 @@ int VERTEXreturn(Digraph, int);
 */
 VertexArray cnvInputStrToVertex(char* str);
 
-/*! Brief/
+/*! Brief/ Busca por um ID dentro de um array de IDs.
 *
-*	Detailed
+*	Detailed Dada uma tarefa, é feita uma busca por um ID em seu array de dependências. O parâmetro reqs garante
+*	que apenas posições permitidas serão acessadas.
 *
-*	Funções Cliente:
+*	Funções Cliente: DIGRAPHinsertV(), DIGRAPHremoveV().
 *
-*	Funções Servidoras:
+*	Funções Servidoras: -
 *
 *	Assertivas de Entrada:
+*	- Array com pré-requisitos de uma tarefa
+*	- Número de elementos nesse array (reqs)
+*	- Elemento a ser buscado
 *
 *	Assertivas de Saída:
+*	- Retorna a posição do valor caso seja encontrado.
+*	- Retorna zero se ID é invalido ou não está presente.
 *
-*	\param
-*	\return
+*	\param ponteiro para int reqs_id
+*	\param int reqs
+*	\param int id
+*	\return posição de id se for sucesso. -1 no erro.
 */
 int FINDreqs_id(int*, int, int);
 
-/*! Brief/
+/*! Brief/ Verificação de inteiros.
 *
-*	Detailed
+*	Detailed Verifica se o valor entradado é maior ou igual a zero.
 *
-*	Funções Cliente:
+*	Funções Cliente: DIGRAPHinsertV(), DIGRAPHread().
 *
-*	Funções Servidoras:
+*	Funções Servidoras: -
 *
 *	Assertivas de Entrada:
+*	- Valor inteiro a ser checado.
 *
 *	Assertivas de Saída:
+*	- Retorna true caso o valor ser maior ou igual a zero.
+*	- Retorna false caso contrário.
 *
-*	\param
-*	\return
+*	\param valor inteiro
+*	\return true se valor >= 0, false caso contrário.
 */
 bool INPUTcheck(int);
 
-/*! Brief/
+/*! Brief/ Verifica se o nome entrado já existe no digrafo.
 *
-*	Detailed
+*	Detailed A função percorre o array de vértices em busca da string entrada.
 *
-*	Funções Cliente:
+*	Funções Cliente: DIGRAPHinsertV(), DIGRAPHread().
 *
-*	Funções Servidoras:
+*	Funções Servidoras: -
 *
 *	Assertivas de Entrada:
+*	- Digrafo G contendo todas as tarefas.
+*	- String a ser verificada.
+*	- Valor inteiro com o tamanho do array de G.
 *
 *	Assertivas de Saída:
+*	- Caso o nome já tiver sido usado, retorna false. 
+*	- Caso contrário, é um novo nome. 
 *
-*	\param
-*	\return
+*	\param digrafo G contendo as tarefas
+*	\param string contendo o novo nome
+*	\param inteiro contendo o tamanho do array de vértices
+*	\return true se a string não existe em G e false se um vértice já possuir esse nome.
 */
 bool NAMEcheck(Digraph, char*, int);
 
-/*! Brief/
+/*! Brief/ Leitura do arquivo de entrada e inserção dos valores no digrafo.
 *
-*	Detailed
+*	Detailed Faz a leitura do arquivo de entrada, cria a string contendo cada linha e a insere no digrafo.
 *
-*	Funções Cliente:
+*	Funções Cliente: main().
 *
-*	Funções Servidoras:
+*	Funções Servidoras: DIGRAPHinit(), readFileLine(), cnvInputStrToVertex(), DIGRAPHinsertV(), NAMEcheck(), INPUTcheck().
 *
 *	Assertivas de Entrada:
+*	- Digraph G inicializado por DIGRAPHinit().
 *
 *	Assertivas de Saída:
+*	- O grafo completo de acordo com o arquivo "input.txt" é inicializado ao fim desta função.
+*	- Verificações de erro de inserção de vértice são feitas, caso as linhas lidas não atendem aos requisitos.
 *
-*	\param
+*	\param Digraph vazio e inicializado
 *	\return
 */
 void DIGRAPHread(Digraph);

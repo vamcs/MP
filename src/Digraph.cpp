@@ -714,10 +714,11 @@ bool NAMEcheck(Digraph G, char* name, int V)
 	
 	for (w = 0; w < V; w++) 
 	{
-		if (strcmp(G->array[w]->name, name) == 0) {
-			return 0;
+		if (strcmp(G->array[w]->name, name) == 0) 
+		{
+			return false;
 		} /*if*/
 	} /*for*/
 	
-	return 1;
+	return true;
 }
