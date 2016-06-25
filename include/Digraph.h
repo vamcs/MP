@@ -70,17 +70,38 @@ struct edge {				//Define uma aresta (edge) v -> w.
 
 /*! \Brief Inicialização do Digrafo
  *
- *  Detailed Constrói e retorna um digrafo com vértices 0 ... V-1 e todas arestas definidas no arquivo txt
- *	passado à função.
+ *  Detailed Constrói e retorna um digrafo com vértices 0 ... V-1 e todas arestas definidas no arquivo input.txt
+ *	passado à função. Apenas faz a alocação de memória para o digrafo.
  *
- *  \param file Nome do arquivo de definições do grafo.
- *  \return Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado.
+ *	Funções Clientes: todo o programa.
+ *
+ *	Funções Servidoras: -
+ *
+ *	Assertivas de Entrada: -
+ *
+ *	Assertivas de Saída:
+ *	- Retorna uma estrutura Digraph G com memória alocada. É verificado se o malloc funcionou corretamente.
+ *	Caso contrário, o programa é abortado.
+ *
+ *  \param
+ *  \return Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo de entrada.
  */
 Digraph DIGRAPHinit();
 
 /*! \Brief Insere uma aresta no grafo.
  *
  *  Detailed Insere um arco v-w contido na struct Edge 'e' no digrafo 'G'.
+ *
+ *	Funções Cliente: DIGRAPHinsertV(), NEWreqs(), NEWreqs_id().
+ *
+ *	Funções Servidoras: NEWnode(), DIGRAPHadj().
+ *
+ *	Assertivas de Entrada:
+ *	- Digraph G contendo todas as tarefas
+ *	- Edge e contendo uma aresta v->w que deverá ser checada.
+ *
+ *	Assertivas de Saída:
+ *	- Insere uma aresta caso v->w não exista e se e.id seja igual à ID de w.
  *
  *  \param G Grafo onde será inserida a aresta 'e'
  *  \param e Aresta a ser inserida no grafo 'G'
@@ -102,8 +123,6 @@ void DIGRAPHinsertE(Digraph, Edge);
  *
  *	Assertivas de Saída:
  *	- Remove uma aresta caso v->w exista e se e.id seja igual à ID de w.
- *	- 
- *
  *
  *  \param G Grafo onde será removida a aresta 'e'
  *  \param e Aresta a ser removida no grafo 'G'
@@ -199,6 +218,10 @@ bool DIGRAPHadj(Digraph, Vertex, Vertex);
  *  Detailed Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices,
  *  além de cada um dos nós das LinkedLists de adjacências de cada um destes vértices.
  *	
+ *	Funções Clientes: main.
+ *
+ *	Funções Servidoras: -
+ *
  *	Assertivas de Entrada:
  *	- Digrafo do tipo G alocado e contendo todas as tarefas.
  *	
@@ -229,12 +252,38 @@ void DIGRAPHdestroy(Digraph);
 void DIGRAPHsave(Digraph);
 
 /*Criação de um vértice da LinkedList de adjacência.*/
+/*!	\Brief Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias contidas em cada um dos nós.
+*	
+*	Detailed Função que cria e retorna um novo nó para uma lista de adjência contendo um índice w para
+* 	um vértice do digrafo, a ID desse vértice e um ponteiro para o próximo nó da lista de adjacência.
+*	
+*	Funções Clientes: DIGRAPHinsertE().
+*
+*	Funções Servidoras: -
+*
+*	Assertivas de Entrada:
+*	- Índice v de um vértice contendo uma tarefa
+*	- ID do tipo inteiro
+*	- Ponteiro do tipo LinkedList para o próximo elemento na lista.
+*
+*	Assertivas de Saída:
+*		Retorna o novo nó da lista de adjacência para a função DIGRAPHinsertE().
+*
+*  	\param v Vértice de destino.
+*  	\param int contendo o id do vértice de destino.
+*	\param ponteiro do tipo LinkedList contendo o próximo elemento da lista de adjacências.
+*  	\return novo nó do tipo LinkedList para uma lista de adjacências.
+*/
 LinkedList NEWnode(Vertex, int, LinkedList);
 
 /*! \Brief Cria uma aresta para o grafo.
  *
  *  Detailed Esta função simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas-
  *	sados a outra função que as utilizará de acordo com o que for implementado.
+ *
+ *	Funções Clientes: DIGRAPHinsertV(), DIGRAPHremoveV().
+ *
+ *	Funções Servidoras: 
  *
  *	Assertivas de Entrada:
  *	- Dois vértices do tipo Vertex que compõe a aresta no sentido v -> w
@@ -251,15 +300,112 @@ LinkedList NEWnode(Vertex, int, LinkedList);
  */
 Edge EDGE(Vertex, Vertex, int);
 
-/*Funções auxiliares de busca de índice do vértice e remoção de vírgulas da string.*/
+/*! Brief/ Busca por um ID no digrafo.
+*
+*	Detailed Esta função percorre o array de vértices em busca de um ID específico.
+*
+*	Funções Cliente: DIGRAPHinsertV(), DIGRAPHremoveV(), TIME(), NEWid(), NEWreqs(), NEWreqs_id(), modify(), execution(), modification_window().
+*
+*	Funções Servidoras: -
+*
+*	Assertivas de Entrada:
+*	- Digraph G contendo o digrafo com as tarefas.
+*	- Inteiro contendo o ID a ser buscado.
+*
+*	Assertivas de Saída:
+*	- A função busca pelo ID e caso seja encontrado retorna a sua posição no array de vértices.
+*	- Caso o digrafo esteja vazio ou o ID seja inválido, retorna -1.
+*
+*	\param Digraph G
+*	\param int id
+*	\return int posição do vértice que contém id
+*/
 int VERTEXreturn(Digraph, int);
 
+/*! Brief/ Faz a conversão da string lida para um vértice do digrafo do tipo VertexArray.
+*
+*	Detailed Esta função cria um nó do array de vértices do tipo VertexArray a partir de uma string no mesmo
+*	formato do arquivo de entrada "input.txt". Todos os campos são separados e formatados corretamente.
+*
+*	Funções Cliente: DIGRAPHread(), main().
+*
+*	Funções Servidoras: -
+*
+*	Assertivas de Entrada:
+*	- String contendo uma linha completa conforme arquivo de entrada.
+*
+*	Assertivas de Saída:
+*	- Nó do array de vértices do digrafo é retornado se toda string estiver correta. Caso haja erros, retorna NULL.
+*
+*	\param char* str contendo uma linha no formato padrão de uma tarefa.
+*	\return	um nó do tipo VertexArray contendo uma nova tarefa.
+*/
 VertexArray cnvInputStrToVertex(char* str);
 
+/*! Brief/
+*
+*	Detailed
+*
+*	Funções Cliente:
+*
+*	Funções Servidoras:
+*
+*	Assertivas de Entrada:
+*
+*	Assertivas de Saída:
+*
+*	\param
+*	\return
+*/
 int FINDreqs_id(int*, int, int);
 
+/*! Brief/
+*
+*	Detailed
+*
+*	Funções Cliente:
+*
+*	Funções Servidoras:
+*
+*	Assertivas de Entrada:
+*
+*	Assertivas de Saída:
+*
+*	\param
+*	\return
+*/
 bool INPUTcheck(int);
 
+/*! Brief/
+*
+*	Detailed
+*
+*	Funções Cliente:
+*
+*	Funções Servidoras:
+*
+*	Assertivas de Entrada:
+*
+*	Assertivas de Saída:
+*
+*	\param
+*	\return
+*/
 bool NAMEcheck(Digraph, char*, int);
 
+/*! Brief/
+*
+*	Detailed
+*
+*	Funções Cliente:
+*
+*	Funções Servidoras:
+*
+*	Assertivas de Entrada:
+*
+*	Assertivas de Saída:
+*
+*	\param
+*	\return
+*/
 void DIGRAPHread(Digraph);
