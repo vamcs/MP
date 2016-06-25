@@ -517,7 +517,7 @@ void DIGRAPHdestroy(Digraph G)
 	
 	/*Desalocar grafo*/
 	free(G);
-    G = NULL;
+    //G = NULL;
 }
 
 /*	************ALTERAÇÃO PROJETO FINAL************

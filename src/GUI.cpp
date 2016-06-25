@@ -31,7 +31,8 @@ const char *fields[] =
 	"[Exec]",
 	"[Duracao]",
 	"[Inicio]",
-	"[Pre-requisitos]"
+	"[Pre-requisitos]",
+	"[Dependências]"
 };
 int n_fields = sizeof(fields)/sizeof(char*);
 
@@ -89,7 +90,7 @@ void print_instructions(Digraph G)
 
 	for (k = 2; k < 39; k++)
 	{
-		for (j = 3; j < 99; j++)
+		for (j = 2; j < 99; j++)
 		{
 			mvwaddch(execution_environment, k, j, ' ');
 		}
@@ -102,12 +103,12 @@ void print_instructions(Digraph G)
 			init_pair(1, COLOR_CYAN, COLOR_BLACK);
 			wattron(execution_environment, COLOR_PAIR(1));
 		} /*if*/
-			mvwprintw(execution_environment, i + 2, 5, "%d", G->array[i]->id);
-			mvwprintw(execution_environment, i + 2, 15, "%s", G->array[i]->name);
-		  	mvwprintw(execution_environment, i + 2, 27, "%d", G->array[i]->exec);
-		  	mvwprintw(execution_environment, i + 2, 40, "%d", G->array[i]->duration);
-		  	mvwprintw(execution_environment, i + 2, 55, "%d", G->array[i]->min_start);
-		  	mvwprintw(execution_environment, i + 2, 70, "%d", G->array[i]->reqs);
+			mvwprintw(execution_environment, i + 2, 2, "%d", G->array[i]->id);
+			mvwprintw(execution_environment, i + 2, 13, "%s", G->array[i]->name);
+		  	mvwprintw(execution_environment, i + 2, 25, "%d", G->array[i]->exec);
+		  	mvwprintw(execution_environment, i + 2, 38, "%d", G->array[i]->duration);
+		  	mvwprintw(execution_environment, i + 2, 53, "%d", G->array[i]->min_start);
+		  	mvwprintw(execution_environment, i + 2, 68, "%d", G->array[i]->reqs);
 		  	if (G->array[i]->reqs > 0) 
 		  	{
 		  		for (j = 0; j < G->array[i]->reqs; j++)
@@ -116,12 +117,21 @@ void print_instructions(Digraph G)
 		  		}
 		  	} else
 		  	{
-		  		mvwprintw(execution_environment, i + 2, 70, "-");
+		  		mvwprintw(execution_environment, i + 2, 68, "-");
 			} /*if*/
 		if (G->array[i]->exec == true) 
 		{
 		  	wattroff(execution_environment, COLOR_PAIR(1));
 		} /*if*/
+
+		if (G->array[i]->exec) 
+		{
+			mvwprintw(execution_environment, i + G->V + 5, 2, "Tempo %s:\t%d", G->array[i]->name, G->array[i]->time);
+		} else 
+		{
+			mvwprintw(execution_environment, i + G->V + 5, 2, "Tempo %s:\t-", G->array[i]->name);
+		}
+
 	} /*for*/
 
   	wrefresh(execution_environment);
@@ -263,6 +273,7 @@ void insertion_window(Digraph G)
 	keypad(win, TRUE);
 	box(win, 0, 0);
 	touchwin(win);
+	wrefresh(win);
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, 1, "Inserindo nova tarefa:");
@@ -285,6 +296,7 @@ void deletion_window(Digraph G)
 	keypad(win, TRUE);
 	box(win, 0, 0);
 	touchwin(win);
+	wrefresh(win);
 	init_pair(1, COLOR_CYAN, COLOR_BLACK);
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, 1, "Deletando uma tarefa:");
@@ -314,9 +326,10 @@ void modification_window(Digraph G)
 	keypad(win, TRUE);
 	box(win, 0, 0);
 	touchwin(win);
-	static int 	highlight 	= 1,
- 				c 			= 0,
- 				choice 		= 0;
+	wrefresh(win);
+	int 	highlight 	= 1,
+ 			c 			= 0,
+ 			choice 		= 0;
 
  	int id;
  	Vertex v;
@@ -330,11 +343,13 @@ void modification_window(Digraph G)
 		wscanw(win, "%d", &id);
 		v = VERTEXreturn(G, id);
 	} /*while*/
+	mvwprintw(win, 28, 1, "                                                ");
 
  	//mvwprintw(win, 10, 1, "Erro, insira novamente: ");
  	print_modification(win, highlight);
  	while (1)
  	{  
+    	wrefresh(win);
     	c = wgetch(win);
     	switch(c)
     	{  
@@ -348,10 +363,12 @@ void modification_window(Digraph G)
     			}
     			break;
     		case KEY_DOWN:
-			    if(highlight == n_fields)
-			    highlight = 1;
-			    else 
-			    ++highlight;
+			    if(highlight == n_fields) {
+			    	highlight = 1;
+			    }
+			    else {
+			    	++highlight;
+			    }
 			    break;
     		case 10:
 			    choice = highlight;
@@ -362,11 +379,12 @@ void modification_window(Digraph G)
 	    print_modification(win, highlight);
 	    if(choice != 0) /* User did a choice come out of the infinite loop */
 	    {
+	    	wrefresh(win);
 	    	break;
 	    } /*if*/
 	} /*while*/
 	modify(win, G, id, choice);
-	//getchar();
+	wgetch(win);
 	destroy_win(win, 30, 50);
 }
 
@@ -395,12 +413,12 @@ void setupGUI() {
 
 	execution_environment = newwin(WORLD_HEIGHT,WORLD_WIDTH,3,1);
 	box(execution_environment, 0, 0);
-	mvwprintw(execution_environment, 1, 5, "ID");
-  	mvwprintw(execution_environment, 1, 15, "Nome");
-  	mvwprintw(execution_environment, 1, 27, "Executada?");
-  	mvwprintw(execution_environment, 1, 40, "Duração");
-  	mvwprintw(execution_environment, 1, 55, "Início");
-  	mvwprintw(execution_environment, 1, 70, "Pré-Requisitos");
+	mvwprintw(execution_environment, 1, 3, "ID");
+  	mvwprintw(execution_environment, 1, 12, "Nome");
+  	mvwprintw(execution_environment, 1, 25, "Executada?");
+  	mvwprintw(execution_environment, 1, 38, "Duração");
+  	mvwprintw(execution_environment, 1, 53, "Início");
+  	mvwprintw(execution_environment, 1, 68, "Pré-Requisitos");
 	touchwin(execution_environment);
   	wrefresh(execution_environment);
 
@@ -409,33 +427,23 @@ void setupGUI() {
  	print_menu(highlight);
 }
 
-Digraph DIGRAPHrestart()
+void DIGRAPHrestart(Digraph G, int* prev_config)
 {
-	bool (*nameCheck)(Digraph, char*, int);
-	nameCheck = NAMEcheck;
-
-	bool (*inputCheck)(int);
-	inputCheck = INPUTcheck;
-
-	FILE* fp = fopen("output.txt","r");
-
-	Digraph G = DIGRAPHinit();
-	
-	while (!feof(fp)) {
-		char* vertexSTR = readFileLine(fp);
-		VertexArray V = cnvInputStrToVertex(vertexSTR);
-		/*DIGRAPHinsertV retorna 0 se funcionou normalmente.*/
-		assert(DIGRAPHinsertV(G, V, inputCheck, nameCheck) == 0);
+	int i;
+	for (i = 0; i < G->V; i++)
+	{
+		G->array[i]->exec = prev_config[i];
 	}
 
-	fclose(fp);
-	return G;
 }
 
 void GUI(Digraph G) {
-	static int 	highlight 	= 1,
- 				c 			= 0,
- 				choice 		= 0;
+	int 	highlight 	= 1,
+ 			c 			= 0,
+ 			choice 		= 0,
+ 			i;
+
+ 	int* prev_config;
 
 	setupGUI();
 
@@ -477,8 +485,9 @@ void GUI(Digraph G) {
 		    print_menu(highlight);
 		    if(choice != 0) /* User did a choice come out of the infinite loop */
 		    {
-		    	mvprintw(43, 80, "Ciclo 0");
+		    	mvprintw(43, 80, "Ciclo 0   ");
 		    	mvprintw(50, 1, "\n");
+		    	mvprintw(51, 1, "\n");
 		    	print_instructions(G);
 		    	break;
 		    } /*if*/
@@ -490,6 +499,7 @@ void GUI(Digraph G) {
 		} else if (choice == 2) 
 		{
 			modification_window(G);
+			print_instructions(G);
 		} else if (choice == 3) 
 		{
 			deletion_window(G);
@@ -507,17 +517,30 @@ void GUI(Digraph G) {
 			} while (cycle < 0);
 			mvprintw(47, 70, "\n");
 			mvprintw(48, 70, "\n");
-			DIGRAPHsave(G);
+			//DIGRAPHsave(G);
+			prev_config = (int*)malloc(G->V * sizeof(int));
+			for (i = 0; i < G->V; i++)
+			{
+				prev_config[i] = G->array[i]->exec;
+			}
 			execution(G, cycle);
-			DIGRAPHdestroy(G);
-			G = DIGRAPHrestart();
+			//DIGRAPHdestroy(G);
+			DIGRAPHrestart(G, prev_config);
+			free(prev_config);
 		} 
 		else if (choice == 5) 
 		{
-			DIGRAPHsave(G);
+			//DIGRAPHsave(G);
+			prev_config = (int*)malloc(G->V * sizeof(int));
+			for (i = 0; i < G->V; i++)
+			{
+				prev_config[i] = G->array[i]->exec;
+			}
 			execution(G, -1);
-			DIGRAPHdestroy(G);
-			G = DIGRAPHrestart();
+			//DIGRAPHdestroy(G);
+			//G = DIGRAPHrestart();
+			DIGRAPHrestart(G, prev_config);
+			free(prev_config);
 		}
 		print_menu(highlight);
 	}
