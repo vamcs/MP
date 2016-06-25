@@ -144,82 +144,106 @@ void userInsertion(WINDOW *win, Digraph G)
 	bool (*inputCheck)(int);
 	inputCheck = INPUTcheck;
 
-	int length;
+	int length, 
+		int_reqs,
+		error_check;
 	char id[5],
 		exec,
 		duration[3],
 		min_start[3],
 		reqs[3];
 	char name[100];
-	char* str = (char*)malloc(1000 * sizeof(char));
 
-	mvwprintw(win, 3, 1, "[ID]: ");
-	wscanw(win, "%5s", id);
-	mvwprintw(win, 4, 1, "[Nome]: ");
-	wscanw(win, "%100[^\n]s", name);
-	//getchar();
-	mvwprintw(win, 5, 1, "[Exec]: ");
-	wscanw(win, " %c", &exec);
-	mvwprintw(win, 6, 1, "[Duração]: ");
-	wscanw(win, "%3s", duration);
-	mvwprintw(win, 7, 1, "[Início]: ");
-	wscanw(win, "%3s", min_start);
-	mvwprintw(win, 8, 1, "[Pré-requisitos]: ");
-	wscanw(win, "%3s", reqs);
+	do
+	{
+		char* str = (char*)malloc(1000 * sizeof(char));
 
-	strcpy(str, id);
-	length = strlen(str);
-	str[length++] = ' ';
-	str[length++] = '\'';
-	str[length] = '\0';
-	
-	strcat(str, name);
-	length = strlen(str);
-	str[length++] = '\'';
-	str[length++] = ' ';
-	
-	str[length++] = exec;
-	str[length++] = ' ';
-	str[length] = '\0';
-	
-	strcat(str, duration);
-	length = strlen(str);
-	str[length++] = ' ';
-	str[length] = '\0';
-	
-	strcat(str, min_start);
-	length = strlen(str);
-	str[length++] = ' ';
-	str[length] = '\0';
-	
-	strcat(str, reqs);
-	//length = strlen(str);
-	//str[length++] = ' ';
-	//str[length] = '\0';
+		mvwprintw(win, 3, 1, "[ID]: ");
+		wscanw(win, "%5s", id);
+		mvwprintw(win, 4, 1, "[Nome]: ");
+		wscanw(win, "%100[^\n]s", name);
+		//getchar();
+		mvwprintw(win, 5, 1, "[Exec]: ");
+		wscanw(win, " %c", &exec);
+		mvwprintw(win, 6, 1, "[Duração]: ");
+		wscanw(win, "%3s", duration);
+		mvwprintw(win, 7, 1, "[Início]: ");
+		wscanw(win, "%3s", min_start);
+		mvwprintw(win, 8, 1, "[Pré-requisitos]: ");
+		wscanw(win, "%3s", reqs);
 
-	mvwprintw(win, 18, 1, "str: %s", str);
+		strcpy(str, id);
+		length = strlen(str);
+		str[length++] = ' ';
+		str[length++] = '\'';
+		str[length] = '\0';
+		
+		strcat(str, name);
+		length = strlen(str);
+		str[length++] = '\'';
+		str[length++] = ' ';
+		
+		str[length++] = exec;
+		str[length++] = ' ';
+		str[length] = '\0';
+		
+		strcat(str, duration);
+		length = strlen(str);
+		str[length++] = ' ';
+		str[length] = '\0';
+		
+		strcat(str, min_start);
+		length = strlen(str);
+		str[length++] = ' ';
+		str[length] = '\0';
+		
+		strcat(str, reqs);
+		//length = strlen(str);
+		//str[length++] = ' ';
+		//str[length] = '\0';
 
-	getchar();
+		int_reqs = atoi(reqs);
 
-	int int_reqs = atoi(reqs);
-
-	if (int_reqs > 0) {
-		mvwprintw(win, 9, 1, "[Dependências]: ");
-		char deps[5];
-		int i;
-		for (i = 0; i < int_reqs; i++)
-		{
-			mvwprintw(win, 10 + i, 1, "[Dep %d]: ", i + 1);
-			wscanw(win, "%5s", deps);
-			length = strlen(str);
-			str[length++] = ' ';
-			str[length] = '\0';
-			strcat(str, deps);
+		if (int_reqs > 0) {
+			mvwprintw(win, 9, 1, "[Dependências]: ");
+			char deps[5];
+			int i, line = 0;
+			for (i = 0; i < int_reqs; i++)
+			{
+				if (line + 10 == 18)
+				{
+					line = 0;
+				} else {
+					line = i;
+				}
+				mvwprintw(win, 10 + line, 1, "[Dep %d]: ", i + 1);
+				wscanw(win, "%5s", deps);
+				length = strlen(str);
+				str[length++] = ' ';
+				str[length] = '\0';
+				strcat(str, deps);
+			}
 		}
-	}
 
-	VertexArray array = cnvInputStrToVertex(str);
-	assert(DIGRAPHinsertV(G, array, inputCheck, nameCheck) == 0);
+		mvwprintw(win, 18, 1, "str: %s", str);
+
+		getchar();
+
+		VertexArray array = cnvInputStrToVertex(str);
+		error_check = DIGRAPHinsertV(G, array, inputCheck, nameCheck);
+		if (error_check < 0)
+		{
+			mvwprintw(win, 18, 1, "Erro: algum valor foi inválido. Repetir.");
+			int i, j;
+			for (i = 3; i < 17; i++)
+			{
+				for (j = 1; j < 49; j++)
+				{
+					mvwprintw(win, i, j, " ");
+				}
+			}
+		}
+	} while (error_check < 0);
 }
 
 void insertion_window(Digraph G) 
