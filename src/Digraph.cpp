@@ -45,10 +45,6 @@ Digraph DIGRAPHinit()
 
 int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int)) 
 {
-	while ((VERTEXreturn(G, w->id) != -1) || (VERTEXreturn(G, w->id) < -2)) {
-		return DigraphInvalidVertexIDError;
-	}
-
 	if (!inputCheck(w->duration) || w->duration == 0) {
 		return DigraphInvalidVertexDurationError;
 	}
@@ -59,12 +55,14 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 
 	if ((!inputCheck(w->reqs)) || (w->reqs > G->V))  {
 		return DigraphInvalidVertexReqsError;
-	} 
+	}
+    
 	if(w->reqs == 0){
 		assert(w->reqs_id == NULL);
 	}else{
 		assert(w->reqs_id);
 	}
+
 	int i =0;
 	for (i = 0; i < w->reqs; i++) {
 		Vertex k = VERTEXreturn(G, w->reqs_id[i]);
@@ -526,6 +524,7 @@ void DIGRAPHdestroy(Digraph G)
 	
 	/*Desalocar grafo*/
 	free(G);
+    G = NULL;
 }
 
 /*	************ALTERAÇÃO PROJETO FINAL************
