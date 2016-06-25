@@ -326,8 +326,8 @@ int DIGRAPHremoveV(Digraph G, int id)
 
 	if (v == -1)
 	{
-		printf("ID inexistente. Nenhuma tarefa removida.\n");
-		return;
+		//printf("ID inexistente. Nenhuma tarefa removida.\n");
+		return -1;
 	} /*if*/
 	
 	Vertex w;
@@ -396,6 +396,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 			TIME(G, i);	 /*Recalcula o tempo da tarefa em i*/
 		} /*for*/
 	} /*if*/
+
 	return 0;
 }
 

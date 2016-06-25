@@ -41,5 +41,5 @@
 *	\return
 */
 void TIME(Digraph, Vertex);
-void modify(Digraph);
+void modify(WINDOW*, Digraph, int, int);
 void execution(Digraph, int);

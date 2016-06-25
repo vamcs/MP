@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ncurses.h>
 #include <assert.h>
 #include "../include/Digraph.h"
 #include "../include/manager.h"
+#include "../include/GUI.h"
 
 /*	Funcão TIME que calcula o tempo necessário para executar uma tarefa em "v".
 *	Esta função começa o cálculo a partir de tarefas que não possuem dependências,
@@ -335,47 +337,48 @@ void NEWreqs_id(Digraph G, Vertex v)
 	} /*if*/
 }
 
-void modify(Digraph G) 
+void modify(WINDOW* win, Digraph G, int id, int choice) 
 {
-	int id, 
-		option, 
-		i;
+	//int id, 
+	//	option, 
+	int	i;
 	char exit;
 	Vertex 	v, 
 			w;
 
-	printf("> Insira a ID da tarefa a ser modificada: ");
-	scanf("%d", &id);
+	// printf("> Insira a ID da tarefa a ser modificada: ");
+	// scanf("%d", &id);
 
 	v = VERTEXreturn(G, id);
-	while (v == -1) 
-	{
-		printf("> ID nao existente. Entre com outro valor: ");
-		scanf("%d", &id);
-		v = VERTEXreturn(G, id);
-	} /*while*/
+	// while (v == -1) 
+	// {
+	// 	printf("> ID nao existente. Entre com outro valor: ");
+	// 	scanf("%d", &id);
+	// 	v = VERTEXreturn(G, id);
+	// } /*while*/
 
-	printf("\n> Qual campo deseja alterar?\n");
-	printf(	"\tID:\t\t\t\t[1]\n"
-			"\tNome:\t\t\t\t[2]\n"
-			"\tTarefa Executada:\t\t[3]\n"
-			"\tDuracao:\t\t\t[4]\n"
-			"\tInicio Minimo:\t\t\t[5]\n"
-			"\tNumero de Pre-Requisitos:\t[6]\n"
-			"\tAlterar Pre-Requisito:\t\t[7]\n"
-			"\tSair:\t\t\t\t[-1]\n");
-	scanf("%d", &option);
+	// printf("\n> Qual campo deseja alterar?\n");
+	// printf(	"\tID:\t\t\t\t[1]\n"
+	// 		"\tNome:\t\t\t\t[2]\n"
+	// 		"\tTarefa Executada:\t\t[3]\n"
+	// 		"\tDuracao:\t\t\t[4]\n"
+	// 		"\tInicio Minimo:\t\t\t[5]\n"
+	// 		"\tNumero de Pre-Requisitos:\t[6]\n"
+	// 		"\tAlterar Pre-Requisito:\t\t[7]\n"
+	// 		"\tSair:\t\t\t\t[-1]\n");
+	// scanf("%d", &option);
 
-	while (option != -1) 
-	{
-		switch (option) 
+	// while (option != -1) 
+	// {
+		switch (choice) 
 		{
 			case 1:
-				printf("> ID atual: %d\n", id);
-				G->array[v]->id = NEWid(G, v);
+				wgetch(win);
+				mvwprintw(win, 28, 1, "> ID atual: %d", id);
+				//G->array[v]->id = NEWid(G, v);
 				break;
 			case 2:
-				printf("> Nome atual: %s\n", G->array[v]->name);
+				mvwprintw(win, 15, 1, "> Nome atual: %s", G->array[v]->name);
 				NEWname(G, v);
 				break;
 			case 3:
@@ -385,7 +388,7 @@ void modify(Digraph G)
 				}
 				break;
 			case 4:
-				printf("> Duracao atual: %d\n", G->array[v]->duration);
+				mvwprintw(win, 15, 1, "> Duracao atual: %d", G->array[v]->duration);
 				G->array[v]->duration = NEWduration();
 				for (w = 0; w < G->V; w++) 
 				{
@@ -393,7 +396,7 @@ void modify(Digraph G)
 				} /*for*/
 				break;
 			case 5:
-				printf("> Inicio minimo atual: %d\n", G->array[v]->min_start);
+				mvwprintw(win, 15, 1, "> Inicio minimo atual: %d", G->array[v]->min_start);
 				G->array[v]->min_start = NEWmin_start();
 				for (w = 0; w < G->V; w++) 
 				{
@@ -401,10 +404,10 @@ void modify(Digraph G)
 				} /*for*/
 				break;
 			case 6:
-				printf("> Numero de pre-requisitos atual: %d\n", G->array[v]->reqs);
+				mvwprintw(win, 15, 1, "> Numero de pre-requisitos atual: %d", G->array[v]->reqs);
 				if (v == 0)
 				{
-					printf("Nao eh possivel inserir dependencias na tarefa inicial.\n");
+					mvwprintw(win, 28, 1, "Nao eh possivel inserir dependencias na tarefa inicial.");
 				} else 
 				{
 					G->array[v]->reqs = NEWreqs(G, v);
@@ -417,10 +420,10 @@ void modify(Digraph G)
 			case 7:
 				if (G->array[v]->reqs > 0) 
 				{
-					printf("> Dependencias atuais:");
+					mvwprintw(win, 15, 1, "> Dependencias atuais:");
 					for (i = 0; i < G->array[v]->reqs; i++) 
 					{
-						printf(" %d", G->array[v]->reqs_id[i]);
+						wprintw(win, " %d", G->array[v]->reqs_id[i]);
 					} /*for*/
 					printf("\n");
 					NEWreqs_id(G, v);
@@ -430,41 +433,41 @@ void modify(Digraph G)
 					} /*for*/
 				} else 
 				{
-					printf("> Esta tarefa nao possui dependencias. Modifique o numero de dependencias antes de adiciona-las.\n");
+					mvwprintw(win, 28, 1, "> Esta tarefa nao possui dependencias. Modifique o numero de dependencias antes de adiciona-las.\n");
 				} /*if*/
 				break;
-			default:
-				printf("> Opcao invalida. Return.\n");
-				break;
+			// default:
+			// 	printf("> Opcao invalida. Return.\n");
+			// 	break;
 		} /*switch*/
 
-		printf("> Continuar alterando? [s/n]\n");
-		scanf(" %c", &exit);
-		while (exit != 's' && exit != 'S' && exit != 'n' && exit != 'N') 
-		{
-			printf("Opcao invalida, entre s/n: ");
-			scanf(" %c", &exit);
-		} /*while*/
-		switch (exit) 
-		{
-			case 'S':
-			case 's':
-				printf("> Qual campo deseja alterar?\n");
-				printf(	"\tID:\t\t\t\t[1]\n"
-						"\tNome:\t\t\t\t[2]\n"
-						"\tTarefa Executada:\t\t[3]\n"
-						"\tDuracao:\t\t\t[4]\n"
-						"\tInicio Minimo:\t\t\t[5]\n"
-						"\tNumero de Pre-Requisitos:\t[6]\n"
-						"\tAlterar Pre-Requisito:\t\t[7]\n");
-				scanf("%d", &option);
-				break;
-			case 'N':
-			case 'n':
-				option = -1;
-				break;
-		} /*switch*/
-	} /*while*/
+		// printf("> Continuar alterando? [s/n]\n");
+		// scanf(" %c", &exit);
+		// while (exit != 's' && exit != 'S' && exit != 'n' && exit != 'N') 
+		// {
+		// 	printf("Opcao invalida, entre s/n: ");
+		// 	scanf(" %c", &exit);
+		// } /*while*/
+		// switch (exit) 
+		// {
+		// 	case 'S':
+		// 	case 's':
+		// 		printf("> Qual campo deseja alterar?\n");
+		// 		printf(	"\tID:\t\t\t\t[1]\n"
+		// 				"\tNome:\t\t\t\t[2]\n"
+		// 				"\tTarefa Executada:\t\t[3]\n"
+		// 				"\tDuracao:\t\t\t[4]\n"
+		// 				"\tInicio Minimo:\t\t\t[5]\n"
+		// 				"\tNumero de Pre-Requisitos:\t[6]\n"
+		// 				"\tAlterar Pre-Requisito:\t\t[7]\n");
+		// 		scanf("%d", &option);
+		// 		break;
+		// 	case 'N':
+		// 	case 'n':
+		// 		option = -1;
+		// 		break;
+		// } /*switch*/
+	// } /*while*/
 }
 
 void execution(Digraph G, int end) 
@@ -507,7 +510,7 @@ void execution(Digraph G, int end)
 	while ((flag != G->V) || (end > -1)) 
 	{
 		flag = 0;
-		printf("\nCiclo Atual: %d\n", cycle);
+		mvprintw(43, 80, "Ciclo %d\n", cycle);
 		for (i = 0; i < G->V; i++) 
 		{	
 			/*Verificação de execução e montagem dos caminhos de execução das tarefas.*/
@@ -609,12 +612,12 @@ void execution(Digraph G, int end)
 				} /*if*/
 			} /*if*/
 		} /*for*/
-		printf("Tarefas executadas:\n");
+		//printf("Tarefas executadas:\n");
 		for (i = 0; i < G->V; i++) 
 		{
 			if (G->array[i]->exec) 
 			{
-				printf("%s\n", G->array[i]->name);
+				//printf("%s\n", G->array[i]->name);
 				flag++;
 			} /*if*/
 		} /*for*/
@@ -627,44 +630,47 @@ void execution(Digraph G, int end)
 				flag = G->V;
 			} /*if*/
 		} /*if*/
-		getchar();
+		print_instructions(G);
+		refresh();
 		cycle++;
+		getchar();
 	}
 
+	mvprintw(50, 1, "\n");
 	w = 0;
 	alt[k] = -1;
 	if (k > 0) {
-		printf("Caminhos de execução:");
+		mvprintw(50, 1, "Caminhos de execução:");
 		for (cont = 0; cont < j; cont++) {
 			if (alt[w] == path[cont]) {	/*Verifica se o valor a ser impresso está no vetor de caminho alternativo.*/
 				if (w == 0) {			//Se for o primeiro valor do vetor, imprime "(valor", assim no final teremos (valor1 ou valor2 ou ...).*/
-					printf(" (%d", path[cont]);
+					printw(" (%d", path[cont]);
 					w++;
 				} else if (w == k - 1) 
 				{
-					printf(" ou %d)", path[cont]);
+					printw(" ou %d)", path[cont]);
 				} else if (alt[w - 1] == -1) 
 				{
-					printf(" (%d", path[cont]);
+					printw(" (%d", path[cont]);
 					w++;
 				}else if (alt[w + 1] == -1) 
 				{
-					printf(" ou %d)", path[cont]);
+					printw(" ou %d)", path[cont]);
 					w = w + 2;
 				} else 
 				{
-					printf(" ou %d", path[cont]);
+					printw(" ou %d", path[cont]);
 					w++;
 				} /*if*/
 			} else 
 			{
-				printf(" %d", path[cont]);
+				printw(" %d", path[cont]);
 			} /*if*/
 		} /*for*/
 		printf("\n");
 	} else
 	 {
-		printf("Caminho de execução:");
+		mvprintw(50, 1, "Caminho de execução:");
 		for (cont = 0; cont < j; cont++) 
 		{
 			printf(" %d", path[cont]);

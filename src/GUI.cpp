@@ -4,6 +4,8 @@
 #include <string.h>
 #include <assert.h>
 #include "../include/Digraph.h"
+#include "../include/manager.h"
+#include "../include/fileReader.h"
 #include "../include/GUI.h"
 
 #define WORLD_WIDTH 100  //definir altura e largura da "janela"
@@ -83,7 +85,15 @@ void print_menu(int highlight)
 void print_instructions(Digraph G) 
 {
 	Vertex i;
-	int j;
+	int k, j;
+
+	for (k = 2; k < 39; k++)
+	{
+		for (j = 3; j < 99; j++)
+		{
+			mvwaddch(execution_environment, k, j, ' ');
+		}
+	}
 
 	for (i = 0; i < G->V; i++)
 	{
@@ -227,7 +237,7 @@ void userInsertion(WINDOW *win, Digraph G)
 
 		mvwprintw(win, 18, 1, "str: %s", str);
 
-		getchar();
+		//getchar();
 
 		VertexArray array = cnvInputStrToVertex(str);
 		error_check = DIGRAPHinsertV(G, array, inputCheck, nameCheck);
@@ -259,30 +269,48 @@ void insertion_window(Digraph G)
 	wattroff(win, COLOR_PAIR(1));
 
 	userInsertion(win, G);
-	// mvwprintw(win, 3, 1, "[ID]: ");
-	// wscanw(win, "%d", &id);
-	// mvwprintw(win, 4, 1, "[Nome]: ");
-	// mvwprintw(win, 5, 1, "[Exec]: ");
-	// mvwprintw(win, 6, 1, "[Duracao]: ");
-	// mvwprintw(win, 7, 1, "[Inicio]: ");
-	// mvwprintw(win, 8, 1, "[Pre-requisitos]: ");
-	//mvwprintw(win, 12, 1, "Lido: %d", id);
-	// mvwprintw(win, 12, 1, "Erro, entre novamente: TR0");
-	// mvwprintw(win, 13, 1, "Erro, entre novamente: TR0");
-	// mvwprintw(win, 14, 1, "Erro, entre novamente: TR0");
-	// mvwprintw(win, 15, 1, "Erro, entre novamente: TR0");
-	// mvwprintw(win, 16, 1, "Erro, entre novamente: TR0");
-	// mvwprintw(win, 17, 1, "Erro, entre novamente: TR0");
-	// mvwprintw(win, 18, 1, "Erro, entre novamente: TR0");
+
 	wrefresh(win);
-	//DIGRAPHinsertV(G, inputCheck, nameCheck);
-	getchar();
+
+	//getchar();
 	destroy_win(win, 20, 50);
 }
 
-void modification_window() 
+void deletion_window(Digraph G) 
 {
-	WINDOW *win = newwin(20, 40, 3, 101);
+	int id,
+		error_check;
+
+	WINDOW *win = newwin(7, 25, 3, 101);
+	keypad(win, TRUE);
+	box(win, 0, 0);
+	touchwin(win);
+	init_pair(1, COLOR_CYAN, COLOR_BLACK);
+	wattron(win, COLOR_PAIR(1));
+	mvwprintw(win, 1, 1, "Deletando uma tarefa:");
+	wattroff(win, COLOR_PAIR(1));
+
+	do {
+		mvwprintw(win, 3, 1, "[ID]: ");
+		wscanw(win, "%d", &id);
+
+		error_check = DIGRAPHremoveV(G, id);
+		if (error_check < 0)
+		{
+			mvwprintw(win, 5, 1, "ID inválido.");
+			mvwprintw(win, 3, 1, "                       ");
+		}
+	}
+	while (error_check < 0);
+
+	wrefresh(win);
+
+	destroy_win(win, 7, 25);
+}
+
+void modification_window(Digraph G) 
+{
+	WINDOW *win = newwin(30, 50, 3, 101);
 	keypad(win, TRUE);
 	box(win, 0, 0);
 	touchwin(win);
@@ -290,12 +318,24 @@ void modification_window()
  				c 			= 0,
  				choice 		= 0;
 
+ 	int id;
+ 	Vertex v;
+
  	mvwprintw(win, 1, 1, "Insira ID a ser modificada: ");
- 	mvwprintw(win, 10, 1, "Erro, insira novamente: ");
+ 	wscanw(win, "%d", &id);
+ 	v = VERTEXreturn(G, id);
+	while (v == -1) 
+	{
+		mvwprintw(win, 28, 1, "> ID nao existente. Entre com outro valor: ");
+		wscanw(win, "%d", &id);
+		v = VERTEXreturn(G, id);
+	} /*while*/
+
+ 	//mvwprintw(win, 10, 1, "Erro, insira novamente: ");
  	print_modification(win, highlight);
  	while (1)
  	{  
-    	c = getch();
+    	c = wgetch(win);
     	switch(c)
     	{  
     		case KEY_UP:
@@ -325,8 +365,9 @@ void modification_window()
 	    	break;
 	    } /*if*/
 	} /*while*/
-	getchar();
-	destroy_win(win, 20, 50);
+	modify(win, G, id, choice);
+	//getchar();
+	destroy_win(win, 30, 50);
 }
 
 void setupGUI() {
@@ -368,6 +409,29 @@ void setupGUI() {
  	print_menu(highlight);
 }
 
+Digraph DIGRAPHrestart()
+{
+	bool (*nameCheck)(Digraph, char*, int);
+	nameCheck = NAMEcheck;
+
+	bool (*inputCheck)(int);
+	inputCheck = INPUTcheck;
+
+	FILE* fp = fopen("output.txt","r");
+
+	Digraph G = DIGRAPHinit();
+	
+	while (!feof(fp)) {
+		char* vertexSTR = readFileLine(fp);
+		VertexArray V = cnvInputStrToVertex(vertexSTR);
+		/*DIGRAPHinsertV retorna 0 se funcionou normalmente.*/
+		assert(DIGRAPHinsertV(G, V, inputCheck, nameCheck) == 0);
+	}
+
+	fclose(fp);
+	return G;
+}
+
 void GUI(Digraph G) {
 	static int 	highlight 	= 1,
  				c 			= 0,
@@ -377,9 +441,11 @@ void GUI(Digraph G) {
 
   	print_instructions(G);
 
+  	int cycle;
+
  	while (choice != 6)	/*Opção 6 é "sair".*/
  	{	
- 		choice 		= 0;
+ 		choice = 0;
 	 	while (1)
 	 	{  
 	    	c = getch();
@@ -411,6 +477,9 @@ void GUI(Digraph G) {
 		    print_menu(highlight);
 		    if(choice != 0) /* User did a choice come out of the infinite loop */
 		    {
+		    	mvprintw(43, 80, "Ciclo 0");
+		    	mvprintw(50, 1, "\n");
+		    	print_instructions(G);
 		    	break;
 		    } /*if*/
 		} /*while*/
@@ -420,21 +489,37 @@ void GUI(Digraph G) {
 			print_instructions(G);
 		} else if (choice == 2) 
 		{
-			modification_window();
+			modification_window(G);
 		} else if (choice == 3) 
 		{
-			//removal_window();
+			deletion_window(G);
+			print_instructions(G);
 		} else if (choice == 4) 
 		{
-			//cycle_window();
+			do
+			{
+				mvprintw(47, 70, "Entre com o ciclo de execução: ");
+				scanw("%d", &cycle);
+				if (cycle < 0) 
+				{
+					mvprintw(48, 70, "Erro, ciclo inválido.");
+				}
+			} while (cycle < 0);
+			mvprintw(47, 70, "\n");
+			mvprintw(48, 70, "\n");
+			DIGRAPHsave(G);
+			execution(G, cycle);
+			DIGRAPHdestroy(G);
+			G = DIGRAPHrestart();
 		} 
 		else if (choice == 5) 
 		{
-			mvprintw(43, 80, "Ciclo 2");
-			print_instructions(G);
+			DIGRAPHsave(G);
+			execution(G, -1);
+			DIGRAPHdestroy(G);
+			G = DIGRAPHrestart();
 		}
 		print_menu(highlight);
-		//refresh();
 	}
 
 	delwin(execution_environment);

@@ -101,14 +101,14 @@ void DIGRAPHremoveE(Digraph, Edge);
 /*! \Brief Insere um vértice no grafo.
  *
  *  \param G Grafo onde será inserido o vértice.
- *  \return
+ *  \return 0 para sucesso, valor negativo para erro. Checar tabela.
  */
 int DIGRAPHinsertV(Digraph, VertexArray w, bool (*inputCheck)(int), bool (*nameCheck)(Digraph, char*, int));
 
 /*! \Brief Remove um vértice no grafo.
  *
  *  \param G Grafo onde será removido o vértice.
- *  \return
+ *  \return 0 para sucesso, -1 para erro.
  */
 int DIGRAPHremoveV(Digraph, int);
 

@@ -50,7 +50,7 @@ int main(){
 
 	fclose(fp);
 
-	execution(G, -1);
+	//execution(G, -1);
 	
 	printf("Salvando o grafo em output.txt...\n");
 	DIGRAPHsave(G);
