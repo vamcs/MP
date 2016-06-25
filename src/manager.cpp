@@ -679,8 +679,7 @@ void execution(Digraph G, int end)
 			printw(" %d", path[cont]);
 		} /*for*/
 	} /*if*/
-	//mvprintw(51, 1, "                         ");
-	mvprintw(51, 1, "Tempo mínimo: %d", cycle - 1);
+	mvprintw(51, 1, "Tempo mínimo: %d", G->array[VERTEXreturn(G, path[j - 1])]->time);
 
 	free(alt);
 	free(path);
