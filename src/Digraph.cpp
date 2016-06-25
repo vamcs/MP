@@ -10,18 +10,9 @@
 
 Digraph DIGRAPHinit()
 {
-	Vertex 	v = 0; 
-	//		w;
+	Vertex 	v = 0;
 	int V = 0; 
-	// 	i, 
-	// 	id,
-	// 	exec,
-	// 	duration,
-	// 	min_start,
-	// 	reqs,
-	// 	dep;
-	// char 	name[100], 
-			// aux;
+
 	
 	/*Declaração e inicialização do digrafo.*/
 	Digraph G = (Digraph)malloc(sizeof *G);
@@ -31,11 +22,6 @@ Digraph DIGRAPHinit()
 	/*As LinkedLists de adjacência são inicializadas como nulas.*/
 	G->array = (VertexArray*)malloc(V * sizeof(VertexArray));
 	assert(G->array);
-
-	// for (v = 0; v < V; v++) {
-	// 	G->array[v] 		= (struct vertexArray*)malloc(sizeof(struct vertexArray));
-	// 	assert(G->array[v]);
-	// }
 
 	G->V = v;
 	G->E = 0;
@@ -84,7 +70,6 @@ int DIGRAPHinsertV(Digraph G, VertexArray w, bool (*inputCheck)(int), bool (*nam
 
 	G->array[G->V - 1]->adj = NULL;
 
-	//printf("\n\n%d\n\n",G->array[G->V - 1]->id);
 	TIME(G, G->V - 1);
 	return 0;
 }
@@ -100,7 +85,6 @@ VertexArray cnvInputStrToVertex(char* str){
     	switch(i){
     		case 0:
     			w->id = strtol (resp,NULL,0);
-    			//printf("(w->id = %d)\n",w->id);
     			break;
     		case 1:
     			ch = resp;
@@ -113,23 +97,18 @@ VertexArray cnvInputStrToVertex(char* str){
     				w->name[j] = *ch;
     				ch = ch+1;
     			}
-    			//printf("( w->name= %s)\n",w->name);
     			break;
     		case 2:
     			w->exec = strtol (resp,NULL,0);
-    			//printf("(w->exec = %d)\n",w->exec);
     			break;
     		case 3:
     			w->duration = strtol (resp,NULL,0);
-    			//printf("(w->duration = %d)\n",w->duration);
     			break;
     		case 4:
     			w->min_start = strtol (resp,NULL,0);
-    			//printf("(w->min_start = %d)\n",w->min_start);
     			break;
     		case 5:
     			w->reqs = strtol (resp,NULL,0);
-    			//printf("( w->reqs= %d)\n",w->reqs);
     			break;
     		default:
     			break;
@@ -140,13 +119,12 @@ VertexArray cnvInputStrToVertex(char* str){
     		  resp = strtok (NULL, " "); 
     	   }
     	}
-    	//printf("%s\n",str);
+
     	if(w->reqs > 0){
     		int k = 0;
     		w->reqs_id = (int*)malloc(w->reqs * sizeof(int));
  			for (k = 0; k < w->reqs; k++ ) {
  				resp = strtok (NULL, " ");
- 				//printf("(HERE == %s)\n",resp);
  				w->reqs_id[k] = strtol (resp,NULL,0);
  			}
     	}
