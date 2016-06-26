@@ -1,0 +1,86 @@
+\hypertarget{file_reader_8h}{}\section{file\+Reader.\+h File Reference}
+\label{file_reader_8h}\index{file\+Reader.\+h@{file\+Reader.\+h}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{file_reader_8h_a9c22d6938cc8eac1549607351dc9ba0f}{file\+Reader\+Errors} \{ \hyperlink{file_reader_8h_a9c22d6938cc8eac1549607351dc9ba0fa00ebb2d572d0499c99878d9632a23031}{File\+Reader\+Cannot\+Open\+File\+Error} = -\/1
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{file_reader_8h_a45d4781b3d02613c8e2f39601fe6955d}{read\+File\+Line} (F\+I\+LE $\ast$fp)
+\item 
+void \hyperlink{file_reader_8h_a526590a05111f77ef783ad52b748d1af}{save\+On\+File} (F\+I\+LE $\ast$fp, char $\ast$str)
+\end{DoxyCompactItemize}
+
+
+\subsection{Enumeration Type Documentation}
+\index{file\+Reader.\+h@{file\+Reader.\+h}!file\+Reader\+Errors@{file\+Reader\+Errors}}
+\index{file\+Reader\+Errors@{file\+Reader\+Errors}!file\+Reader.\+h@{file\+Reader.\+h}}
+\subsubsection[{\texorpdfstring{file\+Reader\+Errors}{fileReaderErrors}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf file\+Reader\+Errors}}\hypertarget{file_reader_8h_a9c22d6938cc8eac1549607351dc9ba0f}{}\label{file_reader_8h_a9c22d6938cc8eac1549607351dc9ba0f}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{File\+Reader\+Cannot\+Open\+File\+Error@{File\+Reader\+Cannot\+Open\+File\+Error}!file\+Reader.\+h@{file\+Reader.\+h}}\index{file\+Reader.\+h@{file\+Reader.\+h}!File\+Reader\+Cannot\+Open\+File\+Error@{File\+Reader\+Cannot\+Open\+File\+Error}}\item[{\em 
+File\+Reader\+Cannot\+Open\+File\+Error\hypertarget{file_reader_8h_a9c22d6938cc8eac1549607351dc9ba0fa00ebb2d572d0499c99878d9632a23031}{}\label{file_reader_8h_a9c22d6938cc8eac1549607351dc9ba0fa00ebb2d572d0499c99878d9632a23031}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Function Documentation}
+\index{file\+Reader.\+h@{file\+Reader.\+h}!read\+File\+Line@{read\+File\+Line}}
+\index{read\+File\+Line@{read\+File\+Line}!file\+Reader.\+h@{file\+Reader.\+h}}
+\subsubsection[{\texorpdfstring{read\+File\+Line(\+F\+I\+L\+E $\ast$fp)}{readFileLine(FILE *fp)}}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ read\+File\+Line (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}\hypertarget{file_reader_8h_a45d4781b3d02613c8e2f39601fe6955d}{}\label{file_reader_8h_a45d4781b3d02613c8e2f39601fe6955d}
+Lê uma linha do arquivo passado como parâmetro de entrada.
+
+Detailed A função lê uma linha do arquivo e entrada e retorna um ponteiro para um array de caracteres.
+
+Funções clientes\+: main()
+
+Assertivas de Entrada\+: F\+I\+LE fp != N\+U\+LL -\/ É o ponteiro para o arquivo de entrada.
+
+Assertivas de Saída\+: fp != N\+U\+LL\+: (arquivo aberto com sucesso e diferente de feof)
+
+Como não há input humano e as funções são confiáveis, as entradas e saída já estão verificadas.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fp} & Ponteiro para o arquivo de entrada. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Um ponteiro para um array de caracteres se a leitura do arquivo for realizada com sucesso. Caso contrário, N\+U\+LL é retornado. 
+\end{DoxyReturn}
+\index{file\+Reader.\+h@{file\+Reader.\+h}!save\+On\+File@{save\+On\+File}}
+\index{save\+On\+File@{save\+On\+File}!file\+Reader.\+h@{file\+Reader.\+h}}
+\subsubsection[{\texorpdfstring{save\+On\+File(\+F\+I\+L\+E $\ast$fp, char $\ast$str)}{saveOnFile(FILE *fp, char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}void save\+On\+File (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{fp, }
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{file_reader_8h_a526590a05111f77ef783ad52b748d1af}{}\label{file_reader_8h_a526590a05111f77ef783ad52b748d1af}
+Salva uma string num arquivo.
+
+Detailed A função escreve no arquivo de saída a string passada como parâmetro.
+
+Assertivas de Entrada\+: F\+I\+LE fp != N\+U\+LL -\/ É o ponteiro para o arquivo de entrada. char$\ast$ str != N\+U\+LL -\/ É a string a ser inserida no arquivo.
+
+Como não há input humano e as funções são confiáveis, as entradas e saída já estão verificadas.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fp} & Ponteiro para o arquivo de entrada. \\
+\hline
+{\em str} & String a ser inserida no arquivo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}

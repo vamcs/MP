@@ -1,22 +1,86 @@
 \hypertarget{manager_8h}{}\section{manager.\+h File Reference}
 \label{manager_8h}\index{manager.\+h@{manager.\+h}}
+{\ttfamily \#include $<$ncurses.\+h$>$}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}{T\+I\+ME} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex})
 \item 
-void \hyperlink{manager_8h_a24df606b25863f27ac2a3fee41f32184}{modify} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
+void \hyperlink{manager_8h_aad18a6ad836c20e8b9e42ee385949256}{modify} (W\+I\+N\+D\+OW $\ast$, \hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, int, int)
+\item 
+void \hyperlink{manager_8h_aa98c5d850b5e2857cf4b74d4c7b85ac3}{execution} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, int)
 \end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
+\index{manager.\+h@{manager.\+h}!execution@{execution}}
+\index{execution@{execution}!manager.\+h@{manager.\+h}}
+\subsubsection[{\texorpdfstring{execution(\+Digraph, int)}{execution(Digraph, int)}}]{\setlength{\rightskip}{0pt plus 5cm}void execution (
+\begin{DoxyParamCaption}
+\item[{{\bf Digraph}}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{manager_8h_aa98c5d850b5e2857cf4b74d4c7b85ac3}{}\label{manager_8h_aa98c5d850b5e2857cf4b74d4c7b85ac3}
+Função de execução das tarefas e computação dos caminhos mínimos de execução.
+
+Detailed A função execution verifica quais tarefas podem ser executadas em um determinado ciclo e salva o caminho de execução das tarefas, assim como as alternativas que possam surgir. Caso duas tarefas forem executadas durante o mesmo ciclo e possuam as mesmas tarefas que dependem delas em sua lista de adjacência, elas entraram em um array de caminho alternativo, para que se possa imprimir todas as opções ao final. É também possível decidir a até qual ciclo a execução irá parar, independentemente de todas as tarefas terem sido executadas ou não. As saídas da função são impressas em uma tela definida pela ncurses na \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}.
+
+Funções servidoras\+: \hyperlink{_digraph_8h_a0fa25c0a2beba8fc3c7e7f5c98b8f869}{V\+E\+R\+T\+E\+Xreturn()}, \hyperlink{_g_u_i_8h_a7cc97880dd9fa07f5742fe808e834a2e}{print\+\_\+instructions()}. Função cliente\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}.
+
+Assertivas de Entrada\+: Digraph G -\/ é o digrafo que contém todas as tarefas. int end -\/ valor inteiro que define o ciclo de parada. Caso seja -\/1 executa até que todas as tarefas tenham sido executadas.
+
+Assertivas de Saída\+: Imprime na tela N\+Curses o ciclo de execução atual, o caminho de execução e as possibilidades alternativas, assim como o tempo de execução mínima até o presente ciclo.
+
+As opções são, por exemplo\+: Caso não haja caminho alternativo\+: Caminho de Execução\+: 100 101 103 102 103 Caso haja caminhos alternativos\+: Caminhos de Execução\+: 100 (102 ou 103 ou 101) 104 (105 ou 106) 107
+
+Todo input é verificado antes de ser atualizado.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Digraph} & G \\
+\hline
+{\em int} & end \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
 \index{manager.\+h@{manager.\+h}!modify@{modify}}
 \index{modify@{modify}!manager.\+h@{manager.\+h}}
-\subsubsection[{\texorpdfstring{modify(\+Digraph)}{modify(Digraph)}}]{\setlength{\rightskip}{0pt plus 5cm}void modify (
+\subsubsection[{\texorpdfstring{modify(\+W\+I\+N\+D\+O\+W $\ast$, Digraph, int, int)}{modify(WINDOW *, Digraph, int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}void modify (
 \begin{DoxyParamCaption}
-\item[{{\bf Digraph}}]{}
+\item[{W\+I\+N\+D\+OW $\ast$}]{, }
+\item[{{\bf Digraph}}]{, }
+\item[{int}]{, }
+\item[{int}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{manager_8h_a24df606b25863f27ac2a3fee41f32184}{}\label{manager_8h_a24df606b25863f27ac2a3fee41f32184}
+)}\hypertarget{manager_8h_aad18a6ad836c20e8b9e42ee385949256}{}\label{manager_8h_aad18a6ad836c20e8b9e42ee385949256}
+Menu que dá opções para alterar os campos da tarefa.
+
+Detailed A função modify recebe uma ID tratada e entrada pelo usuário e oferece opções de modificação de cada um dos campos da tarefa. Sendo estes ID, nome, exec, duração, início mínimo, número de pré-\/re-\/ quisitos e os pré-\/requisitos em si, caso existam. Após maior parte das modificações, tratamentos da estrutura do digrafo devem ser feitos como alterar, adicionar ou remover arestas ou realocar o array de pré-\/requisitos. Além disso, caso seja necessário, o tempo de execução das tarefas será recalculado caso for necessário. A função imprime diretamente na tela \char`\"{}modification\+\_\+window\char`\"{} da G\+UI.
+
+Função servidora\+: \hyperlink{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}{T\+I\+M\+E()} e dependências em manager.\+cpp. Função cliente\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}.
+
+Assertivas de Entrada\+: W\+I\+N\+D\+O\+W$\ast$ win -\/ ponteiro que contém uma janela ncurses y = 30, x = 50. Digraph G -\/ é o digrafo que contém todas as tarefas. int id -\/ id da tarefa a ser modificada. int choice -\/ escolha de qual modificação será executada. A função modification\+\_\+window é responsável por este valor.
+
+Assertivas de Saída\+: Imprime na janela win informações e os valores alterados, além de efetuar todas as modificações no digrafo descritas e detalhadas na descrição de cada uma das funções em manager.\+cpp.
+
+Todo input é verificado antes de ser atualizado.
+
+
+\begin{DoxyParams}{Parameters}
+{\em W\+I\+N\+D\+O\+W$\ast$} & win \\
+\hline
+{\em Digraph} & G \\
+\hline
+{\em int} & id \\
+\hline
+{\em int} & choice \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
 \index{manager.\+h@{manager.\+h}!T\+I\+ME@{T\+I\+ME}}
 \index{T\+I\+ME@{T\+I\+ME}!manager.\+h@{manager.\+h}}
 \subsubsection[{\texorpdfstring{T\+I\+M\+E(\+Digraph, Vertex)}{TIME(Digraph, Vertex)}}]{\setlength{\rightskip}{0pt plus 5cm}void T\+I\+ME (
@@ -25,3 +89,27 @@ void \hyperlink{manager_8h_a24df606b25863f27ac2a3fee41f32184}{modify} (\hyperlin
 \item[{{\bf Vertex}}]{}
 \end{DoxyParamCaption}
 )}\hypertarget{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}{}\label{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}
+Calcula o tempo de execução de uma tarefa
+
+Detailed Funcão T\+I\+ME que calcula o tempo necessário para executar uma tarefa em \char`\"{}v\char`\"{}. Esta função começa o cálculo a partir de tarefas que não possuem dependências, pois o cálculo é trivial\+: o ciclo mínimo de início + duração da tarefa. Nos outros casos, considera-\/se que todas as dependências estejam acima da tarefa atual, o que significa que seus tempos já foram calculados. Dessa forma, existem dois casos\+: o ciclo de início $<$ tempo mais longo das dependências e o caso em que o ciclo de início é maior. Na primeira situação, o tempo da tarefa atual será o tempo de executar a dependência mais demorada + tempo de duração da tarefa atual, já que o ciclo de início da tarefa já terá passado. Já no se-\/ gundo caso, como o tempo de início da tarefa $>$ tempo das dependências, pode-\/ -\/se ignorar o tempo de execução das dependências e somar o ciclo de início da tarefa à sua duração.
+
+Funções clientes\+: \hyperlink{manager_8h_aad18a6ad836c20e8b9e42ee385949256}{modify()}, \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()} e \hyperlink{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{D\+I\+G\+R\+A\+P\+Hremove\+V()}.
+
+Assertivas de Entrada\+: Digraph G -\/ é o digrafo que contém todas as tarefas cujos tempos de execução serão calculados. Vertex v -\/ é o índice do vértice do digrafo que contém a tarefa cujo tempo de execução será calculado.
+
+Assertivas de Saída\+: reqs == 0\+: (tarefa sem dependências) time = min\+\_\+start + duration
+
+reqs $>$ 0\+: (tarefa com pelo menos uma dependência) min\+\_\+start $<$ longest\+\_\+time (tempo mais longo de todas dependências) time = longest\+\_\+time + duration min\+\_\+start $>$= longest\+\_\+time time = min\+\_\+start + duration
+
+Como não há input humano e as funções são confiáveis, as entradas e saída já estão verificadas.
+
+
+\begin{DoxyParams}{Parameters}
+{\em digrafo} & G \\
+\hline
+{\em vértice} & da tarefa atual v \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}

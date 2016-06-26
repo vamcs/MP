@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['name',['name',['../structvertex_array.html#aeaf846aa21a7d016a52f0b5b0c2f5544',1,'vertexArray']]],
-  ['newnode',['NEWnode',['../_digraph_8h.html#ad582109b5d9d0c1dd4832d1633a5dad5',1,'Digraph.h']]],
-  ['next',['next',['../structnode.html#a5768087067b13e05f2bea8491f4313ed',1,'node']]],
-  ['node',['node',['../structnode.html',1,'']]]
+  ['id',['id',['../structnode.html#a7441ef0865bcb3db9b8064dd7375c1ea',1,'node::id()'],['../structvertex_array.html#a7441ef0865bcb3db9b8064dd7375c1ea',1,'vertexArray::id()'],['../structedge.html#a7441ef0865bcb3db9b8064dd7375c1ea',1,'edge::id()']]],
+  ['inputcheck',['INPUTcheck',['../_digraph_8h.html#aa7ddaeba697f8e6ddb69ca2ae0108e9f',1,'Digraph.h']]]
 ];

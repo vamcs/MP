@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Métodos de Programação: Digraph.h File Reference</title>
+<title>MP_Final: Digraph.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,10 +31,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Métodos de Programação
-   &#160;<span id="projectnumber">0.1</span>
+   <div id="projectname">MP_Final
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Projeto Final da Disciplina de Métodos de Programação</div>
+   <div id="projectbrief">Trabalho final da disciplina de Métodos de programação.</div>
   </td>
  </tr>
  </tbody>
@@ -108,6 +108,7 @@ $(document).ready(function(){initNavTree('_digraph_8h.html','');});
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Digraph.h File Reference</div>  </div>
@@ -135,8 +136,8 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a80a68ca8aa709322a2736c75938d27ba"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a80a68ca8aa709322a2736c75938d27ba">link</a></td></tr>
-<tr class="separator:a80a68ca8aa709322a2736c75938d27ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8d6ca4ecd16f6814fa28c52d4f68d4c"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structnode.html">node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#ac8d6ca4ecd16f6814fa28c52d4f68d4c">LinkedList</a></td></tr>
+<tr class="separator:ac8d6ca4ecd16f6814fa28c52d4f68d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34d078088dd1f710e4034c3fcb21918e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structvertex_array.html">vertexArray</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a34d078088dd1f710e4034c3fcb21918e">VertexArray</a></td></tr>
 <tr class="separator:a34d078088dd1f710e4034c3fcb21918e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41e5aaab1e0d379d176528e8e12f11b3"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdigraph.html">digraph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a></td></tr>
@@ -144,42 +145,60 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a54cb3174775d9e1e3190a0fc400e8b2d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structedge.html">edge</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a></td></tr>
 <tr class="separator:a54cb3174775d9e1e3190a0fc400e8b2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a86d3d735ad3dda996053f9b883285d63"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63">DigraphErrors</a> { <br />
+&#160;&#160;<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63a4eef194ed04d5cf95bc9417dc1aee551">DigraphInvalidStringError</a> = -1, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63a1430ef89c3ee59c9cf2a8ad6f81824b0">DigraphInvalidDependenceOnFileError</a> = -2, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63ad9fd47f3025eb1c855f524d1caf8f33e">DigraphEdgeAlreadyExistsError</a> = -3, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63a2ee3cc59fe780a3ef713d08cfaa232dd">DigraphOriginEqualDestinyError</a> = -4, 
+<br />
+&#160;&#160;<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63a59a57e13e3e2ace26c9daea469f5d7a4">DigraphInvalidEdgeIDError</a> = -5, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63aa3aa20fa9982134087614466035dfd8e">DigraphInvalidVertexIDError</a> = -6, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63adc438e9fb51fedf6dbe34c2d210be31a">DigaphVertexAlreadyExistError</a> = -7, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63a97888bd9945cddb07c8d387d8e295f2c">DigraphInvalidVertexDurationError</a> = -8, 
+<br />
+&#160;&#160;<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63a6f35331476cf4b7a73376c3481455ac6">DigraphInvalidVertexMinStartError</a> = -9, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63ae2afdd6ce13197995e780b26bdb8a95f">DigraphInvalidVertexReqsError</a> = -10, 
+<a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63abcc4fb46bb3b6bf149a0efd76276cdc5">DigraphEdgeNotFoundError</a> = -11
+<br />
+ }</td></tr>
+<tr class="separator:a86d3d735ad3dda996053f9b883285d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0d1b0ef602032caf8ba73c142c924e4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a0d1b0ef602032caf8ba73c142c924e4c">DIGRAPHinit</a> (char *file)</td></tr>
-<tr class="memdesc:a0d1b0ef602032caf8ba73c142c924e4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicialização do Digrafo.  <a href="#a0d1b0ef602032caf8ba73c142c924e4c">More...</a><br /></td></tr>
-<tr class="separator:a0d1b0ef602032caf8ba73c142c924e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6522639ca2d0bbcc1586251dbbf51e02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a6522639ca2d0bbcc1586251dbbf51e02">DIGRAPHinsertE</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a> G, <a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a> e)</td></tr>
-<tr class="memdesc:a6522639ca2d0bbcc1586251dbbf51e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insere uma aresta no grafo.  <a href="#a6522639ca2d0bbcc1586251dbbf51e02">More...</a><br /></td></tr>
-<tr class="separator:a6522639ca2d0bbcc1586251dbbf51e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa9a4413c7d7e602c6e8e403ef72d2a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#afa9a4413c7d7e602c6e8e403ef72d2a0">DIGRAPHremoveE</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a> G, <a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a> e)</td></tr>
-<tr class="memdesc:afa9a4413c7d7e602c6e8e403ef72d2a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove uma aresta no grafo.  <a href="#afa9a4413c7d7e602c6e8e403ef72d2a0">More...</a><br /></td></tr>
-<tr class="separator:afa9a4413c7d7e602c6e8e403ef72d2a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99e1fed778b362a52df0dc4ba6480e2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a99e1fed778b362a52df0dc4ba6480e2a">DIGRAPHinsertV</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a> G)</td></tr>
-<tr class="memdesc:a99e1fed778b362a52df0dc4ba6480e2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insere um vértice no grafo.  <a href="#a99e1fed778b362a52df0dc4ba6480e2a">More...</a><br /></td></tr>
-<tr class="separator:a99e1fed778b362a52df0dc4ba6480e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab045664e5601d11af05c826bd40e92f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#ab045664e5601d11af05c826bd40e92f3">DIGRAPHremoveV</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, int)</td></tr>
-<tr class="memdesc:ab045664e5601d11af05c826bd40e92f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove um vértice no grafo.  <a href="#ab045664e5601d11af05c826bd40e92f3">More...</a><br /></td></tr>
-<tr class="separator:ab045664e5601d11af05c826bd40e92f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a397da366d243cc6a475d821c6a851ca5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a397da366d243cc6a475d821c6a851ca5">DIGRAPHadj</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a> G, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a> v, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a> w)</td></tr>
-<tr class="memdesc:a397da366d243cc6a475d821c6a851ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um vértice do digrafo G.  <a href="#a397da366d243cc6a475d821c6a851ca5">More...</a><br /></td></tr>
-<tr class="separator:a397da366d243cc6a475d821c6a851ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad839c3842b5a8db60e6ab06bb5151e85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#ad839c3842b5a8db60e6ab06bb5151e85">DIGRAPHinit</a> ()</td></tr>
+<tr class="separator:ad839c3842b5a8db60e6ab06bb5151e85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefc19f0d18211a8db48c48e53f4084d9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#aefc19f0d18211a8db48c48e53f4084d9">DIGRAPHinsertE</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, <a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>)</td></tr>
+<tr class="separator:aefc19f0d18211a8db48c48e53f4084d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af24aa39df978e0786440de8c66bb9da8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#af24aa39df978e0786440de8c66bb9da8">DIGRAPHremoveE</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, <a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>)</td></tr>
+<tr class="separator:af24aa39df978e0786440de8c66bb9da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57502e92ea09334ba341f0e1911d5c45"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, <a class="el" href="_digraph_8h.html#a34d078088dd1f710e4034c3fcb21918e">VertexArray</a> w, bool(*inputCheck)(int), bool(*nameCheck)(<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, char *, int))</td></tr>
+<tr class="separator:a57502e92ea09334ba341f0e1911d5c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cfb947fc7b17b59506b51d0ed10f6de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a2cfb947fc7b17b59506b51d0ed10f6de">DIGRAPHremoveV</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, int)</td></tr>
+<tr class="separator:a2cfb947fc7b17b59506b51d0ed10f6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8bab9c984c35e3cadf61eecb1d9b926"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#aa8bab9c984c35e3cadf61eecb1d9b926">DIGRAPHadj</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>)</td></tr>
+<tr class="separator:aa8bab9c984c35e3cadf61eecb1d9b926"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab88fcd6d93c32bcbecb15d11df064698"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#ab88fcd6d93c32bcbecb15d11df064698">DIGRAPHdestroy</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>)</td></tr>
-<tr class="memdesc:ab88fcd6d93c32bcbecb15d11df064698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Desaloca um grafo.  <a href="#ab88fcd6d93c32bcbecb15d11df064698">More...</a><br /></td></tr>
 <tr class="separator:ab88fcd6d93c32bcbecb15d11df064698"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8aa672359039bc0fbc598b26892a08bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a8aa672359039bc0fbc598b26892a08bc">DIGRAPHshow</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>)</td></tr>
-<tr class="separator:a8aa672359039bc0fbc598b26892a08bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a600a6c8e6c6056c1476d4a5c78a37765"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a600a6c8e6c6056c1476d4a5c78a37765">DIGRAPHsave</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>)</td></tr>
-<tr class="separator:a600a6c8e6c6056c1476d4a5c78a37765"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad582109b5d9d0c1dd4832d1633a5dad5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#a80a68ca8aa709322a2736c75938d27ba">link</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#ad582109b5d9d0c1dd4832d1633a5dad5">NEWnode</a> (<a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>, int, <a class="el" href="_digraph_8h.html#a80a68ca8aa709322a2736c75938d27ba">link</a>)</td></tr>
-<tr class="separator:ad582109b5d9d0c1dd4832d1633a5dad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2564e33e68735adc52d90cdd7fad446"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#ad2564e33e68735adc52d90cdd7fad446">EDGE</a> (<a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a> v, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a> w, int id)</td></tr>
-<tr class="memdesc:ad2564e33e68735adc52d90cdd7fad446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cria uma aresta para o grafo.  <a href="#ad2564e33e68735adc52d90cdd7fad446">More...</a><br /></td></tr>
-<tr class="separator:ad2564e33e68735adc52d90cdd7fad446"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb380c053133f096a3db07ff839260d3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#aeb380c053133f096a3db07ff839260d3">DIGRAPHsave</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>)</td></tr>
+<tr class="separator:aeb380c053133f096a3db07ff839260d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a727359bca2755b29cbc85f4fe8a16a90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#ac8d6ca4ecd16f6814fa28c52d4f68d4c">LinkedList</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a727359bca2755b29cbc85f4fe8a16a90">NEWnode</a> (<a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>, int, <a class="el" href="_digraph_8h.html#ac8d6ca4ecd16f6814fa28c52d4f68d4c">LinkedList</a>)</td></tr>
+<tr class="separator:a727359bca2755b29cbc85f4fe8a16a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a188d2a04994d9bce758507e812a3b57c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a188d2a04994d9bce758507e812a3b57c">EDGE</a> (<a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>, int)</td></tr>
+<tr class="separator:a188d2a04994d9bce758507e812a3b57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fa25c0a2beba8fc3c7e7f5c98b8f869"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a0fa25c0a2beba8fc3c7e7f5c98b8f869">VERTEXreturn</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, int)</td></tr>
 <tr class="separator:a0fa25c0a2beba8fc3c7e7f5c98b8f869"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c01c850176c3945994bbbee9ff95e61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a0c01c850176c3945994bbbee9ff95e61">removeComma</a> (char *)</td></tr>
-<tr class="separator:a0c01c850176c3945994bbbee9ff95e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31cced496f915d174124d891b0a0d0a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="_digraph_8h.html#a34d078088dd1f710e4034c3fcb21918e">VertexArray</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a31cced496f915d174124d891b0a0d0a5">cnvInputStrToVertex</a> (char *str)</td></tr>
+<tr class="separator:a31cced496f915d174124d891b0a0d0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52a8b2a323024d44340665c1562b1f72"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a52a8b2a323024d44340665c1562b1f72">FINDreqs_id</a> (int *, int, int)</td></tr>
+<tr class="separator:a52a8b2a323024d44340665c1562b1f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7ddaeba697f8e6ddb69ca2ae0108e9f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#aa7ddaeba697f8e6ddb69ca2ae0108e9f">INPUTcheck</a> (int)</td></tr>
+<tr class="separator:aa7ddaeba697f8e6ddb69ca2ae0108e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30711367d497cb87b5ec3fcdae45bc70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a30711367d497cb87b5ec3fcdae45bc70">NAMEcheck</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, char *, int)</td></tr>
+<tr class="separator:a30711367d497cb87b5ec3fcdae45bc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a286517ef1c69d49f741460b24778ce16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_digraph_8h.html#a286517ef1c69d49f741460b24778ce16">DIGRAPHread</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>)</td></tr>
+<tr class="separator:a286517ef1c69d49f741460b24778ce16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a class="anchor" id="a053624c5d4ef5549d6a3e25bf6b27b08"></a>
@@ -219,12 +238,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a80a68ca8aa709322a2736c75938d27ba"></a>
+<a class="anchor" id="ac8d6ca4ecd16f6814fa28c52d4f68d4c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef struct <a class="el" href="structnode.html">node</a>* <a class="el" href="_digraph_8h.html#a80a68ca8aa709322a2736c75938d27ba">link</a></td>
+          <td class="memname">typedef struct <a class="el" href="structnode.html">node</a>* <a class="el" href="_digraph_8h.html#ac8d6ca4ecd16f6814fa28c52d4f68d4c">LinkedList</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -243,8 +262,78 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="a86d3d735ad3dda996053f9b883285d63"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="_digraph_8h.html#a86d3d735ad3dda996053f9b883285d63">DigraphErrors</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63a4eef194ed04d5cf95bc9417dc1aee551"></a>DigraphInvalidStringError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63a1430ef89c3ee59c9cf2a8ad6f81824b0"></a>DigraphInvalidDependenceOnFileError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63ad9fd47f3025eb1c855f524d1caf8f33e"></a>DigraphEdgeAlreadyExistsError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63a2ee3cc59fe780a3ef713d08cfaa232dd"></a>DigraphOriginEqualDestinyError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63a59a57e13e3e2ace26c9daea469f5d7a4"></a>DigraphInvalidEdgeIDError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63aa3aa20fa9982134087614466035dfd8e"></a>DigraphInvalidVertexIDError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63adc438e9fb51fedf6dbe34c2d210be31a"></a>DigaphVertexAlreadyExistError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63a97888bd9945cddb07c8d387d8e295f2c"></a>DigraphInvalidVertexDurationError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63a6f35331476cf4b7a73376c3481455ac6"></a>DigraphInvalidVertexMinStartError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63ae2afdd6ce13197995e780b26bdb8a95f"></a>DigraphInvalidVertexReqsError&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="a86d3d735ad3dda996053f9b883285d63abcc4fb46bb3b6bf149a0efd76276cdc5"></a>DigraphEdgeNotFoundError&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a397da366d243cc6a475d821c6a851ca5"></a>
+<a class="anchor" id="a31cced496f915d174124d891b0a0d0a5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_digraph_8h.html#a34d078088dd1f710e4034c3fcb21918e">VertexArray</a> cnvInputStrToVertex </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Brief/ Faz a conversão da string lida para um vértice do digrafo do tipo VertexArray.</p>
+<p>Detailed Esta função cria um nó do array de vértices do tipo VertexArray a partir de uma string no mesmo formato do arquivo de entrada "input.txt". Todos os campos são separados e formatados corretamente.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a286517ef1c69d49f741460b24778ce16">DIGRAPHread()</a>, main().</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>String contendo uma linha completa conforme arquivo de entrada.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Nó do array de vértices do digrafo é retornado se toda string estiver correta. Caso haja erros, retorna NULL.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char*</td><td>str contendo uma linha no formato padrão de uma tarefa. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>um nó do tipo VertexArray contendo uma nova tarefa. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa8bab9c984c35e3cadf61eecb1d9b926"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -252,19 +341,19 @@ Functions</h2></td></tr>
           <td class="memname">bool DIGRAPHadj </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
-          <td class="paramname"><em>G</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>&#160;</td>
-          <td class="paramname"><em>v</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>&#160;</td>
-          <td class="paramname"><em>w</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -273,8 +362,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um vértice do digrafo G. </p>
+<p>Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um vértice do digrafo G.</p>
+<p>Funções Clientes: <a class="el" href="_digraph_8h.html#af24aa39df978e0786440de8c66bb9da8">DIGRAPHremoveE()</a>.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digrafo G.</li>
+<li>Vértice válido de origem v.</li>
+<li>Vértice válido de origem w.</li>
+</ul>
+<p>Assertivas de Saída: A função verifica se a aresta v-&gt;w existe em G, retornando true para sucesso e false para insucesso. Além disso, caso algum dos nós não exista, a função retorna com falso.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">G</td><td>Grafo onde será verificada a existência da aresta. </td></tr>
@@ -300,9 +396,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Desaloca um grafo. </p>
-<p>Detailed Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices, além de cada um dos nós das listas de adjacências de cada um destes vértices.</p>
+<p>Desaloca um grafo.</p>
+<p>Detailed Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices, além de cada um dos nós das LinkedLists de adjacências de cada um destes vértices.</p>
+<p>Funções Clientes: main.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digrafo do tipo G alocado e contendo todas as tarefas.</li>
+</ul>
+<p>Assertivas de Saída: Digrafo G desalocado com todas a memória alocada para si liberada ao sistema.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">G</td><td>Grafo onde será verificada a existência da aresta. </td></tr>
@@ -315,47 +416,50 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0d1b0ef602032caf8ba73c142c924e4c"></a>
+<a class="anchor" id="ad839c3842b5a8db60e6ab06bb5151e85"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a> DIGRAPHinit </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Inicialização do Digrafo. </p>
-<p>Detailed Constrói e retorna um digrafo com vértices 0 ... V-1 e todas arestas definidas no arquivo txt passado à função.</p>
+<p>Inicialização do Digrafo</p>
+<p>Detailed Constrói e retorna um digrafo com vértices 0 ... V-1 e todas arestas definidas no arquivo input.txt passado à função. Apenas faz a alocação de memória para o digrafo.</p>
+<p>Funções Clientes: todo o programa.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada: -</p>
+<p>Assertivas de Saída:</p><ul>
+<li>Retorna uma estrutura Digraph G com memória alocada. É verificado se o malloc funcionou corretamente. Caso contrário, o programa é abortado.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">file</td><td>Nome do arquivo de definições do grafo. </td></tr>
+    <tr><td class="paramname"></td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a6522639ca2d0bbcc1586251dbbf51e02"></a>
+<a class="anchor" id="aefc19f0d18211a8db48c48e53f4084d9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DIGRAPHinsertE </td>
+          <td class="memname">int DIGRAPHinsertE </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
-          <td class="paramname"><em>G</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>&#160;</td>
-          <td class="paramname"><em>e</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -364,9 +468,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Insere uma aresta no grafo. </p>
+<p>Insere uma aresta no grafo.</p>
 <p>Detailed Insere um arco v-w contido na struct Edge 'e' no digrafo 'G'.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, NEWreqs(), NEWreqs_id().</p>
+<p>Funções Servidoras: <a class="el" href="_digraph_8h.html#a727359bca2755b29cbc85f4fe8a16a90">NEWnode()</a>, <a class="el" href="_digraph_8h.html#aa8bab9c984c35e3cadf61eecb1d9b926">DIGRAPHadj()</a>.</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digraph G contendo todas as tarefas</li>
+<li>Edge e contendo uma aresta v-&gt;w que deverá ser checada.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Insere uma aresta caso v-&gt;w não exista e se e.id seja igual à ID de w.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">G</td><td>Grafo onde será inserida a aresta 'e' </td></tr>
@@ -378,46 +490,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a99e1fed778b362a52df0dc4ba6480e2a"></a>
+<a class="anchor" id="a57502e92ea09334ba341f0e1911d5c45"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DIGRAPHinsertV </td>
+          <td class="memname">int DIGRAPHinsertV </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
-          <td class="paramname"><em>G</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Insere um vértice no grafo. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">G</td><td>Grafo onde será inserido o vértice. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="afa9a4413c7d7e602c6e8e403ef72d2a0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DIGRAPHremoveE </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
-          <td class="paramname"><em>G</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>&#160;</td>
-          <td class="paramname"><em>e</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a34d078088dd1f710e4034c3fcb21918e">VertexArray</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(int)&#160;</td>
+          <td class="paramname"><em>inputCheck</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool(*)(<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, char *, int)&#160;</td>
+          <td class="paramname"><em>nameCheck</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -426,9 +525,112 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Insere um vértice no grafo.</p>
+<p>Detailed Esta função insere um novo vértice no grafo, inserindo também todas as referências necessárias para a nova tarefa. São feitas várias verificações de consistência do nó inserido.</p>
+<p>Funções Cliente: <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>, <a class="el" href="_digraph_8h.html#a286517ef1c69d49f741460b24778ce16">DIGRAPHread()</a>.</p>
+<p>Funções Servidoras: <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>, <a class="el" href="manager_8h.html#aeea2d89b8234c15f0fc833b7d806be45">TIME()</a>, <a class="el" href="_digraph_8h.html#a31cced496f915d174124d891b0a0d0a5">cnvInputStrToVertex()</a>.</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digrafo contendo todas as tarefas.</li>
+<li>Novo vértice contendo uma nova tarefa.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Verificações quanto a consistência dos valores contidos em VertexArray w que são:<ul>
+<li>Se o ID já existe no digrafo.</li>
+<li>Se o nome já existe no digrafo.</li>
+<li>Se a execução é um valor maior do que zero.</li>
+<li>Se a duração é maior do que zero.</li>
+<li>Se o início mínimo é maior ou igual a zero.</li>
+<li>Se o número de pré-requisitos é válido:<ul>
+<li>Maior ou igual a zero;</li>
+<li>Menor do que o índice da tarefa. Não é possível referenciar tarefas que venha abaixo da tarefa atual no arquivo de entrada.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>São adicionados nós às listas de adjacência dos pré-requisitos da tarefa atual e estas tarefas salvas no array de pré-requisitos.</li>
+<li>Retorna 0 caso o VertexArray está de acordo com o esperado ou um valor negativo de acordo com a tabela acima, indicando o erro.</li>
+<li>O tempo de execução da tarefa é calculado.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">G</td><td>Grafo onde será inserido o vértice. </td></tr>
+    <tr><td class="paramname">ponteiro</td><td>para função INPUTcheck. </td></tr>
+    <tr><td class="paramname">ponteiro</td><td>para função NAMEcheck. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>0 para sucesso, valor negativo para erro. Checar tabela. </dd></dl>
 
-<p>Remove uma aresta no grafo. </p>
-<p>Detailed Remove um arco v-w contido na struct Edge 'e' no digrafo 'G'.</p>
+</div>
+</div>
+<a class="anchor" id="a286517ef1c69d49f741460b24778ce16"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DIGRAPHread </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Brief/ Leitura do arquivo de entrada e inserção dos valores no digrafo.</p>
+<p>Detailed Faz a leitura do arquivo de entrada, cria a string contendo cada linha e a insere no digrafo.</p>
+<p>Funções Cliente: main().</p>
+<p>Funções Servidoras: <a class="el" href="_digraph_8h.html#ad839c3842b5a8db60e6ab06bb5151e85">DIGRAPHinit()</a>, <a class="el" href="file_reader_8h.html#a45d4781b3d02613c8e2f39601fe6955d">readFileLine()</a>, <a class="el" href="_digraph_8h.html#a31cced496f915d174124d891b0a0d0a5">cnvInputStrToVertex()</a>, <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, <a class="el" href="_digraph_8h.html#a30711367d497cb87b5ec3fcdae45bc70">NAMEcheck()</a>, <a class="el" href="_digraph_8h.html#aa7ddaeba697f8e6ddb69ca2ae0108e9f">INPUTcheck()</a>.</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digraph G inicializado por <a class="el" href="_digraph_8h.html#ad839c3842b5a8db60e6ab06bb5151e85">DIGRAPHinit()</a>.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>O grafo completo de acordo com o arquivo "input.txt" é inicializado ao fim desta função.</li>
+<li>Verificações de erro de inserção de vértice são feitas, caso as linhas lidas não atendem aos requisitos.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Digraph</td><td>vazio e inicializado </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af24aa39df978e0786440de8c66bb9da8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int DIGRAPHremoveE </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Remove uma aresta no grafo.</p>
+<p>Detailed Remove uma aresta v-&gt;w contido na struct Edge 'e' no digrafo 'G'.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a2cfb947fc7b17b59506b51d0ed10f6de">DIGRAPHremoveV()</a>, NEWreqs(), NEWreqs_id().</p>
+<p>Funções Servidoras: <a class="el" href="_digraph_8h.html#aa8bab9c984c35e3cadf61eecb1d9b926">DIGRAPHadj()</a>, VERTEXarray().</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digraph G contendo todas as tarefas</li>
+<li>Edge e contendo uma aresta v-&gt;w que deverá ser checada.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Remove uma aresta caso v-&gt;w exista e se e.id seja igual à ID de w.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">G</td><td>Grafo onde será removida a aresta 'e' </td></tr>
@@ -440,12 +642,12 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ab045664e5601d11af05c826bd40e92f3"></a>
+<a class="anchor" id="a2cfb947fc7b17b59506b51d0ed10f6de"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DIGRAPHremoveV </td>
+          <td class="memname">int DIGRAPHremoveV </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
           <td class="paramname">, </td>
@@ -463,24 +665,36 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Remove um vértice no grafo. </p>
+<p>Remove um vértice no digrafo.</p>
+<p>Detailed Esta função faz a remoção completa de um vértice do digrafo. Primeiro, recebe-se uma ID e esta é buscada dentro do digrafo G. Caso seja encontrada, todas as referências a entre vértice serão removidas e o vértice será desalocado por completo.</p>
+<p>Funções Clientes: <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>.</p>
+<p>Funções Servidoras: <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>, <a class="el" href="manager_8h.html#aeea2d89b8234c15f0fc833b7d806be45">TIME()</a>, <a class="el" href="_digraph_8h.html#a0fa25c0a2beba8fc3c7e7f5c98b8f869">VERTEXreturn()</a>, <a class="el" href="_digraph_8h.html#af24aa39df978e0786440de8c66bb9da8">DIGRAPHremoveE()</a>.</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digrafo G do tipo Digraph contendo todas as tarefas.</li>
+<li>ID do tipo inteiro contendo o ID da tarefa a ser removida.</li>
+</ul>
+<p>Assertivas de Saída: Caso o ID exista, a tarefa será removida e várias referências a esta tarefa precisam ser tratadas:</p><ul>
+<li>Se existir outras tarefas que possuam a tarefa a ser removida como dependência, será necessário deletar o ID dos arrays de pré-requisitos.</li>
+<li>Se esta tarefa possuir pré-requisitos, será necessário remover as arestas existentes nas tarefas no array de pré-requisitos da tarefa atual.</li>
+<li>Completa deleção da tarefa e desalocação da memória.</li>
+<li>Os tempos de execução de todas tarefas são recalculados.</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">G</td><td>Grafo onde será removido o vértice. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 para sucesso, -1 para erro. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a600a6c8e6c6056c1476d4a5c78a37765"></a>
+<a class="anchor" id="aeb380c053133f096a3db07ff839260d3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void DIGRAPHsave </td>
+          <td class="memname">int DIGRAPHsave </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -488,26 +702,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Criação de um arquivo de saída.</p>
+<p>Detailed Esta função salva a configuração atual do digrafo G em um arquivo output.txt de acordo com as especificações e o arquivo de entrada.</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digrafo do tipo Digraph G contendo todas as tarefas.</li>
+</ul>
+<p>Assertivas de Saída: Imprime e salva um arquivo txt contendo as tarefas do digrafo e todos os seus campos.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">G</td><td>Digraph contendo o digrafo com todas as tarefas. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Um arquivo txt contendo todas as definições </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a8aa672359039bc0fbc598b26892a08bc"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void DIGRAPHshow </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad2564e33e68735adc52d90cdd7fad446"></a>
+<a class="anchor" id="a188d2a04994d9bce758507e812a3b57c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -515,19 +726,19 @@ Functions</h2></td></tr>
           <td class="memname"><a class="el" href="_digraph_8h.html#a54cb3174775d9e1e3190a0fc400e8b2d">Edge</a> EDGE </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>&#160;</td>
-          <td class="paramname"><em>v</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>&#160;</td>
-          <td class="paramname"><em>w</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -536,9 +747,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Cria uma aresta para o grafo. </p>
-<p>Detailed Esta fun ção simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas- sados a outra função que as utilizará de acordo com o que for implementado.</p>
+<p>Cria uma aresta para o grafo.</p>
+<p>Detailed Esta função simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas- sados a outra função que as utilizará de acordo com o que for implementado.</p>
+<p>Funções Clientes: <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, <a class="el" href="_digraph_8h.html#a2cfb947fc7b17b59506b51d0ed10f6de">DIGRAPHremoveV()</a>.</p>
+<p>Funções Servidoras:</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Dois vértices do tipo Vertex que compõe a aresta no sentido v -&gt; w</li>
+<li>ID do segundo vértice (w).</li>
+</ul>
+<p>Assertivas de Saída: Retorna uma estrutura Edge contendo dois vértices e uma ID. Caso a ID não seja igual a ID de w, um erro ocorrerá ao inserir ou remover esta aresta.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">v</td><td>Vértice de origem. </td></tr>
@@ -547,16 +764,158 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Edge e contendo a definição de uma aresta. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="ad582109b5d9d0c1dd4832d1633a5dad5"></a>
+<a class="anchor" id="a52a8b2a323024d44340665c1562b1f72"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="_digraph_8h.html#a80a68ca8aa709322a2736c75938d27ba">link</a> NEWnode </td>
+          <td class="memname">int FINDreqs_id </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Brief/ Busca por um ID dentro de um array de IDs.</p>
+<p>Detailed Dada uma tarefa, é feita uma busca por um ID em seu array de dependências. O parâmetro reqs garante que apenas posições permitidas serão acessadas.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, <a class="el" href="_digraph_8h.html#a2cfb947fc7b17b59506b51d0ed10f6de">DIGRAPHremoveV()</a>.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Array com pré-requisitos de uma tarefa</li>
+<li>Número de elementos nesse array (reqs)</li>
+<li>Elemento a ser buscado</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Retorna a posição do valor caso seja encontrado.</li>
+<li>Retorna zero se ID é invalido ou não está presente.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ponteiro</td><td>para int reqs_id </td></tr>
+    <tr><td class="paramname">int</td><td>reqs </td></tr>
+    <tr><td class="paramname">int</td><td>id </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>posição de id se for sucesso. -1 no erro. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aa7ddaeba697f8e6ddb69ca2ae0108e9f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool INPUTcheck </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Brief/ Verificação de inteiros.</p>
+<p>Detailed Verifica se o valor entradado é maior ou igual a zero.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, <a class="el" href="_digraph_8h.html#a286517ef1c69d49f741460b24778ce16">DIGRAPHread()</a>.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Valor inteiro a ser checado.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Retorna true caso o valor ser maior ou igual a zero.</li>
+<li>Retorna false caso contrário.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">valor</td><td>inteiro </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true se valor &gt;= 0, false caso contrário. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a30711367d497cb87b5ec3fcdae45bc70"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool NAMEcheck </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Brief/ Verifica se o nome entrado já existe no digrafo.</p>
+<p>Detailed A função percorre o array de vértices em busca da string entrada.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, <a class="el" href="_digraph_8h.html#a286517ef1c69d49f741460b24778ce16">DIGRAPHread()</a>.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digrafo G contendo todas as tarefas.</li>
+<li>String a ser verificada.</li>
+<li>Valor inteiro com o tamanho do array de G.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>Caso o nome já tiver sido usado, retorna false.</li>
+<li>Caso contrário, é um novo nome.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">digrafo</td><td>G contendo as tarefas </td></tr>
+    <tr><td class="paramname">string</td><td>contendo o novo nome </td></tr>
+    <tr><td class="paramname">inteiro</td><td>contendo o tamanho do array de vértices </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true se a string não existe em G e false se um vértice já possuir esse nome. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a727359bca2755b29cbc85f4fe8a16a90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_digraph_8h.html#ac8d6ca4ecd16f6814fa28c52d4f68d4c">LinkedList</a> NEWnode </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>&#160;</td>
           <td class="paramname">, </td>
@@ -570,7 +929,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="_digraph_8h.html#a80a68ca8aa709322a2736c75938d27ba">link</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#ac8d6ca4ecd16f6814fa28c52d4f68d4c">LinkedList</a>&#160;</td>
           <td class="paramname">&#160;</td>
         </tr>
         <tr>
@@ -580,22 +939,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0c01c850176c3945994bbbee9ff95e61"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void removeComma </td>
-          <td>(</td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias contidas em cada um dos nós.</p>
+<p>Detailed Função que cria e retorna um novo nó para uma lista de adjência contendo um índice w para um vértice do digrafo, a ID desse vértice e um ponteiro para o próximo nó da lista de adjacência.</p>
+<p>Funções Clientes: <a class="el" href="_digraph_8h.html#aefc19f0d18211a8db48c48e53f4084d9">DIGRAPHinsertE()</a>.</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Índice v de um vértice contendo uma tarefa</li>
+<li>ID do tipo inteiro</li>
+<li>Ponteiro do tipo LinkedList para o próximo elemento na lista.</li>
+</ul>
+<p>Assertivas de Saída: Retorna o novo nó da lista de adjacência para a função <a class="el" href="_digraph_8h.html#aefc19f0d18211a8db48c48e53f4084d9">DIGRAPHinsertE()</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Vértice de destino. </td></tr>
+    <tr><td class="paramname">int</td><td>contendo o id do vértice de destino. </td></tr>
+    <tr><td class="paramname">ponteiro</td><td>do tipo LinkedList contendo o próximo elemento da lista de adjacências. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>novo nó do tipo LinkedList para uma lista de adjacências. </dd></dl>
 
 </div>
 </div>
@@ -622,6 +984,26 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Brief/ Busca por um ID no digrafo.</p>
+<p>Detailed Esta função percorre o array de vértices em busca de um ID específico.</p>
+<p>Funções Cliente: <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a>, <a class="el" href="_digraph_8h.html#a2cfb947fc7b17b59506b51d0ed10f6de">DIGRAPHremoveV()</a>, <a class="el" href="manager_8h.html#aeea2d89b8234c15f0fc833b7d806be45">TIME()</a>, NEWid(), NEWreqs(), NEWreqs_id(), <a class="el" href="manager_8h.html#aad18a6ad836c20e8b9e42ee385949256">modify()</a>, <a class="el" href="manager_8h.html#aa98c5d850b5e2857cf4b74d4c7b85ac3">execution()</a>, modification_window().</p>
+<p>Funções Servidoras: -</p>
+<p>Assertivas de Entrada:</p><ul>
+<li>Digraph G contendo o digrafo com as tarefas.</li>
+<li>Inteiro contendo o ID a ser buscado.</li>
+</ul>
+<p>Assertivas de Saída:</p><ul>
+<li>A função busca pelo ID e caso seja encontrado retorna a sua posição no array de vértices.</li>
+<li>Caso o digrafo esteja vazio ou o ID seja inválido, retorna -1.</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Digraph</td><td>G </td></tr>
+    <tr><td class="paramname">int</td><td>id </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int posição do vértice que contém id </dd></dl>
 
 </div>
 </div>
