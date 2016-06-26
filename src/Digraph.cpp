@@ -238,24 +238,6 @@ int DIGRAPHinsertE(Digraph G, Edge e)
 	return 0;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias
-	contidas em cada um dos nós.
-	
-	Utilização da função:
-	
-	LinkedList l = NEWnode(w, weight, l);
-	
-	A função então cria um nó e o aponta para 'l':
-		new_node --> l
-	
-	- Parâmetros da função: vértice do tipo Vertex para o qual o vértice que possui esta LinkedList
-	de adjacências irá apontar, weight do tipo float que contém o peso da aresta criada e nó de
-	origem da LinkedList de adjacência, já que novos nós são adicionados ao início.
-	
-	- Retorno da função: novo ponteiro do tipo LinkedList ao nó criado.
-*/
 /*Função que cria e retorna um novo nó para uma lista de adjência
 * contendo um índice w para um vértice do digrafo, a ID desse vér-
 * tice e um ponteiro para o próximo nó da lista de adjacência.
@@ -270,40 +252,6 @@ LinkedList NEWnode(Vertex w, int id, LinkedList next)
 	return a;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Remove um arco v-w contido na struct Edge 'e' do digrafo 'G'. Caso o digrafo não possuir o
-	arco, a função se encerra e imprime uma mensagem de erro ao usuário. A função busca na LinkedList
-	de adjacência do vértice 'v' pela aresta v-w e, ao encontrá-la, remove o nó designado e libe-
-	ra a memória deste nó, além de decrementar a quantidade de arestas do grafo. Além disso, tam-
-	bém é feita a verificação se o peso da aresta a ser removida está correto, caso contrário uma
-	mensagem de erro é impressa. Dessa forma, é possível garantir a consistência da operação e a
-	remoção das arestas corretas.
-	
-	Utilização da função:
-	
-	DIGRAPHremoveE(G, e);
-	
-	Seja G:
-	||Vertex A||
-			  -(1.0)->[Vertex B]
-			  -(2.0)->[Vertex C]
-	||Vertex B||
-	||Vertex C||
-	
-	E Edge e:
-	e = {0, 1, 1.0} (sendo 0 e 1 os índices de A e B encontrados utilizando VERTEXreturn(G, nome))
-	
-	Após chamar a função teremos:
-	||Vertex A||
-				-(2.0)->[Vertex C]
-	||Vertex B||
-	||Vertex C||
-	
-	- Paramêtros da função: Digrafo do tipo Digraph e aresta do tipo Edge.
-	
-	-Retorno da função: void.
-*/
 /*Faz a remoção de uma aresta da lista de adjacência de um vértice do digrafo.*/
 int DIGRAPHremoveE(Digraph G, Edge e)
 {
@@ -351,38 +299,6 @@ int DIGRAPHremoveE(Digraph G, Edge e)
 	return 0;
 }
 
-
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Como nesta implementação foi criado um array de vértices em vez de uma LinkedList encadeada, algumas
-	limitações são encontradas ao remover um elemento deste array. Então, para isso, é necessaria a
-	realocação de memória do array, além do rearranjo dos elementos de acordo com elemento que está
-	sendo removido. Primeiramente, encontra-se o vértice a ser removido, desaloca toda sua LinkedList de
-	adjacência e remove todas as outras arestas existentes no grafo que apontem para esse vértice (
-	caso não seja um vértice de origem), move o vértice a ser removido para o fim do vetor, realoca
-	o array de vértices para uma unidade menor do que a atual e desaloca o vetor removido. Além dis-
-	so, caso o vértice removido não for o último vértice do array, também é necessário mudar a refe-
-	rência dos vértices em todas as LinkedLists de adjacência, já que terão diminuido em 1 unidade.
-	
-	Utilização da função:
-	
-	DIGRAPHremoveV(G, v);
-	
-	Caso G for:
-	
-	[Vertex A]
-	[Vertex B]
-	[Vertex C]
-	
-	e v = 2 (índice de C encontrado com VERTEXreturn(G, "C")), teremos:
-	
-	[Vertex A]
-	[Vertex B]
-	
-	- Paramêtros da função: Digrafo do tipo Digraph e string do nome do vértice a ser removido.
-	
-	- Retorno da função: void.	
-*/
 /*Esta função remove um vértice do digrafo. Atualiza as listas de adjacência, assim com*/
 int DIGRAPHremoveV(Digraph G, int id)
 {
@@ -469,22 +385,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 	return 0;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
 
-	Cria e retorna uma aresta (edge) do tipo Edge dos vértices v-w contendo um peso (weight). Esta fun-
-	ção simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas-
-	sados a outra função que as utilizará de acordo com o que for implementado.
-	
-	Utilização da função:
-	
-	e = EDGE(v, w, weight);
-	
-	Sendo v e w do tipo Vertex e weight float. Isto cria a aresta e = {v, w, weight}.
-	
-	- Paramêtros da função: dois vértices do tipo Vertex e o peso do tipo float dessa aresta v-w.
-	
-	- Retorno da função: aresta do tipo Edge.
-*/
 /*Cria e retorna uma aresta do digrafo contendo dois índices que indicam a direção da aresta e o ID do vértice w.*/
 Edge EDGE(Vertex v, Vertex w, int id)
 {
@@ -532,22 +433,6 @@ bool DIGRAPHadj(Digraph G, Vertex v, Vertex w)
 	return false;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices,
-	além de cada um dos nós das LinkedLists de adjacências de cada um destes vértices. Isso previne o vaza-
-	mento de memória e a correta devolução da memória ao sistema.
-	
-	Utilização da função:
-	
-	DIGRAPHdestroy(G);
-	
-	Desloca toda memória alocada ao digrafo G.
-	
-	- Paramêtros da função: Digrafo do tipo Digraph.
-	
-	- Retorno da função: void.
-*/
 /*Desaloca todo o digrafo, incluindo listas de adjacência, arrays de IDs e array de vértices.*/
 void DIGRAPHdestroy(Digraph G) 
 {
@@ -586,23 +471,9 @@ void DIGRAPHdestroy(Digraph G)
 	
 	/*Desalocar grafo*/
 	free(G);
+	G = NULL;
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Esta função auxiliar apenas faz uma busca no array de vértices do digrafo G pelo índice do vetor contendo
-	o nome passado à função. Ela imprime um erro e retorna -1 caso o vértice não exista no digrafo.
-	
-	Utilização da função:
-	
-	Vertex i = VERTEXreturn(G, "A");
-	
-	Retornaria i = 0 de acordo com os exemplos anteriores.
-	
-	- Paramêtros da função: Digrafo do tipo Digraph e string contendo o nome do vértice.
-	
-	- Retorno da função: Vertex contendo o índice do vértice com nome "vertexName".
-*/
 /*Busca por um ID no digrafo. Retorna a posição caso encontre ou -1 se ocorrer um erro.*/
 Vertex VERTEXreturn(Digraph G, int id)
 {
@@ -628,22 +499,6 @@ Vertex VERTEXreturn(Digraph G, int id)
 	} /*if*/
 }
 
-/*	************ALTERAÇÃO PROJETO FINAL************
-
-	Esta função imprime em um arquivo "output.txt" o grafo no mesmo padrão do arquivo de entrada utilizado em
-	DIGRAPHinit. Este arquivo pode ser utilizado para a inicialização de outro digrafo normalmente, já que se-
-	gue o padrão conforme dito.
-	
-	Utilização da função:
-	
-	DIGRAPHsave(G);
-	
-	Gerará um arquivo "output.txt" na pasta src do projeto.
-	
-	- Paramêtros da função: Digrafo do tipo Digraph.
-	
-	- Retorno da função: void.
-*/
 /*Salva a configuração atual do digrafo em um arquivo de saída no mesmo formato do arquivo de entrada.*/
 int DIGRAPHsave(Digraph G) 
 {

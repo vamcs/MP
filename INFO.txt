@@ -1,0 +1,3 @@
+GCOV dos testes resultou em mais de 90% do uso do digrafo. Imagem em ./supporting_files/.
+
+A estrutura de dados está modelada em ./docs/Modelagem_Estrutura.png

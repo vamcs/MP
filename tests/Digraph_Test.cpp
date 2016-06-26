@@ -12,12 +12,6 @@ TEST(DigraphInit_Test, Initialize_Digraph){
 	DIGRAPHdestroy(digraph);
 }
 
-TEST(DigraphDestroy_Test, Deinitialize_Digraph){
-    Digraph digraph = DIGRAPHinit();
-    DIGRAPHdestroy(digraph);
-    EXPECT_EQ(digraph, nullptr);
-}
-
 TEST(InsertVertex_Test, InsertVertex_NoDep_Success){
     Digraph digraph = DIGRAPHinit();
     bool (*nameCheck)(Digraph, char*, int);
