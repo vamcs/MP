@@ -645,12 +645,15 @@ Vertex VERTEXreturn(Digraph G, int id)
 	- Retorno da função: void.
 */
 /*Salva a configuração atual do digrafo em um arquivo de saída no mesmo formato do arquivo de entrada.*/
-void DIGRAPHsave(Digraph G) 
+int DIGRAPHsave(Digraph G) 
 {
 	FILE* fp = fopen("output.txt", "w");
 	int i, j, id, exec, duration, min_start, reqs;
 	char name[100];
 	
+	if(fp == NULL){
+		return -1;
+	}
 	/*Imprime os G->V vértices do digrafo.*/
 	for (i = 0; i < G->V; i++) 
 	{
@@ -679,6 +682,7 @@ void DIGRAPHsave(Digraph G)
 		} /*if*/
 	} /*for*/
 	fclose(fp);
+	return 0;
 }
 
 /*Busca por um ID dentro de um array de IDs. 

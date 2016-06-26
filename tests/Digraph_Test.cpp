@@ -161,6 +161,45 @@ TEST(InsertVertex_Test, InsertVertex_Dep_Success){
     DIGRAPHdestroy(digraph);
 }
 
+TEST(RemoveVertex_Dep_Test, RemoveVertex_Dep_Success){
+    Digraph digraph = DIGRAPHinit();
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
+    u->id = 1;
+    strcpy(u->name,"TR 1");
+    u->exec = 1;
+    u->duration = 1;
+    u->min_start = 1;
+    u->reqs = 1;
+    u->reqs_id = NULL;
+    u->reqs_id = (int*)malloc(u->reqs*sizeof(int));
+    u->reqs_id[0] = 0;
+
+    ret = DIGRAPHinsertV(digraph, u, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    ret = DIGRAPHremoveV(digraph, 0);
+    EXPECT_EQ(ret, 0);
+
+    DIGRAPHdestroy(digraph);
+}
+
 TEST(RemoveVertex_Test, RemoveVertex_Success){
     Digraph digraph = DIGRAPHinit();
     bool (*nameCheck)(Digraph, char*, int);
@@ -506,5 +545,31 @@ TEST(EdgeRemove_Test, EdgeRemove_Error2){
     e = EDGE(0,1,999);
     ret = DIGRAPHremoveE(digraph,e);  
     EXPECT_EQ(ret, DigraphInvalidEdgeIDError);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(DigraphRead_Test, DigraphRead_Success){
+    Digraph digraph = DIGRAPHinit();
+    DIGRAPHread(digraph);
+    EXPECT_EQ(digraph->array[0]->id,100);
+    EXPECT_STREQ(digraph->array[0]->name,"TR 0");
+    EXPECT_EQ(digraph->array[0]->exec,0);
+    EXPECT_EQ(digraph->array[0]->duration,2);
+    EXPECT_EQ(digraph->array[0]->min_start,0);
+    EXPECT_EQ(digraph->array[0]->reqs,0);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(DigraphSave_Test, DigraphSave_Success){
+    Digraph digraph = DIGRAPHinit();
+    DIGRAPHread(digraph);
+    EXPECT_EQ(digraph->array[0]->id,100);
+    EXPECT_STREQ(digraph->array[0]->name,"TR 0");
+    EXPECT_EQ(digraph->array[0]->exec,0);
+    EXPECT_EQ(digraph->array[0]->duration,2);
+    EXPECT_EQ(digraph->array[0]->min_start,0);
+    EXPECT_EQ(digraph->array[0]->reqs,0);
+    int ret = DIGRAPHsave(digraph); 
+    EXPECT_EQ(ret, 0);
     DIGRAPHdestroy(digraph);
 }

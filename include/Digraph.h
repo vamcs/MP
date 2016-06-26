@@ -250,7 +250,7 @@ void DIGRAPHdestroy(Digraph);
  *  \param G Digraph contendo o digrafo com todas as tarefas.
  *  \return Um arquivo txt contendo todas as definições
  */
-void DIGRAPHsave(Digraph);
+int DIGRAPHsave(Digraph);
 
 /*Criação de um vértice da LinkedList de adjacência.*/
 /*!	\Brief Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias contidas em cada um dos nós.
