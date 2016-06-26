@@ -296,3 +296,215 @@ TEST(VertexInstantiation_Test, VertexInstantiation_WithString_Error5){
     VertexArray v = cnvInputStrToVertex(str);
     EXPECT_EQ(v,nullptr);
 }
+
+TEST(EdgeInsertion_Test, EdgeInsertion_Success){
+    Digraph digraph = DIGRAPHinit();
+
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
+    u->id = 1;
+    strcpy(w->name,"TR 0");
+    u->exec = 1;
+    u->duration = 1;
+    u->min_start = 0;
+    u->reqs = 0;
+    u->reqs_id = NULL;
+    ret = DIGRAPHinsertV(digraph, u, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    Edge e = EDGE(0,1,1);
+    DIGRAPHinsertE(digraph, e);
+    EXPECT_EQ(digraph->array[0]->adj->id,1);
+    EXPECT_EQ(digraph->array[0]->adj->w, 1);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(EdgeInsertion_Test, EdgeInsertion_Error){
+    Digraph digraph = DIGRAPHinit();
+
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
+    u->id = 1;
+    strcpy(w->name,"TR 0");
+    u->exec = 1;
+    u->duration = 1;
+    u->min_start = 0;
+    u->reqs = 0;
+    u->reqs_id = NULL;
+    ret = DIGRAPHinsertV(digraph, u, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    Edge e = EDGE(0,1,1);
+    ret = DIGRAPHinsertE(digraph, e);
+    EXPECT_EQ(ret, 0);
+    ret = DIGRAPHinsertE(digraph, e);
+    EXPECT_EQ(ret, DigraphEdgeAlreadyExistsError);
+    DIGRAPHdestroy(digraph);
+}
+
+
+
+TEST(EdgeRemove_Test, EdgeRemove_Success){
+     Digraph digraph = DIGRAPHinit();
+
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
+    u->id = 1;
+    strcpy(w->name,"TR 0");
+    u->exec = 1;
+    u->duration = 1;
+    u->min_start = 0;
+    u->reqs = 0;
+    u->reqs_id = NULL;
+    ret = DIGRAPHinsertV(digraph, u, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    Edge e = EDGE(0,1,1);
+    ret = DIGRAPHinsertE(digraph, e);
+    EXPECT_EQ(ret, 0);
+
+    ret = DIGRAPHremoveE(digraph,e);  
+    EXPECT_EQ(ret, 0);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(EdgeRemove_Test, EdgeRemove_Error1){
+    Digraph digraph = DIGRAPHinit();
+
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
+    u->id = 1;
+    strcpy(w->name,"TR 0");
+    u->exec = 1;
+    u->duration = 1;
+    u->min_start = 0;
+    u->reqs = 0;
+    u->reqs_id = NULL;
+    ret = DIGRAPHinsertV(digraph, u, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    Edge e = EDGE(0,2,2);
+    ret = DIGRAPHremoveE(digraph,e);  
+    EXPECT_EQ(ret, DigraphEdgeNotFoundError);
+    DIGRAPHdestroy(digraph);
+}
+
+TEST(EdgeRemove_Test, EdgeRemove_Error2){
+   Digraph digraph = DIGRAPHinit();
+
+    bool (*nameCheck)(Digraph, char*, int);
+    nameCheck = NAMEcheck;
+
+    bool (*inputCheck)(int);
+    inputCheck = INPUTcheck;
+
+    VertexArray w = (VertexArray)malloc(sizeof(struct vertexArray));
+    w->id = 0;
+    strcpy(w->name,"TR 0");
+    w->exec = 1;
+    w->duration = 1;
+    w->min_start = 0;
+    w->reqs = 0;
+    w->reqs_id = NULL;
+    int ret = DIGRAPHinsertV(digraph, w, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
+    u->id = 1;
+    strcpy(w->name,"TR 0");
+    u->exec = 1;
+    u->duration = 1;
+    u->min_start = 0;
+    u->reqs = 0;
+    u->reqs_id = NULL;
+    ret = DIGRAPHinsertV(digraph, u, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+
+    VertexArray v = (VertexArray)malloc(sizeof(struct vertexArray));
+    v->id = 2;
+    strcpy(w->name,"TR 0");
+    v->exec = 1;
+    v->duration = 1;
+    v->min_start = 0;
+    v->reqs = 0;
+    v->reqs_id = NULL;
+    ret = DIGRAPHinsertV(digraph, v, inputCheck,nameCheck);
+    EXPECT_EQ(ret, 0);
+    
+    Edge e = EDGE(0,1,1);
+    ret = DIGRAPHinsertE(digraph, e);
+    EXPECT_EQ(ret, 0);
+    
+    e = EDGE(1,2,2);
+    ret = DIGRAPHinsertE(digraph, e);
+    EXPECT_EQ(ret, 0);
+
+    e = EDGE(0,1,999);
+    ret = DIGRAPHremoveE(digraph,e);  
+    EXPECT_EQ(ret, DigraphInvalidEdgeIDError);
+    DIGRAPHdestroy(digraph);
+}

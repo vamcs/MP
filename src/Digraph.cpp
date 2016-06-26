@@ -221,7 +221,7 @@ VertexArray cnvInputStrToVertex(char* str)
 }
 
 /*Faz inserção de uma nova aresta no digrafo.*/
-void DIGRAPHinsertE(Digraph G, Edge e) 
+int DIGRAPHinsertE(Digraph G, Edge e) 
 {
 	/*Leitura de Edge 'e'.*/
 	Vertex v = e.v, w = e.w;
@@ -233,10 +233,9 @@ void DIGRAPHinsertE(Digraph G, Edge e)
 		G->E++;	/*Incremento número de arestas adicionadas no grafo.*/
 	} else
 	{
-		printf("Aresta ja existente no digrafo.\n%s->%s nao foi inserida.\n", 
-												G->array[v]->name, G->array[w]->name);
+		return DigraphEdgeAlreadyExistsError;
 	} /*if*/
-	return;
+	return 0;
 }
 
 /*	************ALTERAÇÃO PROJETO FINAL************
@@ -306,7 +305,7 @@ LinkedList NEWnode(Vertex w, int id, LinkedList next)
 	-Retorno da função: void.
 */
 /*Faz a remoção de uma aresta da lista de adjacência de um vértice do digrafo.*/
-void DIGRAPHremoveE(Digraph G, Edge e)
+int DIGRAPHremoveE(Digraph G, Edge e)
 {
 	Vertex 	v = e.v, 
 			w = e.w;
@@ -333,7 +332,7 @@ void DIGRAPHremoveE(Digraph G, Edge e)
 				G->E--;
 			} else 
 			{
-				printf("Arestra nao removida. ID incorreto.\n");
+				return DigraphInvalidEdgeIDError;
 			} /*if*/
 		} else 
 		{
@@ -343,9 +342,10 @@ void DIGRAPHremoveE(Digraph G, Edge e)
 		} /*if*/
 	} else 
 	{
-		printf("Aresta %d->%d nao encontrada. ", G->array[v]->id, G->array[w]->id);
-		printf("Nao foi possivel remove-la.\n");
+		return DigraphEdgeNotFoundError;
 	} /*if*/
+
+	return 0;
 }
 
 
@@ -437,6 +437,7 @@ int DIGRAPHremoveV(Digraph G, int id)
 	free(temp_array);
 	G->array = (VertexArray*)realloc(G->array, G->V * sizeof(VertexArray));
 	if(G->V == 0) {
+		G->array = nullptr;
         assert(G->array == nullptr);
     } else {
 	    assert(G->array);

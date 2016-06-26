@@ -25,6 +25,7 @@ enum DigraphErrors{
     DigraphInvalidVertexDurationError = -8,
     DigraphInvalidVertexMinStartError = -9,
     DigraphInvalidVertexReqsError = -10,
+    DigraphEdgeNotFoundError = -11
 };
 
 
@@ -107,7 +108,7 @@ Digraph DIGRAPHinit();
  *  \param e Aresta a ser inserida no grafo 'G'
  *  \return
  */
-void DIGRAPHinsertE(Digraph, Edge);
+int DIGRAPHinsertE(Digraph, Edge);
 
 /*! \Brief Remove uma aresta no grafo.
  *
@@ -128,7 +129,7 @@ void DIGRAPHinsertE(Digraph, Edge);
  *  \param e Aresta a ser removida no grafo 'G'
  *  \return
  */
-void DIGRAPHremoveE(Digraph, Edge);
+int DIGRAPHremoveE(Digraph, Edge);
 
 /*! \Brief Insere um vértice no grafo.
  *

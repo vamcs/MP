@@ -69,7 +69,7 @@ int NEWid(WINDOW* win, Digraph G, Vertex v)
 	mvwprintw(win, 10, 1, "> Entre com o novo ID: ");
 	wrefresh(win);
 	wscanw(win, "%d", &new_id);
-	w = VERTEXreturnF(G, new_id);
+	w = VERTEXreturn(G, new_id);
 
 	while (w != -1 || w < -2) 
 	{
