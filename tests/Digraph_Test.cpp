@@ -475,7 +475,7 @@ TEST(EdgeRemove_Test, EdgeRemove_Error2){
 
     VertexArray u = (VertexArray)malloc(sizeof(struct vertexArray));
     u->id = 1;
-    strcpy(w->name,"TR 0");
+    strcpy(u->name,"TR 1");
     u->exec = 1;
     u->duration = 1;
     u->min_start = 0;
@@ -486,7 +486,7 @@ TEST(EdgeRemove_Test, EdgeRemove_Error2){
 
     VertexArray v = (VertexArray)malloc(sizeof(struct vertexArray));
     v->id = 2;
-    strcpy(w->name,"TR 0");
+    strcpy(v->name,"TR 2");
     v->exec = 1;
     v->duration = 1;
     v->min_start = 0;
