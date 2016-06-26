@@ -325,7 +325,7 @@ int DIGRAPHremoveE(Digraph G, Edge e)
 			{
 				/*Corpo vazio.*/
 			} /*for*/
-			if((e.id == current->id) || (e.id == -1)) /*Exceção -1 criada para DIGRAPHremoveV.*/
+			if(e.id == current->id)
 			{ 
 				prev->next = current->next;
 				free(current);
@@ -334,12 +334,15 @@ int DIGRAPHremoveE(Digraph G, Edge e)
 			{
 				return DigraphInvalidEdgeIDError;
 			} /*if*/
-		} else 
+		} else if (e.id == current->id)
 		{
 			G->array[v]->adj = current->next;		/*É o primeiro da LinkedList, então passa o seguinte à cabeça da LinkedList e desloca o nó.*/
 			free(current);
 			G->E--;
-		} /*if*/
+		} else /*A primeira aresta é inválida.*/
+		{
+			return DigraphInvalidEdgeIDError;
+		}/*if*/
 	} else 
 	{
 		return DigraphEdgeNotFoundError;
