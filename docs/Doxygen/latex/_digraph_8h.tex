@@ -20,7 +20,7 @@ struct \hyperlink{structedge}{edge}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \hyperlink{structnode}{node} $\ast$ \hyperlink{_digraph_8h_a80a68ca8aa709322a2736c75938d27ba}{link}
+typedef struct \hyperlink{structnode}{node} $\ast$ \hyperlink{_digraph_8h_ac8d6ca4ecd16f6814fa28c52d4f68d4c}{Linked\+List}
 \item 
 typedef struct \hyperlink{structvertex_array}{vertex\+Array} $\ast$ \hyperlink{_digraph_8h_a34d078088dd1f710e4034c3fcb21918e}{Vertex\+Array}
 \item 
@@ -28,34 +28,59 @@ typedef struct \hyperlink{structdigraph}{digraph} $\ast$ \hyperlink{_digraph_8h_
 \item 
 typedef struct \hyperlink{structedge}{edge} \hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge}
 \end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63}{Digraph\+Errors} \{ \\*
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a4eef194ed04d5cf95bc9417dc1aee551}{Digraph\+Invalid\+String\+Error} = -\/1, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a1430ef89c3ee59c9cf2a8ad6f81824b0}{Digraph\+Invalid\+Dependence\+On\+File\+Error} = -\/2, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63ad9fd47f3025eb1c855f524d1caf8f33e}{Digraph\+Edge\+Already\+Exists\+Error} = -\/3, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a2ee3cc59fe780a3ef713d08cfaa232dd}{Digraph\+Origin\+Equal\+Destiny\+Error} = -\/4, 
+\\*
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a59a57e13e3e2ace26c9daea469f5d7a4}{Digraph\+Invalid\+Edge\+I\+D\+Error} = -\/5, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63aa3aa20fa9982134087614466035dfd8e}{Digraph\+Invalid\+Vertex\+I\+D\+Error} = -\/6, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63adc438e9fb51fedf6dbe34c2d210be31a}{Digaph\+Vertex\+Already\+Exist\+Error} = -\/7, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a97888bd9945cddb07c8d387d8e295f2c}{Digraph\+Invalid\+Vertex\+Duration\+Error} = -\/8, 
+\\*
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a6f35331476cf4b7a73376c3481455ac6}{Digraph\+Invalid\+Vertex\+Min\+Start\+Error} = -\/9, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63ae2afdd6ce13197995e780b26bdb8a95f}{Digraph\+Invalid\+Vertex\+Reqs\+Error} = -\/10, 
+\hyperlink{_digraph_8h_a86d3d735ad3dda996053f9b883285d63abcc4fb46bb3b6bf149a0efd76276cdc5}{Digraph\+Edge\+Not\+Found\+Error} = -\/11
+ \}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} \hyperlink{_digraph_8h_a0d1b0ef602032caf8ba73c142c924e4c}{D\+I\+G\+R\+A\+P\+Hinit} (char $\ast$file)
-\begin{DoxyCompactList}\small\item\em Inicialização do Digrafo. \end{DoxyCompactList}\item 
-void \hyperlink{_digraph_8h_a6522639ca2d0bbcc1586251dbbf51e02}{D\+I\+G\+R\+A\+P\+HinsertE} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} G, \hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge} e)
-\begin{DoxyCompactList}\small\item\em Insere uma aresta no grafo. \end{DoxyCompactList}\item 
-void \hyperlink{_digraph_8h_afa9a4413c7d7e602c6e8e403ef72d2a0}{D\+I\+G\+R\+A\+P\+HremoveE} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} G, \hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge} e)
-\begin{DoxyCompactList}\small\item\em Remove uma aresta no grafo. \end{DoxyCompactList}\item 
-void \hyperlink{_digraph_8h_a99e1fed778b362a52df0dc4ba6480e2a}{D\+I\+G\+R\+A\+P\+HinsertV} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} G)
-\begin{DoxyCompactList}\small\item\em Insere um vértice no grafo. \end{DoxyCompactList}\item 
-void \hyperlink{_digraph_8h_ab045664e5601d11af05c826bd40e92f3}{D\+I\+G\+R\+A\+P\+HremoveV} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, int)
-\begin{DoxyCompactList}\small\item\em Remove um vértice no grafo. \end{DoxyCompactList}\item 
-bool \hyperlink{_digraph_8h_a397da366d243cc6a475d821c6a851ca5}{D\+I\+G\+R\+A\+P\+Hadj} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} G, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex} v, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex} w)
-\begin{DoxyCompactList}\small\item\em Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um vértice do digrafo G. \end{DoxyCompactList}\item 
+\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} \hyperlink{_digraph_8h_ad839c3842b5a8db60e6ab06bb5151e85}{D\+I\+G\+R\+A\+P\+Hinit} ()
+\item 
+int \hyperlink{_digraph_8h_aefc19f0d18211a8db48c48e53f4084d9}{D\+I\+G\+R\+A\+P\+HinsertE} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, \hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge})
+\item 
+int \hyperlink{_digraph_8h_af24aa39df978e0786440de8c66bb9da8}{D\+I\+G\+R\+A\+P\+HremoveE} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, \hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge})
+\item 
+int \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+HinsertV} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, \hyperlink{_digraph_8h_a34d078088dd1f710e4034c3fcb21918e}{Vertex\+Array} w, bool($\ast$input\+Check)(int), bool($\ast$name\+Check)(\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, char $\ast$, int))
+\item 
+int \hyperlink{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{D\+I\+G\+R\+A\+P\+HremoveV} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, int)
+\item 
+bool \hyperlink{_digraph_8h_aa8bab9c984c35e3cadf61eecb1d9b926}{D\+I\+G\+R\+A\+P\+Hadj} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex}, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex})
+\item 
 void \hyperlink{_digraph_8h_ab88fcd6d93c32bcbecb15d11df064698}{D\+I\+G\+R\+A\+P\+Hdestroy} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
-\begin{DoxyCompactList}\small\item\em Desaloca um grafo. \end{DoxyCompactList}\item 
-void \hyperlink{_digraph_8h_a8aa672359039bc0fbc598b26892a08bc}{D\+I\+G\+R\+A\+P\+Hshow} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
 \item 
-void \hyperlink{_digraph_8h_a600a6c8e6c6056c1476d4a5c78a37765}{D\+I\+G\+R\+A\+P\+Hsave} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
+int \hyperlink{_digraph_8h_aeb380c053133f096a3db07ff839260d3}{D\+I\+G\+R\+A\+P\+Hsave} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
 \item 
-\hyperlink{_digraph_8h_a80a68ca8aa709322a2736c75938d27ba}{link} \hyperlink{_digraph_8h_ad582109b5d9d0c1dd4832d1633a5dad5}{N\+E\+Wnode} (\hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex}, int, \hyperlink{_digraph_8h_a80a68ca8aa709322a2736c75938d27ba}{link})
+\hyperlink{_digraph_8h_ac8d6ca4ecd16f6814fa28c52d4f68d4c}{Linked\+List} \hyperlink{_digraph_8h_a727359bca2755b29cbc85f4fe8a16a90}{N\+E\+Wnode} (\hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex}, int, \hyperlink{_digraph_8h_ac8d6ca4ecd16f6814fa28c52d4f68d4c}{Linked\+List})
 \item 
-\hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge} \hyperlink{_digraph_8h_ad2564e33e68735adc52d90cdd7fad446}{E\+D\+GE} (\hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex} v, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex} w, int id)
-\begin{DoxyCompactList}\small\item\em Cria uma aresta para o grafo. \end{DoxyCompactList}\item 
+\hyperlink{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{Edge} \hyperlink{_digraph_8h_a188d2a04994d9bce758507e812a3b57c}{E\+D\+GE} (\hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex}, \hyperlink{_digraph_8h_a053624c5d4ef5549d6a3e25bf6b27b08}{Vertex}, int)
+\item 
 int \hyperlink{_digraph_8h_a0fa25c0a2beba8fc3c7e7f5c98b8f869}{V\+E\+R\+T\+E\+Xreturn} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, int)
 \item 
-void \hyperlink{_digraph_8h_a0c01c850176c3945994bbbee9ff95e61}{remove\+Comma} (char $\ast$)
+\hyperlink{_digraph_8h_a34d078088dd1f710e4034c3fcb21918e}{Vertex\+Array} \hyperlink{_digraph_8h_a31cced496f915d174124d891b0a0d0a5}{cnv\+Input\+Str\+To\+Vertex} (char $\ast$str)
+\item 
+int \hyperlink{_digraph_8h_a52a8b2a323024d44340665c1562b1f72}{F\+I\+N\+Dreqs\+\_\+id} (int $\ast$, int, int)
+\item 
+bool \hyperlink{_digraph_8h_aa7ddaeba697f8e6ddb69ca2ae0108e9f}{I\+N\+P\+U\+Tcheck} (int)
+\item 
+bool \hyperlink{_digraph_8h_a30711367d497cb87b5ec3fcdae45bc70}{N\+A\+M\+Echeck} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph}, char $\ast$, int)
+\item 
+void \hyperlink{_digraph_8h_a286517ef1c69d49f741460b24778ce16}{D\+I\+G\+R\+A\+P\+Hread} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
 \end{DoxyCompactItemize}
 
 
@@ -72,27 +97,104 @@ void \hyperlink{_digraph_8h_a0c01c850176c3945994bbbee9ff95e61}{remove\+Comma} (c
 \index{Digraph.\+h@{Digraph.\+h}!Edge@{Edge}}
 \index{Edge@{Edge}!Digraph.\+h@{Digraph.\+h}}
 \subsubsection[{\texorpdfstring{Edge}{Edge}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf edge} {\bf Edge}}\hypertarget{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}{}\label{_digraph_8h_a54cb3174775d9e1e3190a0fc400e8b2d}
-\index{Digraph.\+h@{Digraph.\+h}!link@{link}}
-\index{link@{link}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{link}{link}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf node}$\ast$ {\bf link}}\hypertarget{_digraph_8h_a80a68ca8aa709322a2736c75938d27ba}{}\label{_digraph_8h_a80a68ca8aa709322a2736c75938d27ba}
+\index{Digraph.\+h@{Digraph.\+h}!Linked\+List@{Linked\+List}}
+\index{Linked\+List@{Linked\+List}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{Linked\+List}{LinkedList}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf node}$\ast$ {\bf Linked\+List}}\hypertarget{_digraph_8h_ac8d6ca4ecd16f6814fa28c52d4f68d4c}{}\label{_digraph_8h_ac8d6ca4ecd16f6814fa28c52d4f68d4c}
 \index{Digraph.\+h@{Digraph.\+h}!Vertex\+Array@{Vertex\+Array}}
 \index{Vertex\+Array@{Vertex\+Array}!Digraph.\+h@{Digraph.\+h}}
 \subsubsection[{\texorpdfstring{Vertex\+Array}{VertexArray}}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf vertex\+Array}$\ast$ {\bf Vertex\+Array}}\hypertarget{_digraph_8h_a34d078088dd1f710e4034c3fcb21918e}{}\label{_digraph_8h_a34d078088dd1f710e4034c3fcb21918e}
 
 
+\subsection{Enumeration Type Documentation}
+\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Errors@{Digraph\+Errors}}
+\index{Digraph\+Errors@{Digraph\+Errors}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{Digraph\+Errors}{DigraphErrors}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Digraph\+Errors}}\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{Digraph\+Invalid\+String\+Error@{Digraph\+Invalid\+String\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+String\+Error@{Digraph\+Invalid\+String\+Error}}\item[{\em 
+Digraph\+Invalid\+String\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a4eef194ed04d5cf95bc9417dc1aee551}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a4eef194ed04d5cf95bc9417dc1aee551}
+}]\index{Digraph\+Invalid\+Dependence\+On\+File\+Error@{Digraph\+Invalid\+Dependence\+On\+File\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+Dependence\+On\+File\+Error@{Digraph\+Invalid\+Dependence\+On\+File\+Error}}\item[{\em 
+Digraph\+Invalid\+Dependence\+On\+File\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a1430ef89c3ee59c9cf2a8ad6f81824b0}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a1430ef89c3ee59c9cf2a8ad6f81824b0}
+}]\index{Digraph\+Edge\+Already\+Exists\+Error@{Digraph\+Edge\+Already\+Exists\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Edge\+Already\+Exists\+Error@{Digraph\+Edge\+Already\+Exists\+Error}}\item[{\em 
+Digraph\+Edge\+Already\+Exists\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63ad9fd47f3025eb1c855f524d1caf8f33e}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63ad9fd47f3025eb1c855f524d1caf8f33e}
+}]\index{Digraph\+Origin\+Equal\+Destiny\+Error@{Digraph\+Origin\+Equal\+Destiny\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Origin\+Equal\+Destiny\+Error@{Digraph\+Origin\+Equal\+Destiny\+Error}}\item[{\em 
+Digraph\+Origin\+Equal\+Destiny\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a2ee3cc59fe780a3ef713d08cfaa232dd}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a2ee3cc59fe780a3ef713d08cfaa232dd}
+}]\index{Digraph\+Invalid\+Edge\+I\+D\+Error@{Digraph\+Invalid\+Edge\+I\+D\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+Edge\+I\+D\+Error@{Digraph\+Invalid\+Edge\+I\+D\+Error}}\item[{\em 
+Digraph\+Invalid\+Edge\+I\+D\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a59a57e13e3e2ace26c9daea469f5d7a4}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a59a57e13e3e2ace26c9daea469f5d7a4}
+}]\index{Digraph\+Invalid\+Vertex\+I\+D\+Error@{Digraph\+Invalid\+Vertex\+I\+D\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+Vertex\+I\+D\+Error@{Digraph\+Invalid\+Vertex\+I\+D\+Error}}\item[{\em 
+Digraph\+Invalid\+Vertex\+I\+D\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63aa3aa20fa9982134087614466035dfd8e}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63aa3aa20fa9982134087614466035dfd8e}
+}]\index{Digaph\+Vertex\+Already\+Exist\+Error@{Digaph\+Vertex\+Already\+Exist\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digaph\+Vertex\+Already\+Exist\+Error@{Digaph\+Vertex\+Already\+Exist\+Error}}\item[{\em 
+Digaph\+Vertex\+Already\+Exist\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63adc438e9fb51fedf6dbe34c2d210be31a}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63adc438e9fb51fedf6dbe34c2d210be31a}
+}]\index{Digraph\+Invalid\+Vertex\+Duration\+Error@{Digraph\+Invalid\+Vertex\+Duration\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+Vertex\+Duration\+Error@{Digraph\+Invalid\+Vertex\+Duration\+Error}}\item[{\em 
+Digraph\+Invalid\+Vertex\+Duration\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a97888bd9945cddb07c8d387d8e295f2c}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a97888bd9945cddb07c8d387d8e295f2c}
+}]\index{Digraph\+Invalid\+Vertex\+Min\+Start\+Error@{Digraph\+Invalid\+Vertex\+Min\+Start\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+Vertex\+Min\+Start\+Error@{Digraph\+Invalid\+Vertex\+Min\+Start\+Error}}\item[{\em 
+Digraph\+Invalid\+Vertex\+Min\+Start\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a6f35331476cf4b7a73376c3481455ac6}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63a6f35331476cf4b7a73376c3481455ac6}
+}]\index{Digraph\+Invalid\+Vertex\+Reqs\+Error@{Digraph\+Invalid\+Vertex\+Reqs\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Invalid\+Vertex\+Reqs\+Error@{Digraph\+Invalid\+Vertex\+Reqs\+Error}}\item[{\em 
+Digraph\+Invalid\+Vertex\+Reqs\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63ae2afdd6ce13197995e780b26bdb8a95f}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63ae2afdd6ce13197995e780b26bdb8a95f}
+}]\index{Digraph\+Edge\+Not\+Found\+Error@{Digraph\+Edge\+Not\+Found\+Error}!Digraph.\+h@{Digraph.\+h}}\index{Digraph.\+h@{Digraph.\+h}!Digraph\+Edge\+Not\+Found\+Error@{Digraph\+Edge\+Not\+Found\+Error}}\item[{\em 
+Digraph\+Edge\+Not\+Found\+Error\hypertarget{_digraph_8h_a86d3d735ad3dda996053f9b883285d63abcc4fb46bb3b6bf149a0efd76276cdc5}{}\label{_digraph_8h_a86d3d735ad3dda996053f9b883285d63abcc4fb46bb3b6bf149a0efd76276cdc5}
+}]\end{description}
+\end{Desc}
+
+
 \subsection{Function Documentation}
+\index{Digraph.\+h@{Digraph.\+h}!cnv\+Input\+Str\+To\+Vertex@{cnv\+Input\+Str\+To\+Vertex}}
+\index{cnv\+Input\+Str\+To\+Vertex@{cnv\+Input\+Str\+To\+Vertex}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{cnv\+Input\+Str\+To\+Vertex(char $\ast$str)}{cnvInputStrToVertex(char *str)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Vertex\+Array} cnv\+Input\+Str\+To\+Vertex (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}\hypertarget{_digraph_8h_a31cced496f915d174124d891b0a0d0a5}{}\label{_digraph_8h_a31cced496f915d174124d891b0a0d0a5}
+Brief/ Faz a conversão da string lida para um vértice do digrafo do tipo Vertex\+Array.
+
+Detailed Esta função cria um nó do array de vértices do tipo Vertex\+Array a partir de uma string no mesmo formato do arquivo de entrada \char`\"{}input.\+txt\char`\"{}. Todos os campos são separados e formatados corretamente.
+
+Funções Cliente\+: \hyperlink{_digraph_8h_a286517ef1c69d49f741460b24778ce16}{D\+I\+G\+R\+A\+P\+Hread()}, main().
+
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item String contendo uma linha completa conforme arquivo de entrada.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Nó do array de vértices do digrafo é retornado se toda string estiver correta. Caso haja erros, retorna N\+U\+LL.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em char$\ast$} & str contendo uma linha no formato padrão de uma tarefa. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+um nó do tipo Vertex\+Array contendo uma nova tarefa. 
+\end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+Hadj@{D\+I\+G\+R\+A\+P\+Hadj}}
 \index{D\+I\+G\+R\+A\+P\+Hadj@{D\+I\+G\+R\+A\+P\+Hadj}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hadj(\+Digraph G, Vertex v, Vertex w)}{DIGRAPHadj(Digraph G, Vertex v, Vertex w)}}]{\setlength{\rightskip}{0pt plus 5cm}bool D\+I\+G\+R\+A\+P\+Hadj (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hadj(\+Digraph, Vertex, Vertex)}{DIGRAPHadj(Digraph, Vertex, Vertex)}}]{\setlength{\rightskip}{0pt plus 5cm}bool D\+I\+G\+R\+A\+P\+Hadj (
 \begin{DoxyParamCaption}
-\item[{{\bf Digraph}}]{G, }
-\item[{{\bf Vertex}}]{v, }
-\item[{{\bf Vertex}}]{w}
+\item[{{\bf Digraph}}]{, }
+\item[{{\bf Vertex}}]{, }
+\item[{{\bf Vertex}}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a397da366d243cc6a475d821c6a851ca5}{}\label{_digraph_8h_a397da366d243cc6a475d821c6a851ca5}
+)}\hypertarget{_digraph_8h_aa8bab9c984c35e3cadf61eecb1d9b926}{}\label{_digraph_8h_aa8bab9c984c35e3cadf61eecb1d9b926}
+Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um vértice do digrafo G.
 
+Funções Clientes\+: \hyperlink{_digraph_8h_af24aa39df978e0786440de8c66bb9da8}{D\+I\+G\+R\+A\+P\+Hremove\+E()}.
 
-Esta função faz a verificação da existência de uma aresta checando a lista de adjacência de um vértice do digrafo G. 
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digrafo G.
+\item Vértice válido de origem v.
+\item Vértice válido de origem w.
+\end{DoxyItemize}
+
+Assertivas de Saída\+: A função verifica se a aresta v-\/$>$w existe em G, retornando true para sucesso e false para insucesso. Além disso, caso algum dos nós não exista, a função retorna com falso.
 
 
 \begin{DoxyParams}{Parameters}
@@ -113,11 +215,20 @@ Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo
 \item[{{\bf Digraph}}]{}
 \end{DoxyParamCaption}
 )}\hypertarget{_digraph_8h_ab88fcd6d93c32bcbecb15d11df064698}{}\label{_digraph_8h_ab88fcd6d93c32bcbecb15d11df064698}
+Desaloca um grafo.
 
+Detailed Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices, além de cada um dos nós das Linked\+Lists de adjacências de cada um destes vértices.
 
-Desaloca um grafo. 
+Funções Clientes\+: main.
 
-Detailed Esta função desaloca o digrafo G entrado, assim como cada vértice contido em seu array de vértices, além de cada um dos nós das listas de adjacências de cada um destes vértices.
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digrafo do tipo G alocado e contendo todas as tarefas.
+\end{DoxyItemize}
+
+Assertivas de Saída\+: Digrafo G desalocado com todas a memória alocada para si liberada ao sistema.
 
 
 \begin{DoxyParams}{Parameters}
@@ -133,38 +244,57 @@ Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo
 \end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+Hinit@{D\+I\+G\+R\+A\+P\+Hinit}}
 \index{D\+I\+G\+R\+A\+P\+Hinit@{D\+I\+G\+R\+A\+P\+Hinit}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hinit(char $\ast$file)}{DIGRAPHinit(char *file)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Digraph} D\+I\+G\+R\+A\+P\+Hinit (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hinit()}{DIGRAPHinit()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Digraph} D\+I\+G\+R\+A\+P\+Hinit (
 \begin{DoxyParamCaption}
-\item[{char $\ast$}]{file}
+{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a0d1b0ef602032caf8ba73c142c924e4c}{}\label{_digraph_8h_a0d1b0ef602032caf8ba73c142c924e4c}
+)}\hypertarget{_digraph_8h_ad839c3842b5a8db60e6ab06bb5151e85}{}\label{_digraph_8h_ad839c3842b5a8db60e6ab06bb5151e85}
+Inicialização do Digrafo
 
+Detailed Constrói e retorna um digrafo com vértices 0 ... V-\/1 e todas arestas definidas no arquivo input.\+txt passado à função. Apenas faz a alocação de memória para o digrafo.
 
-Inicialização do Digrafo. 
+Funções Clientes\+: todo o programa.
 
-Detailed Constrói e retorna um digrafo com vértices 0 ... V-\/1 e todas arestas definidas no arquivo txt passado à função.
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+: -\/
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Retorna uma estrutura Digraph G com memória alocada. É verificado se o malloc funcionou corretamente. Caso contrário, o programa é abortado.
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
-{\em file} & Nome do arquivo de definições do grafo. \\
+{\em } & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado. 
-\end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+HinsertE@{D\+I\+G\+R\+A\+P\+HinsertE}}
 \index{D\+I\+G\+R\+A\+P\+HinsertE@{D\+I\+G\+R\+A\+P\+HinsertE}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hinsert\+E(\+Digraph G, Edge e)}{DIGRAPHinsertE(Digraph G, Edge e)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+HinsertE (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hinsert\+E(\+Digraph, Edge)}{DIGRAPHinsertE(Digraph, Edge)}}]{\setlength{\rightskip}{0pt plus 5cm}int D\+I\+G\+R\+A\+P\+HinsertE (
 \begin{DoxyParamCaption}
-\item[{{\bf Digraph}}]{G, }
-\item[{{\bf Edge}}]{e}
+\item[{{\bf Digraph}}]{, }
+\item[{{\bf Edge}}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a6522639ca2d0bbcc1586251dbbf51e02}{}\label{_digraph_8h_a6522639ca2d0bbcc1586251dbbf51e02}
-
-
-Insere uma aresta no grafo. 
+)}\hypertarget{_digraph_8h_aefc19f0d18211a8db48c48e53f4084d9}{}\label{_digraph_8h_aefc19f0d18211a8db48c48e53f4084d9}
+Insere uma aresta no grafo.
 
 Detailed Insere um arco v-\/w contido na struct Edge \textquotesingle{}e\textquotesingle{} no digrafo \textquotesingle{}G\textquotesingle{}.
+
+Funções Cliente\+: \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, N\+E\+Wreqs(), N\+E\+Wreqs\+\_\+id().
+
+Funções Servidoras\+: \hyperlink{_digraph_8h_a727359bca2755b29cbc85f4fe8a16a90}{N\+E\+Wnode()}, \hyperlink{_digraph_8h_aa8bab9c984c35e3cadf61eecb1d9b926}{D\+I\+G\+R\+A\+P\+Hadj()}.
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digraph G contendo todas as tarefas
+\item Edge e contendo uma aresta v-\/$>$w que deverá ser checada.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Insere uma aresta caso v-\/$>$w não exista e se e.\+id seja igual à ID de w.
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
@@ -178,18 +308,89 @@ Detailed Insere um arco v-\/w contido na struct Edge \textquotesingle{}e\textquo
 \end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+HinsertV@{D\+I\+G\+R\+A\+P\+HinsertV}}
 \index{D\+I\+G\+R\+A\+P\+HinsertV@{D\+I\+G\+R\+A\+P\+HinsertV}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hinsert\+V(\+Digraph G)}{DIGRAPHinsertV(Digraph G)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+HinsertV (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hinsert\+V(\+Digraph, Vertex\+Array w, bool($\ast$input\+Check)(int), bool($\ast$name\+Check)(\+Digraph, char $\ast$, int))}{DIGRAPHinsertV(Digraph, VertexArray w, bool(*inputCheck)(int), bool(*nameCheck)(Digraph, char *, int))}}]{\setlength{\rightskip}{0pt plus 5cm}int D\+I\+G\+R\+A\+P\+HinsertV (
 \begin{DoxyParamCaption}
-\item[{{\bf Digraph}}]{G}
+\item[{{\bf Digraph}}]{, }
+\item[{{\bf Vertex\+Array}}]{w, }
+\item[{bool($\ast$)(int)}]{input\+Check, }
+\item[{bool($\ast$)({\bf Digraph}, char $\ast$, int)}]{name\+Check}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a99e1fed778b362a52df0dc4ba6480e2a}{}\label{_digraph_8h_a99e1fed778b362a52df0dc4ba6480e2a}
+)}\hypertarget{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{}\label{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}
+Insere um vértice no grafo.
 
+Detailed Esta função insere um novo vértice no grafo, inserindo também todas as referências necessárias para a nova tarefa. São feitas várias verificações de consistência do nó inserido.
 
-Insere um vértice no grafo. 
+Funções Cliente\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}, \hyperlink{_digraph_8h_a286517ef1c69d49f741460b24778ce16}{D\+I\+G\+R\+A\+P\+Hread()}.
+
+Funções Servidoras\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}, \hyperlink{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}{T\+I\+M\+E()}, \hyperlink{_digraph_8h_a31cced496f915d174124d891b0a0d0a5}{cnv\+Input\+Str\+To\+Vertex()}.
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digrafo contendo todas as tarefas.
+\item Novo vértice contendo uma nova tarefa.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Verificações quanto a consistência dos valores contidos em Vertex\+Array w que são\+:
+\begin{DoxyItemize}
+\item Se o ID já existe no digrafo.
+\item Se o nome já existe no digrafo.
+\item Se a execução é um valor maior do que zero.
+\item Se a duração é maior do que zero.
+\item Se o início mínimo é maior ou igual a zero.
+\item Se o número de pré-\/requisitos é válido\+:
+\begin{DoxyItemize}
+\item Maior ou igual a zero;
+\item Menor do que o índice da tarefa. Não é possível referenciar tarefas que venha abaixo da tarefa atual no arquivo de entrada.
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item São adicionados nós às listas de adjacência dos pré-\/requisitos da tarefa atual e estas tarefas salvas no array de pré-\/requisitos.
+\item Retorna 0 caso o Vertex\+Array está de acordo com o esperado ou um valor negativo de acordo com a tabela acima, indicando o erro.
+\item O tempo de execução da tarefa é calculado.
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
 {\em G} & Grafo onde será inserido o vértice. \\
+\hline
+{\em ponteiro} & para função I\+N\+P\+U\+Tcheck. \\
+\hline
+{\em ponteiro} & para função N\+A\+M\+Echeck. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 para sucesso, valor negativo para erro. Checar tabela. 
+\end{DoxyReturn}
+\index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+Hread@{D\+I\+G\+R\+A\+P\+Hread}}
+\index{D\+I\+G\+R\+A\+P\+Hread@{D\+I\+G\+R\+A\+P\+Hread}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hread(\+Digraph)}{DIGRAPHread(Digraph)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+Hread (
+\begin{DoxyParamCaption}
+\item[{{\bf Digraph}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{_digraph_8h_a286517ef1c69d49f741460b24778ce16}{}\label{_digraph_8h_a286517ef1c69d49f741460b24778ce16}
+Brief/ Leitura do arquivo de entrada e inserção dos valores no digrafo.
+
+Detailed Faz a leitura do arquivo de entrada, cria a string contendo cada linha e a insere no digrafo.
+
+Funções Cliente\+: main().
+
+Funções Servidoras\+: \hyperlink{_digraph_8h_ad839c3842b5a8db60e6ab06bb5151e85}{D\+I\+G\+R\+A\+P\+Hinit()}, \hyperlink{file_reader_8h_a45d4781b3d02613c8e2f39601fe6955d}{read\+File\+Line()}, \hyperlink{_digraph_8h_a31cced496f915d174124d891b0a0d0a5}{cnv\+Input\+Str\+To\+Vertex()}, \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, \hyperlink{_digraph_8h_a30711367d497cb87b5ec3fcdae45bc70}{N\+A\+M\+Echeck()}, \hyperlink{_digraph_8h_aa7ddaeba697f8e6ddb69ca2ae0108e9f}{I\+N\+P\+U\+Tcheck()}.
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digraph G inicializado por \hyperlink{_digraph_8h_ad839c3842b5a8db60e6ab06bb5151e85}{D\+I\+G\+R\+A\+P\+Hinit()}.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item O grafo completo de acordo com o arquivo \char`\"{}input.\+txt\char`\"{} é inicializado ao fim desta função.
+\item Verificações de erro de inserção de vértice são feitas, caso as linhas lidas não atendem aos requisitos.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Digraph} & vazio e inicializado \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -197,17 +398,30 @@ Insere um vértice no grafo.
 \end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+HremoveE@{D\+I\+G\+R\+A\+P\+HremoveE}}
 \index{D\+I\+G\+R\+A\+P\+HremoveE@{D\+I\+G\+R\+A\+P\+HremoveE}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hremove\+E(\+Digraph G, Edge e)}{DIGRAPHremoveE(Digraph G, Edge e)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+HremoveE (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hremove\+E(\+Digraph, Edge)}{DIGRAPHremoveE(Digraph, Edge)}}]{\setlength{\rightskip}{0pt plus 5cm}int D\+I\+G\+R\+A\+P\+HremoveE (
 \begin{DoxyParamCaption}
-\item[{{\bf Digraph}}]{G, }
-\item[{{\bf Edge}}]{e}
+\item[{{\bf Digraph}}]{, }
+\item[{{\bf Edge}}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_afa9a4413c7d7e602c6e8e403ef72d2a0}{}\label{_digraph_8h_afa9a4413c7d7e602c6e8e403ef72d2a0}
+)}\hypertarget{_digraph_8h_af24aa39df978e0786440de8c66bb9da8}{}\label{_digraph_8h_af24aa39df978e0786440de8c66bb9da8}
+Remove uma aresta no grafo.
 
+Detailed Remove uma aresta v-\/$>$w contido na struct Edge \textquotesingle{}e\textquotesingle{} no digrafo \textquotesingle{}G\textquotesingle{}.
 
-Remove uma aresta no grafo. 
+Funções Cliente\+: \hyperlink{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{D\+I\+G\+R\+A\+P\+Hremove\+V()}, N\+E\+Wreqs(), N\+E\+Wreqs\+\_\+id().
 
-Detailed Remove um arco v-\/w contido na struct Edge \textquotesingle{}e\textquotesingle{} no digrafo \textquotesingle{}G\textquotesingle{}.
+Funções Servidoras\+: \hyperlink{_digraph_8h_aa8bab9c984c35e3cadf61eecb1d9b926}{D\+I\+G\+R\+A\+P\+Hadj()}, V\+E\+R\+T\+E\+Xarray().
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digraph G contendo todas as tarefas
+\item Edge e contendo uma aresta v-\/$>$w que deverá ser checada.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Remove uma aresta caso v-\/$>$w exista e se e.\+id seja igual à ID de w.
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
@@ -221,15 +435,33 @@ Detailed Remove um arco v-\/w contido na struct Edge \textquotesingle{}e\textquo
 \end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+HremoveV@{D\+I\+G\+R\+A\+P\+HremoveV}}
 \index{D\+I\+G\+R\+A\+P\+HremoveV@{D\+I\+G\+R\+A\+P\+HremoveV}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hremove\+V(\+Digraph, int)}{DIGRAPHremoveV(Digraph, int)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+HremoveV (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hremove\+V(\+Digraph, int)}{DIGRAPHremoveV(Digraph, int)}}]{\setlength{\rightskip}{0pt plus 5cm}int D\+I\+G\+R\+A\+P\+HremoveV (
 \begin{DoxyParamCaption}
 \item[{{\bf Digraph}}]{, }
 \item[{int}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_ab045664e5601d11af05c826bd40e92f3}{}\label{_digraph_8h_ab045664e5601d11af05c826bd40e92f3}
+)}\hypertarget{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{}\label{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}
+Remove um vértice no digrafo.
 
+Detailed Esta função faz a remoção completa de um vértice do digrafo. Primeiro, recebe-\/se uma ID e esta é buscada dentro do digrafo G. Caso seja encontrada, todas as referências a entre vértice serão removidas e o vértice será desalocado por completo.
 
-Remove um vértice no grafo. 
+Funções Clientes\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}.
+
+Funções Servidoras\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}, \hyperlink{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}{T\+I\+M\+E()}, \hyperlink{_digraph_8h_a0fa25c0a2beba8fc3c7e7f5c98b8f869}{V\+E\+R\+T\+E\+Xreturn()}, \hyperlink{_digraph_8h_af24aa39df978e0786440de8c66bb9da8}{D\+I\+G\+R\+A\+P\+Hremove\+E()}.
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digrafo G do tipo Digraph contendo todas as tarefas.
+\item ID do tipo inteiro contendo o ID da tarefa a ser removida.
+\end{DoxyItemize}
+
+Assertivas de Saída\+: Caso o ID exista, a tarefa será removida e várias referências a esta tarefa precisam ser tratadas\+:
+\begin{DoxyItemize}
+\item Se existir outras tarefas que possuam a tarefa a ser removida como dependência, será necessário deletar o ID dos arrays de pré-\/requisitos.
+\item Se esta tarefa possuir pré-\/requisitos, será necessário remover as arestas existentes nas tarefas no array de pré-\/requisitos da tarefa atual.
+\item Completa deleção da tarefa e desalocação da memória.
+\item Os tempos de execução de todas tarefas são recalculados.
+\end{DoxyItemize}
 
 
 \begin{DoxyParams}{Parameters}
@@ -237,36 +469,58 @@ Remove um vértice no grafo.
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-
+0 para sucesso, -\/1 para erro. 
 \end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+Hsave@{D\+I\+G\+R\+A\+P\+Hsave}}
 \index{D\+I\+G\+R\+A\+P\+Hsave@{D\+I\+G\+R\+A\+P\+Hsave}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hsave(\+Digraph)}{DIGRAPHsave(Digraph)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+Hsave (
+\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hsave(\+Digraph)}{DIGRAPHsave(Digraph)}}]{\setlength{\rightskip}{0pt plus 5cm}int D\+I\+G\+R\+A\+P\+Hsave (
 \begin{DoxyParamCaption}
 \item[{{\bf Digraph}}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a600a6c8e6c6056c1476d4a5c78a37765}{}\label{_digraph_8h_a600a6c8e6c6056c1476d4a5c78a37765}
-\index{Digraph.\+h@{Digraph.\+h}!D\+I\+G\+R\+A\+P\+Hshow@{D\+I\+G\+R\+A\+P\+Hshow}}
-\index{D\+I\+G\+R\+A\+P\+Hshow@{D\+I\+G\+R\+A\+P\+Hshow}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{D\+I\+G\+R\+A\+P\+Hshow(\+Digraph)}{DIGRAPHshow(Digraph)}}]{\setlength{\rightskip}{0pt plus 5cm}void D\+I\+G\+R\+A\+P\+Hshow (
-\begin{DoxyParamCaption}
-\item[{{\bf Digraph}}]{}
-\end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a8aa672359039bc0fbc598b26892a08bc}{}\label{_digraph_8h_a8aa672359039bc0fbc598b26892a08bc}
+)}\hypertarget{_digraph_8h_aeb380c053133f096a3db07ff839260d3}{}\label{_digraph_8h_aeb380c053133f096a3db07ff839260d3}
+Criação de um arquivo de saída.
+
+Detailed Esta função salva a configuração atual do digrafo G em um arquivo output.\+txt de acordo com as especificações e o arquivo de entrada.
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digrafo do tipo Digraph G contendo todas as tarefas.
+\end{DoxyItemize}
+
+Assertivas de Saída\+: Imprime e salva um arquivo txt contendo as tarefas do digrafo e todos os seus campos.
+
+
+\begin{DoxyParams}{Parameters}
+{\em G} & Digraph contendo o digrafo com todas as tarefas. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Um arquivo txt contendo todas as definições 
+\end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!E\+D\+GE@{E\+D\+GE}}
 \index{E\+D\+GE@{E\+D\+GE}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{E\+D\+G\+E(\+Vertex v, Vertex w, int id)}{EDGE(Vertex v, Vertex w, int id)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Edge} E\+D\+GE (
+\subsubsection[{\texorpdfstring{E\+D\+G\+E(\+Vertex, Vertex, int)}{EDGE(Vertex, Vertex, int)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Edge} E\+D\+GE (
 \begin{DoxyParamCaption}
-\item[{{\bf Vertex}}]{v, }
-\item[{{\bf Vertex}}]{w, }
-\item[{int}]{id}
+\item[{{\bf Vertex}}]{, }
+\item[{{\bf Vertex}}]{, }
+\item[{int}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_ad2564e33e68735adc52d90cdd7fad446}{}\label{_digraph_8h_ad2564e33e68735adc52d90cdd7fad446}
+)}\hypertarget{_digraph_8h_a188d2a04994d9bce758507e812a3b57c}{}\label{_digraph_8h_a188d2a04994d9bce758507e812a3b57c}
+Cria uma aresta para o grafo.
 
+Detailed Esta função simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas-\/ sados a outra função que as utilizará de acordo com o que for implementado.
 
-Cria uma aresta para o grafo. 
+Funções Clientes\+: \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, \hyperlink{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{D\+I\+G\+R\+A\+P\+Hremove\+V()}.
 
-Detailed Esta fun ção simplesmenet inicializa uma estrutura do tipo Edge contendo os valores de aresta que serão pas-\/ sados a outra função que as utilizará de acordo com o que for implementado.
+Funções Servidoras\+:
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Dois vértices do tipo Vertex que compõe a aresta no sentido v -\/$>$ w
+\item ID do segundo vértice (w).
+\end{DoxyItemize}
+
+Assertivas de Saída\+: Retorna uma estrutura Edge contendo dois vértices e uma ID. Caso a ID não seja igual a ID de w, um erro ocorrerá ao inserir ou remover esta aresta.
 
 
 \begin{DoxyParams}{Parameters}
@@ -278,24 +532,164 @@ Detailed Esta fun ção simplesmenet inicializa uma estrutura do tipo Edge conte
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo passado. 
+Edge e contendo a definição de uma aresta. 
+\end{DoxyReturn}
+\index{Digraph.\+h@{Digraph.\+h}!F\+I\+N\+Dreqs\+\_\+id@{F\+I\+N\+Dreqs\+\_\+id}}
+\index{F\+I\+N\+Dreqs\+\_\+id@{F\+I\+N\+Dreqs\+\_\+id}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{F\+I\+N\+Dreqs\+\_\+id(int $\ast$, int, int)}{FINDreqs_id(int *, int, int)}}]{\setlength{\rightskip}{0pt plus 5cm}int F\+I\+N\+Dreqs\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{, }
+\item[{int}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{_digraph_8h_a52a8b2a323024d44340665c1562b1f72}{}\label{_digraph_8h_a52a8b2a323024d44340665c1562b1f72}
+Brief/ Busca por um ID dentro de um array de I\+Ds.
+
+Detailed Dada uma tarefa, é feita uma busca por um ID em seu array de dependências. O parâmetro reqs garante que apenas posições permitidas serão acessadas.
+
+Funções Cliente\+: \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, \hyperlink{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{D\+I\+G\+R\+A\+P\+Hremove\+V()}.
+
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Array com pré-\/requisitos de uma tarefa
+\item Número de elementos nesse array (reqs)
+\item Elemento a ser buscado
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Retorna a posição do valor caso seja encontrado.
+\item Retorna zero se ID é invalido ou não está presente.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em ponteiro} & para int reqs\+\_\+id \\
+\hline
+{\em int} & reqs \\
+\hline
+{\em int} & id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+posição de id se for sucesso. -\/1 no erro. 
+\end{DoxyReturn}
+\index{Digraph.\+h@{Digraph.\+h}!I\+N\+P\+U\+Tcheck@{I\+N\+P\+U\+Tcheck}}
+\index{I\+N\+P\+U\+Tcheck@{I\+N\+P\+U\+Tcheck}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{I\+N\+P\+U\+Tcheck(int)}{INPUTcheck(int)}}]{\setlength{\rightskip}{0pt plus 5cm}bool I\+N\+P\+U\+Tcheck (
+\begin{DoxyParamCaption}
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{_digraph_8h_aa7ddaeba697f8e6ddb69ca2ae0108e9f}{}\label{_digraph_8h_aa7ddaeba697f8e6ddb69ca2ae0108e9f}
+Brief/ Verificação de inteiros.
+
+Detailed Verifica se o valor entradado é maior ou igual a zero.
+
+Funções Cliente\+: \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, \hyperlink{_digraph_8h_a286517ef1c69d49f741460b24778ce16}{D\+I\+G\+R\+A\+P\+Hread()}.
+
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Valor inteiro a ser checado.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Retorna true caso o valor ser maior ou igual a zero.
+\item Retorna false caso contrário.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em valor} & inteiro \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se valor $>$= 0, false caso contrário. 
+\end{DoxyReturn}
+\index{Digraph.\+h@{Digraph.\+h}!N\+A\+M\+Echeck@{N\+A\+M\+Echeck}}
+\index{N\+A\+M\+Echeck@{N\+A\+M\+Echeck}!Digraph.\+h@{Digraph.\+h}}
+\subsubsection[{\texorpdfstring{N\+A\+M\+Echeck(\+Digraph, char $\ast$, int)}{NAMEcheck(Digraph, char *, int)}}]{\setlength{\rightskip}{0pt plus 5cm}bool N\+A\+M\+Echeck (
+\begin{DoxyParamCaption}
+\item[{{\bf Digraph}}]{, }
+\item[{char $\ast$}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{_digraph_8h_a30711367d497cb87b5ec3fcdae45bc70}{}\label{_digraph_8h_a30711367d497cb87b5ec3fcdae45bc70}
+Brief/ Verifica se o nome entrado já existe no digrafo.
+
+Detailed A função percorre o array de vértices em busca da string entrada.
+
+Funções Cliente\+: \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, \hyperlink{_digraph_8h_a286517ef1c69d49f741460b24778ce16}{D\+I\+G\+R\+A\+P\+Hread()}.
+
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digrafo G contendo todas as tarefas.
+\item String a ser verificada.
+\item Valor inteiro com o tamanho do array de G.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item Caso o nome já tiver sido usado, retorna false.
+\item Caso contrário, é um novo nome.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em digrafo} & G contendo as tarefas \\
+\hline
+{\em string} & contendo o novo nome \\
+\hline
+{\em inteiro} & contendo o tamanho do array de vértices \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true se a string não existe em G e false se um vértice já possuir esse nome. 
 \end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!N\+E\+Wnode@{N\+E\+Wnode}}
 \index{N\+E\+Wnode@{N\+E\+Wnode}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{N\+E\+Wnode(\+Vertex, int, link)}{NEWnode(Vertex, int, link)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf link} N\+E\+Wnode (
+\subsubsection[{\texorpdfstring{N\+E\+Wnode(\+Vertex, int, Linked\+List)}{NEWnode(Vertex, int, LinkedList)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Linked\+List} N\+E\+Wnode (
 \begin{DoxyParamCaption}
 \item[{{\bf Vertex}}]{, }
 \item[{int}]{, }
-\item[{{\bf link}}]{}
+\item[{{\bf Linked\+List}}]{}
 \end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_ad582109b5d9d0c1dd4832d1633a5dad5}{}\label{_digraph_8h_ad582109b5d9d0c1dd4832d1633a5dad5}
-\index{Digraph.\+h@{Digraph.\+h}!remove\+Comma@{remove\+Comma}}
-\index{remove\+Comma@{remove\+Comma}!Digraph.\+h@{Digraph.\+h}}
-\subsubsection[{\texorpdfstring{remove\+Comma(char $\ast$)}{removeComma(char *)}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+Comma (
-\begin{DoxyParamCaption}
-\item[{char $\ast$}]{}
-\end{DoxyParamCaption}
-)}\hypertarget{_digraph_8h_a0c01c850176c3945994bbbee9ff95e61}{}\label{_digraph_8h_a0c01c850176c3945994bbbee9ff95e61}
+)}\hypertarget{_digraph_8h_a727359bca2755b29cbc85f4fe8a16a90}{}\label{_digraph_8h_a727359bca2755b29cbc85f4fe8a16a90}
+Esta função cria um novo nó da lista de adjacências ao receber as informações necessárias contidas em cada um dos nós.
+
+Detailed Função que cria e retorna um novo nó para uma lista de adjência contendo um índice w para um vértice do digrafo, a ID desse vértice e um ponteiro para o próximo nó da lista de adjacência.
+
+Funções Clientes\+: \hyperlink{_digraph_8h_aefc19f0d18211a8db48c48e53f4084d9}{D\+I\+G\+R\+A\+P\+Hinsert\+E()}.
+
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Índice v de um vértice contendo uma tarefa
+\item ID do tipo inteiro
+\item Ponteiro do tipo Linked\+List para o próximo elemento na lista.
+\end{DoxyItemize}
+
+Assertivas de Saída\+: Retorna o novo nó da lista de adjacência para a função \hyperlink{_digraph_8h_aefc19f0d18211a8db48c48e53f4084d9}{D\+I\+G\+R\+A\+P\+Hinsert\+E()}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & Vértice de destino. \\
+\hline
+{\em int} & contendo o id do vértice de destino. \\
+\hline
+{\em ponteiro} & do tipo Linked\+List contendo o próximo elemento da lista de adjacências. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+novo nó do tipo Linked\+List para uma lista de adjacências. 
+\end{DoxyReturn}
 \index{Digraph.\+h@{Digraph.\+h}!V\+E\+R\+T\+E\+Xreturn@{V\+E\+R\+T\+E\+Xreturn}}
 \index{V\+E\+R\+T\+E\+Xreturn@{V\+E\+R\+T\+E\+Xreturn}!Digraph.\+h@{Digraph.\+h}}
 \subsubsection[{\texorpdfstring{V\+E\+R\+T\+E\+Xreturn(\+Digraph, int)}{VERTEXreturn(Digraph, int)}}]{\setlength{\rightskip}{0pt plus 5cm}int V\+E\+R\+T\+E\+Xreturn (
@@ -304,3 +698,33 @@ Digrafo do tipo Digraph contendo todas as definições lidas a partir do arquivo
 \item[{int}]{}
 \end{DoxyParamCaption}
 )}\hypertarget{_digraph_8h_a0fa25c0a2beba8fc3c7e7f5c98b8f869}{}\label{_digraph_8h_a0fa25c0a2beba8fc3c7e7f5c98b8f869}
+Brief/ Busca por um ID no digrafo.
+
+Detailed Esta função percorre o array de vértices em busca de um ID específico.
+
+Funções Cliente\+: \hyperlink{_digraph_8h_a57502e92ea09334ba341f0e1911d5c45}{D\+I\+G\+R\+A\+P\+Hinsert\+V()}, \hyperlink{_digraph_8h_a2cfb947fc7b17b59506b51d0ed10f6de}{D\+I\+G\+R\+A\+P\+Hremove\+V()}, \hyperlink{manager_8h_aeea2d89b8234c15f0fc833b7d806be45}{T\+I\+M\+E()}, N\+E\+Wid(), N\+E\+Wreqs(), N\+E\+Wreqs\+\_\+id(), \hyperlink{manager_8h_aad18a6ad836c20e8b9e42ee385949256}{modify()}, \hyperlink{manager_8h_aa98c5d850b5e2857cf4b74d4c7b85ac3}{execution()}, modification\+\_\+window().
+
+Funções Servidoras\+: -\/
+
+Assertivas de Entrada\+:
+\begin{DoxyItemize}
+\item Digraph G contendo o digrafo com as tarefas.
+\item Inteiro contendo o ID a ser buscado.
+\end{DoxyItemize}
+
+Assertivas de Saída\+:
+\begin{DoxyItemize}
+\item A função busca pelo ID e caso seja encontrado retorna a sua posição no array de vértices.
+\item Caso o digrafo esteja vazio ou o ID seja inválido, retorna -\/1.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Digraph} & G \\
+\hline
+{\em int} & id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int posição do vértice que contém id 
+\end{DoxyReturn}

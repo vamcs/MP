@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.11"/>
-<title>Métodos de Programação: manager.h File Reference</title>
+<title>MP_Final: manager.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -31,10 +31,10 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Métodos de Programação
-   &#160;<span id="projectnumber">0.1</span>
+   <div id="projectname">MP_Final
+   &#160;<span id="projectnumber">1.0</span>
    </div>
-   <div id="projectbrief">Projeto Final da Disciplina de Métodos de Programação</div>
+   <div id="projectbrief">Trabalho final da disciplina de Métodos de programação.</div>
   </td>
  </tr>
  </tbody>
@@ -110,30 +110,112 @@ $(document).ready(function(){initNavTree('manager_8h.html','');});
 <div class="title">manager.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;ncurses.h&gt;</code><br />
+</div>
 <p><a href="manager_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aeea2d89b8234c15f0fc833b7d806be45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="manager_8h.html#aeea2d89b8234c15f0fc833b7d806be45">TIME</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, <a class="el" href="_digraph_8h.html#a053624c5d4ef5549d6a3e25bf6b27b08">Vertex</a>)</td></tr>
 <tr class="separator:aeea2d89b8234c15f0fc833b7d806be45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24df606b25863f27ac2a3fee41f32184"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="manager_8h.html#a24df606b25863f27ac2a3fee41f32184">modify</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>)</td></tr>
-<tr class="separator:a24df606b25863f27ac2a3fee41f32184"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad18a6ad836c20e8b9e42ee385949256"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="manager_8h.html#aad18a6ad836c20e8b9e42ee385949256">modify</a> (WINDOW *, <a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, int, int)</td></tr>
+<tr class="separator:aad18a6ad836c20e8b9e42ee385949256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa98c5d850b5e2857cf4b74d4c7b85ac3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="manager_8h.html#aa98c5d850b5e2857cf4b74d4c7b85ac3">execution</a> (<a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>, int)</td></tr>
+<tr class="separator:aa98c5d850b5e2857cf4b74d4c7b85ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a24df606b25863f27ac2a3fee41f32184"></a>
+<a class="anchor" id="aa98c5d850b5e2857cf4b74d4c7b85ac3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void execution </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Função de execução das tarefas e computação dos caminhos mínimos de execução.</p>
+<p>Detailed A função execution verifica quais tarefas podem ser executadas em um determinado ciclo e salva o caminho de execução das tarefas, assim como as alternativas que possam surgir. Caso duas tarefas forem executadas durante o mesmo ciclo e possuam as mesmas tarefas que dependem delas em sua lista de adjacência, elas entraram em um array de caminho alternativo, para que se possa imprimir todas as opções ao final. É também possível decidir a até qual ciclo a execução irá parar, independentemente de todas as tarefas terem sido executadas ou não. As saídas da função são impressas em uma tela definida pela ncurses na <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>.</p>
+<p>Funções servidoras: <a class="el" href="_digraph_8h.html#a0fa25c0a2beba8fc3c7e7f5c98b8f869">VERTEXreturn()</a>, <a class="el" href="_g_u_i_8h.html#a7cc97880dd9fa07f5742fe808e834a2e">print_instructions()</a>. Função cliente: <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>.</p>
+<p>Assertivas de Entrada: Digraph G - é o digrafo que contém todas as tarefas. int end - valor inteiro que define o ciclo de parada. Caso seja -1 executa até que todas as tarefas tenham sido executadas.</p>
+<p>Assertivas de Saída: Imprime na tela NCurses o ciclo de execução atual, o caminho de execução e as possibilidades alternativas, assim como o tempo de execução mínima até o presente ciclo.</p>
+<p>As opções são, por exemplo: Caso não haja caminho alternativo: Caminho de Execução: 100 101 103 102 103 Caso haja caminhos alternativos: Caminhos de Execução: 100 (102 ou 103 ou 101) 104 (105 ou 106) 107</p>
+<p>Todo input é verificado antes de ser atualizado.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Digraph</td><td>G </td></tr>
+    <tr><td class="paramname">int</td><td>end </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aad18a6ad836c20e8b9e42ee385949256"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void modify </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">WINDOW *&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="_digraph_8h.html#a41e5aaab1e0d379d176528e8e12f11b3">Digraph</a>&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Menu que dá opções para alterar os campos da tarefa.</p>
+<p>Detailed A função modify recebe uma ID tratada e entrada pelo usuário e oferece opções de modificação de cada um dos campos da tarefa. Sendo estes ID, nome, exec, duração, início mínimo, número de pré-re- quisitos e os pré-requisitos em si, caso existam. Após maior parte das modificações, tratamentos da estrutura do digrafo devem ser feitos como alterar, adicionar ou remover arestas ou realocar o array de pré-requisitos. Além disso, caso seja necessário, o tempo de execução das tarefas será recalculado caso for necessário. A função imprime diretamente na tela "modification_window" da GUI.</p>
+<p>Função servidora: <a class="el" href="manager_8h.html#aeea2d89b8234c15f0fc833b7d806be45">TIME()</a> e dependências em manager.cpp. Função cliente: <a class="el" href="_g_u_i_8h.html#afae0675f23aa7502cd6ae4bad3a05419">GUI()</a>.</p>
+<p>Assertivas de Entrada: WINDOW* win - ponteiro que contém uma janela ncurses y = 30, x = 50. Digraph G - é o digrafo que contém todas as tarefas. int id - id da tarefa a ser modificada. int choice - escolha de qual modificação será executada. A função modification_window é responsável por este valor.</p>
+<p>Assertivas de Saída: Imprime na janela win informações e os valores alterados, além de efetuar todas as modificações no digrafo descritas e detalhadas na descrição de cada uma das funções em manager.cpp.</p>
+<p>Todo input é verificado antes de ser atualizado.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">WINDOW*</td><td>win </td></tr>
+    <tr><td class="paramname">Digraph</td><td>G </td></tr>
+    <tr><td class="paramname">int</td><td>id </td></tr>
+    <tr><td class="paramname">int</td><td>choice </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -160,6 +242,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Calcula o tempo de execução de uma tarefa</p>
+<p>Detailed Funcão TIME que calcula o tempo necessário para executar uma tarefa em "v". Esta função começa o cálculo a partir de tarefas que não possuem dependências, pois o cálculo é trivial: o ciclo mínimo de início + duração da tarefa. Nos outros casos, considera-se que todas as dependências estejam acima da tarefa atual, o que significa que seus tempos já foram calculados. Dessa forma, existem dois casos: o ciclo de início &lt; tempo mais longo das dependências e o caso em que o ciclo de início é maior. Na primeira situação, o tempo da tarefa atual será o tempo de executar a dependência mais demorada + tempo de duração da tarefa atual, já que o ciclo de início da tarefa já terá passado. Já no se- gundo caso, como o tempo de início da tarefa &gt; tempo das dependências, pode- -se ignorar o tempo de execução das dependências e somar o ciclo de início da tarefa à sua duração.</p>
+<p>Funções clientes: <a class="el" href="manager_8h.html#aad18a6ad836c20e8b9e42ee385949256">modify()</a>, <a class="el" href="_digraph_8h.html#a57502e92ea09334ba341f0e1911d5c45">DIGRAPHinsertV()</a> e <a class="el" href="_digraph_8h.html#a2cfb947fc7b17b59506b51d0ed10f6de">DIGRAPHremoveV()</a>.</p>
+<p>Assertivas de Entrada: Digraph G - é o digrafo que contém todas as tarefas cujos tempos de execução serão calculados. Vertex v - é o índice do vértice do digrafo que contém a tarefa cujo tempo de execução será calculado.</p>
+<p>Assertivas de Saída: reqs == 0: (tarefa sem dependências) time = min_start + duration</p>
+<p>reqs &gt; 0: (tarefa com pelo menos uma dependência) min_start &lt; longest_time (tempo mais longo de todas dependências) time = longest_time + duration min_start &gt;= longest_time time = min_start + duration</p>
+<p>Como não há input humano e as funções são confiáveis, as entradas e saída já estão verificadas.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">digrafo</td><td>G </td></tr>
+    <tr><td class="paramname">vértice</td><td>da tarefa atual v </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>

@@ -1,2 +1,12 @@
 Digite no diretório raiz:
+Para geração do arquivo executável de saída:
 make MP_Final
+
+Para geração do executável de testes:
+make TESTE
+
+Para execução dos testes:
+./TESTE
+
+Para execução do programa:
+./MP_Final

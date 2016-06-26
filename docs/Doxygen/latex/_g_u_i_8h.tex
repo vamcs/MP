@@ -1,0 +1,71 @@
+\hypertarget{_g_u_i_8h}{}\section{G\+U\+I.\+h File Reference}
+\label{_g_u_i_8h}\index{G\+U\+I.\+h@{G\+U\+I.\+h}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+UI} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph})
+\item 
+void \hyperlink{_g_u_i_8h_a7cc97880dd9fa07f5742fe808e834a2e}{print\+\_\+instructions} (\hyperlink{_digraph_8h_a41e5aaab1e0d379d176528e8e12f11b3}{Digraph} G)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{G\+U\+I.\+h@{G\+U\+I.\+h}!G\+UI@{G\+UI}}
+\index{G\+UI@{G\+UI}!G\+U\+I.\+h@{G\+U\+I.\+h}}
+\subsubsection[{\texorpdfstring{G\+U\+I(\+Digraph)}{GUI(Digraph)}}]{\setlength{\rightskip}{0pt plus 5cm}void G\+UI (
+\begin{DoxyParamCaption}
+\item[{{\bf Digraph}}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{}\label{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}
+Interface gráfica do ambiente de execução de tarefas.
+
+Detailed Esta função é responsável pela definição de uma tela e um ambiente de execução em N\+Curses, emulando um gerenciador de tarefas. A interface gráfica é responsável pela impressão das tarefas contidas no digrafo G, por inserir, deletar e modificar tarefas, e executar as tarefas até um determinado ciclo ou até que todas sejam executadas.
+
+Assertivas de Entrada\+: Digraph G -\/ é o digrafo que contém todas as tarefas.
+
+Assertivas de Saída\+: Ambiente de execução e tela em N\+Curses. São impressos na tela\+:
+\begin{DoxyItemize}
+\item Tela principal.
+\item Janela do ambiente de execução.
+\item Janela de inserção de nova tarefa.
+\item Janela de deleção de uma tarefa.
+\item Janela de modificação de uma tarefa.
+\item Opções de execução de tarefas.
+\item Informação sobre o ciclo atual e caminhos de execução.
+\end{DoxyItemize}
+
+Todo input é verificado antes de ser atualizado.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Digraph} & G \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\index{G\+U\+I.\+h@{G\+U\+I.\+h}!print\+\_\+instructions@{print\+\_\+instructions}}
+\index{print\+\_\+instructions@{print\+\_\+instructions}!G\+U\+I.\+h@{G\+U\+I.\+h}}
+\subsubsection[{\texorpdfstring{print\+\_\+instructions(\+Digraph G)}{print_instructions(Digraph G)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+\_\+instructions (
+\begin{DoxyParamCaption}
+\item[{{\bf Digraph}}]{G}
+\end{DoxyParamCaption}
+)}\hypertarget{_g_u_i_8h_a7cc97880dd9fa07f5742fe808e834a2e}{}\label{_g_u_i_8h_a7cc97880dd9fa07f5742fe808e834a2e}
+Função de Impressão das Tarefas no Ambiente de Execução.
+
+Detailed Esta função imprime todos os campos da tarefas no ambiente de execução, assim como o tempo de execução de cada tarefa.
+
+Função servidora\+: \hyperlink{manager_8h_aad18a6ad836c20e8b9e42ee385949256}{modify()} e \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}. Função cliente\+: \hyperlink{_g_u_i_8h_afae0675f23aa7502cd6ae4bad3a05419}{G\+U\+I()}.
+
+Assertivas de Entrada\+: Digraph G -\/ é o digrafo que contém todas as tarefas.
+
+Assertivas de Saída\+: Imprime na janela execution\+\_\+environment todos os campos do digrafo, assim como o tempo de execução. Caso uma tarefa já tenha sido executada, imprime a tarefa em azul.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Digraph} & G \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
